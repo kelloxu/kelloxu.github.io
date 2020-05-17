@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>大数据开发</title>
-    <url>/2020/05/10/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h3 id="大数据开发课程"><a href="#大数据开发课程" class="headerlink" title="大数据开发课程"></a>大数据开发课程</h3><h4 id="1-主讲教师"><a href="#1-主讲教师" class="headerlink" title="1. 主讲教师"></a>1. 主讲教师</h4><ul>
-<li>徐老师</li>
-<li>John</li>
-<li>Jefitar</li>
+    <title>Ubuntu更换软件源</title>
+    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><ul>
+<li><strong>备份软件源配置文件</strong></li>
 </ul>
-<h3 id="2-课程内容"><a href="#2-课程内容" class="headerlink" title="2. 课程内容"></a>2. 课程内容</h3><ul>
-<li>java</li>
-<li>scala</li>
-<li>python</li>
-<li>hadoop</li>
-<li>spark</li>
-<li>hive</li>
-<li>flume</li>
-<li>zookeeper</li>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>添加清华源</strong></li>
 </ul>
+<p>新建并打开sources.list：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
+
+<p>添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>更新软件源</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>测试</strong></li>
+</ul>
+<p>安装 vim：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<p>速度很快。</p>
 ]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
       <tags>
-        <tag>大数据 开发</tag>
+        <tag>更换软件源</tag>
       </tags>
   </entry>
   <entry>
@@ -40,5 +54,31 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>搭建hadoop集群</title>
+    <url>/2020/05/10/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h3 id="大数据开发课程"><a href="#大数据开发课程" class="headerlink" title="大数据开发课程"></a>大数据开发课程</h3><h4 id="1-主讲教师"><a href="#1-主讲教师" class="headerlink" title="1. 主讲教师"></a>1. 主讲教师</h4><ul>
+<li>徐老师</li>
+<li>John</li>
+<li>Jefitar</li>
+</ul>
+<h3 id="2-课程内容"><a href="#2-课程内容" class="headerlink" title="2. 课程内容"></a>2. 课程内容</h3><ul>
+<li>java</li>
+<li>scala</li>
+<li>python</li>
+<li>hadoop</li>
+<li>spark</li>
+<li>hive</li>
+<li>flume</li>
+<li>zookeeper</li>
+</ul>
+]]></content>
+      <categories>
+        <category>hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
   </entry>
 </search>
