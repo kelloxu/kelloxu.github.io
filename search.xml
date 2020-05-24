@@ -3,16 +3,8 @@
   <entry>
     <title>Vmware创建虚拟机并安装CentOS7</title>
     <url>/2020/05/24/Vmware%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E5%AE%89%E8%A3%85CentOS7/</url>
-    <content><![CDATA[<pre><code>特别提示：请卸载鲁大师。</code></pre><p>目录：</p>
-<ol>
-<li>下载 CentOS 7 系统镜像</li>
-<li>创建虚拟机</li>
-<li>安装 CentOS 7</li>
-<li>在服务器版本中安装图形界面</li>
-<li>设置系统的启动级别</li>
-</ol>
-<h1 id="1-下载CentOS7系统镜像"><a href="#1-下载CentOS7系统镜像" class="headerlink" title="1.下载CentOS7系统镜像"></a>1.下载CentOS7系统镜像</h1><p>打开 CentOS7 官方下载页面：<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/：" target="_blank" rel="noopener">http://isoredirect.centos.org/centos/7/isos/x86_64/：</a></p>
-<p><img src="2BD8AD9EAFCC413E91539680B695C6C0" alt="image"></p>
+    <content><![CDATA[<pre><code>特别提示：请卸载鲁大师。</code></pre><h1 id="1-下载CentOS7系统镜像"><a href="#1-下载CentOS7系统镜像" class="headerlink" title="1.下载CentOS7系统镜像"></a>1.下载CentOS7系统镜像</h1><p>打开 CentOS7 官方下载页面：<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/：" target="_blank" rel="noopener">http://isoredirect.centos.org/centos/7/isos/x86_64/：</a></p>
+<p><img src="https://note.youdao.com/yws/public/resource/db646db261d7a69e934d9792fa47cc4d/2BD8AD9EAFCC413E91539680B695C6C0?ynotemdtimestamp=1590306668736" alt="image"></p>
 <p>自动列出了国内的镜像，选择一个（例如阿里云）：</p>
 <p><img src="10959FDBFB5440BCAD627A28A9EB59FE" alt="image"></p>
 <p>点击 CentOS-7-x86_64-DVD-1908.iso（或者右键，复制链接地址，到迅雷里面下载），即可使用浏览器下载。</p>
