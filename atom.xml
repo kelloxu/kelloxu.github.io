@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-24T08:46:54.265Z</updated>
+  <updated>2020-05-24T09:03:22.949Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS更换yum源</title>
+    <link href="http://yoursite.com/2020/05/24/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/"/>
+    <id>http://yoursite.com/2020/05/24/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/</id>
+    <published>2020-05-24T08:52:56.000Z</published>
+    <updated>2020-05-24T09:03:22.949Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-什么是-yum"><a href="#1-什么是-yum" class="headerlink" title="1. 什么是 yum"></a>1. 什么是 yum</h3><p>Yum（全称为 Yellow dog Updater, Modified）是一个在<strong>Fedora</strong>、<strong>RedHat</strong> 和 <strong>CentOS</strong> 中的 <strong>Shell前端软件包管理器</strong> 。</p><p>Yum 基于RPM包管理，能够<strong>从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系</strong>，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p><h3 id="2-YUM下载源定义文件"><a href="#2-YUM下载源定义文件" class="headerlink" title="2. YUM下载源定义文件"></a>2. YUM下载源定义文件</h3><p>YUM下载源定义文件存储在  <code>/etc/yum.repo.d/</code> 目录中，而且文件必须以 <code>.repo</code>为扩展名。</p><h3 id="3-国内开源镜像"><a href="#3-国内开源镜像" class="headerlink" title="3. 国内开源镜像"></a>3. 国内开源镜像</h3><p>网易开源镜像站：<a href="http://mirrors.163.com/" target="_blank" rel="noopener">http://mirrors.163.com/</a></p><p>centos的使用帮助：<a href="http://mirrors.163.com/.help/centos.html" target="_blank" rel="noopener">http://mirrors.163.com/.help/centos.html</a></p><h3 id="4-更换-yum-源"><a href="#4-更换-yum-源" class="headerlink" title="4. 更换 yum 源"></a>4. 更换 yum 源</h3><h4 id="4-1-备份-CentOS-Base-repo"><a href="#4-1-备份-CentOS-Base-repo" class="headerlink" title="4.1. 备份 CentOS-Base.repo"></a>4.1. 备份 CentOS-Base.repo</h4><p>CentOS-Base.repo 为系统自带的yum下载源定义文件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure><p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXDNR.png" alt="image"></p><h4 id="4-2-下载对应版本repo文件"><a href="#4-2-下载对应版本repo文件" class="headerlink" title="4.2. 下载对应版本repo文件"></a>4.2. 下载对应版本repo文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O http:&#x2F;&#x2F;mirrors.163.com&#x2F;.help&#x2F;CentOS7-Base-163.repo</span><br></pre></td></tr></table></figure><p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXKis.png" alt="image"></p><h4 id="4-3-文件改名"><a href="#4-3-文件改名" class="headerlink" title="4.3. 文件改名"></a>4.3. 文件改名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv CentOS7-Base-163.repo CentOS-Base.repo</span><br></pre></td></tr></table></figure><h4 id="4-4-清除缓存"><a href="#4-4-清除缓存" class="headerlink" title="4.4. 清除缓存"></a>4.4. 清除缓存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br></pre></td></tr></table></figure><p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXEyN.png" alt="image"></p><h4 id="4-5-更新本地缓存"><a href="#4-5-更新本地缓存" class="headerlink" title="4.5. 更新本地缓存"></a>4.5. 更新本地缓存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache</span><br></pre></td></tr></table></figure><p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXUVB.png" alt="image"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;1-什么是-yum&quot;&gt;&lt;a href=&quot;#1-什么是-yum&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是 yum&quot;&gt;&lt;/a&gt;1. 什么是 yum&lt;/h3&gt;&lt;p&gt;Yum（全称为 Yellow dog Updater, Modified）是一个
+      
+    
+    </summary>
+    
+    
+      <category term="教程" scheme="http://yoursite.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="CentOS" scheme="http://yoursite.com/tags/CentOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Vmware创建虚拟机并安装CentOS7</title>
