@@ -4,128 +4,128 @@
     <title>Vmware创建虚拟机并安装CentOS7</title>
     <url>/2020/05/24/Vmware%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E5%AE%89%E8%A3%85CentOS7/</url>
     <content><![CDATA[<pre><code>特别提示：请卸载鲁大师。</code></pre><h1 id="1-下载CentOS7系统镜像"><a href="#1-下载CentOS7系统镜像" class="headerlink" title="1.下载CentOS7系统镜像"></a>1.下载CentOS7系统镜像</h1><p>打开 CentOS7 官方下载页面：<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/：" target="_blank" rel="noopener">http://isoredirect.centos.org/centos/7/isos/x86_64/：</a></p>
-<p><img src="https://note.youdao.com/yws/public/resource/db646db261d7a69e934d9792fa47cc4d/2BD8AD9EAFCC413E91539680B695C6C0?ynotemdtimestamp=1590306668736" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVKp3.png" alt="image"></p>
 <p>自动列出了国内的镜像，选择一个（例如阿里云）：</p>
-<p><img src="10959FDBFB5440BCAD627A28A9EB59FE" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVJqK.png" alt="image"></p>
 <p>点击 CentOS-7-x86_64-DVD-1908.iso（或者右键，复制链接地址，到迅雷里面下载），即可使用浏览器下载。</p>
 <h1 id="2-创建虚拟机"><a href="#2-创建虚拟机" class="headerlink" title="2. 创建虚拟机"></a>2. 创建虚拟机</h1><ul>
 <li>打开 Vmware，进入主页，点击创建虚拟机，如下：</li>
 </ul>
-<p><img src="1CBF2DAC1FED46D1996D5A808CF09ADE" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVWOo.png" alt="image"></p>
 <ul>
 <li>选择典型，点击下一步，如下：</li>
 </ul>
-<p><img src="B5C64C2B55FE4EF0A7EE98823F1E92F2" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVDvf.png" alt="image"></p>
 <ul>
 <li>选择“稍后安装操作系统”，点击下一步，如下：</li>
 </ul>
-<p><img src="474B27ADF87F4C7A8AFECD4329F3A7D5" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVUUd.png" alt="image"></p>
 <ul>
 <li>选择客户机操作系统为 Linux，版本选择 CentOS 7 64 位，如下：</li>
 </ul>
-<p><img src="857D6D1D546F4D3A95C527F01B8C921A" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVaMH.png" alt="image"></p>
 <ul>
 <li>设置虚拟机名称和位置，点击下一步，如下:</li>
 </ul>
-<p><img src="0A2698D8B45E4B07A596EA1A49FA8AC3" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVutq.png" alt="image"></p>
 <ul>
 <li>因为本虚拟机是作为集群中的 slave 节点，所以磁盘容量要大（<strong>集群 master 节点内存要大，slave 节点磁盘容量要大</strong>），设置“最大磁盘大小”为 40G；选择“将虚拟磁盘存储为单个文件”（注意：<font color="#dd00dd"><strong>如果启动虚拟机时黑屏，那么选择“将虚拟磁盘拆分成多个文件”</strong></font>）：</li>
 </ul>
-<p><img src="4D6BC04B32114119BA2C5DA83BE37D56" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVGCX.png" alt="image"></p>
 <ul>
 <li>点击“自定义硬件”：</li>
 </ul>
-<p><img src="6F8F3B6348404ACA812F86E4CF797979" alt=""></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YV1kp.png" alt="image"></p>
 <ul>
 <li>内存设为4G；处理器数量设为1，每个处理器内核数量设为2；选择“新 CD/DVD(IDE)”，“使用 ISO 影像文件”选择下载好的iso文件；网络适配器选择“桥接模式”（与主机处于同一个网段）；选择好后，点击关闭：</li>
 </ul>
-<p><img src="17E9A1E89B564C2AB4CE3073451371C4" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVpd6.png" alt="image"></p>
 <p>回到上上图所示页面，点击“完成”，虚拟机即创建完成，如下：</p>
-<p><img src="CB4784E6190B494E8549E2D551675800" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVnqI.png" alt="image"></p>
 <p>点击“开启此虚拟机”，即开始安装 CentOS 7。</p>
 <h1 id="3-安装-CentOS-7"><a href="#3-安装-CentOS-7" class="headerlink" title="3. 安装 CentOS 7"></a>3. 安装 CentOS 7</h1><p>虚拟机启动后，进入 CentOS 7 引导页面，按上下键，选择“Install CentOS 7”，回车，如下：</p>
-<p><img src="7098F4A018D2495D83E13761A67219A3" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVy5u.png" alt="image"></p>
 <p>进入配置页面：</p>
 <ul>
 <li>选择语言（English）</li>
 </ul>
-<p><img src="1420ABB0274B49058054157927D9B5EB" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVHOh.png" alt="image"></p>
 <ul>
 <li>设置日期和时间</li>
 </ul>
-<p><img src="977A2E2077F54601BDC7D315ACEDA366" alt="image"></p>
-<p><img src="755ADDFBD0BF464AA34EA0EF1E65F477" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVQvP.png" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVkaD.png" alt="image"></p>
 <ul>
 <li>设置安装方式</li>
 </ul>
 <p><strong>默认最小安装</strong>：</p>
-<p><img src="803990EE644442CC9F07F222FA4CB87B" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVoMt.png" alt="image"></p>
 <p>提供了丰富的安装方式，如果想安装桌面版，请选择 GNOME Desktop：</p>
-<p><img src="CF6A39692701435795E4C274F6DF2F4A" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YV7tS.png" alt="image"></p>
 <p>本教程采用默认安装方式（安装完成后没有桌面）。</p>
 <ul>
 <li>设置分区</li>
 </ul>
-<p><img src="92D696E238224693AA10DC0B7EF02B70" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVcJC.png" alt="image"></p>
 <p>选择“I will configure partioning”，点击“Done”:</p>
-<p><img src="B2EA1029CEE44951B3E9CCD703F7EE93" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVgks.png" alt="image"></p>
 <p>点击“Click here to create them automatically”：</p>
-<p><img src="2FEF9B0F48044CE5935933441105F553" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVMdR.png" alt="image"></p>
 <p>点击“Done”：</p>
-<p><img src="25A1D8159C7A4D46B179965DB24D9264" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YX8N6.png" alt="image"></p>
 <p>点击“Accept changes”：</p>
-<p><img src="DB842709FBCE4631A343D7EA4F1461E1" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXAnI.png" alt="image"></p>
 <ul>
 <li>配置网络和主机名</li>
 </ul>
-<p><img src="2942F83960B44D65BFDCBE89FC40524B" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXmVu.png" alt="image"></p>
 <p><font color="#dd00dd"><strong>开启网络（ON）</strong></font>（一定要开启网络，否则在第四章安装图形界面的时候，会连不了网。如果这一步忘记开启网络了，那么要在命令行界面配置网络，请参考：<a href="https://www.cnblogs.com/mrgavin/p/11237149.html）" target="_blank" rel="noopener">https://www.cnblogs.com/mrgavin/p/11237149.html）</a> ， 设置 Host name 为 slave1，点击 Done：</p>
-<p><img src="74D07A75EBF34A5A95D3245012C4703B" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXqxh.png" alt="image"></p>
 <ul>
 <li>开始安装</li>
 </ul>
-<p><img src="B6C5783D3EB54C8BA13655E3B6107ABB" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXNuP.png" alt="image"></p>
 <p>安装过程中，可以设置密码、创建用户：</p>
 <ul>
 <li><strong>设置 root 密码</strong></li>
 </ul>
-<p><img src="0BCA77B255904C31A0F4D87079676F86" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXYZD.png" alt="image"></p>
 <p>如果密码太简单（Weak），需要点击两次“Done”才能设置成功。</p>
-<p><img src="85270242CEBB45338482657A74768093" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXfzt.png" alt="image"></p>
 <ul>
 <li>创建用户</li>
 </ul>
-<p><img src="CEDF956441784B2AA4AF4C2A901609A4" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXCKS.png" alt="image"></p>
 <p>如果密码太简单（Weak），需要点击两次“Done”才能设置成功。</p>
-<p><img src="4ABADB5046D041D488F28130F830C5BF" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVZFN.png" alt="image"></p>
 <p>等待安装完成！</p>
 <p>安装完成后，还需要配置，点击“Finish cofiguration”：</p>
-<p><img src="682C4582755E4BDEB46BCA6BE03EDE6E" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YV05B.png" alt="image"></p>
 <p>配置中：</p>
-<p><img src="6552B8803D1C470E9982113AC6EC2697" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YV4Tn.png" alt="image"></p>
 <p>配置完成，安装全部完成，点击“Reboot”：</p>
-<p><img src="844D72910C134F1E9B188F99F1945BCD" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVIxA.png" alt="image"></p>
 <p><font color="#dd00dd"><strong>因为是最小安装，所以重启后，进入了命令行模式</strong></font>：</p>
-<p><img src="82A5614F90D243E090E7B43D98418440" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVTaT.png" alt="image"></p>
 <p>（此时，点击“我已完成安装”，告诉Vmware已经安装完成）</p>
 <h1 id="4-在服务器版本中安装图形界面"><a href="#4-在服务器版本中安装图形界面" class="headerlink" title="4. 在服务器版本中安装图形界面"></a>4. 在服务器版本中安装图形界面</h1><p>如上图所示，从命令行模式登录root用户：</p>
-<p><img src="D5B88D0C704E41169DD958D006E01E92" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVVPG.png" alt="image"></p>
 <p>输入如下命令，安装 Gnome 桌面：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot;</span><br></pre></td></tr></table></figure>
 
-<p><img src="08E4796E72F4452EAE790BBF0F056630" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVXtv.png" alt="image"></p>
 <p>处理中：</p>
-<p><img src="A7B8CFEB4937429197D81A3CA8F7DA88" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVBJ0.png" alt="image"></p>
 <p>选择 y:</p>
-<p><img src="E46C4DB4F00644CD85F9B382F9F20D90" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVboU.png" alt="image"></p>
 <p>下载 rpm 包：</p>
-<p><img src="FE09AB8C320A4C989853D5BB598CDC74" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVddj.png" alt="image"></p>
 <p>继续选择 y:</p>
-<p><img src="C2269F86D9894210A532E1CEA663624A" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVsFg.png" alt="image"></p>
 <p>安装中：</p>
-<p><img src="710C17079EBF4B4FA6658FE1801D51F3" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YV2nK.png" alt="image"></p>
 <p>安装成功：</p>
-<p><img src="99F20B84B0094363A4F094ED6D1359F6" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YV3T3.png" alt="image"></p>
 <h1 id="5-设置系统的启动级别"><a href="#5-设置系统的启动级别" class="headerlink" title="5. 设置系统的启动级别"></a>5. 设置系统的启动级别</h1><p>Linux分为7个启动级别：</p>
 <ul>
 <li>0 - halt (Do NOT set initdefault to this)</li>
@@ -149,10 +149,10 @@
 <h2 id="5-1-（通过软连接方式）设置为桌面级别（5）"><a href="#5-1-（通过软连接方式）设置为桌面级别（5）" class="headerlink" title="5.1. （通过软连接方式）设置为桌面级别（5）"></a>5.1. （通过软连接方式）设置为桌面级别（5）</h2><p>如果你想在系统下次启动的时候自动进入图形界面，那么我们需要更改系统的启动级别，输入下面的命令来启用图形界面：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ln -sf &#x2F;lib&#x2F;systemd&#x2F;system&#x2F;runlevel5.target &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;default.target</span><br></pre></td></tr></table></figure>
 
-<p><img src="585DF6A3BA9343BA94EA4D92A10FA735" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVrxo.png" alt="image"></p>
 <p>输入重启命令，即可进入桌面：</p>
-<p><img src="368AAA87CF3C4763B02F150177FD1D59" alt="image"></p>
-<p><img src="2699DE65EE2F45EA8F361FE19B85065A" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVzuf.png" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVjPd.png" alt="image"></p>
 <h2 id="5-2-（通过systemctl）设置为命令行级别（3）"><a href="#5-2-（通过systemctl）设置为命令行级别（3）" class="headerlink" title="5.2. （通过systemctl）设置为命令行级别（3）"></a>5.2. （通过systemctl）设置为命令行级别（3）</h2><p>语法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl [command] [unit.target]</span><br></pre></td></tr></table></figure>
 
@@ -171,12 +171,12 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl get-default  &#x2F;&#x2F; 获取当前的运行级别</span><br><span class="line">systemctl set-default multi-user.targe  &#x2F;&#x2F; 将默认运行级别设置为mulit-user（3）</span><br><span class="line">systemctl isolate multi-user.target  &#x2F;&#x2F; 不重启系统的情况下，将运行级别切换至mulit-user（#）</span><br><span class="line">systemctl isolate graphical.target  &#x2F;&#x2F; 不重启系统的情况下，将运行级别切换至图形模式</span><br><span class="line">runlvel  &#x2F;&#x2F; 返回结果中，第一个数为之前运行级别，后一个数为当前运行级别（如果刚启动后执行本命令，则返回的第一个数为N）</span><br><span class="line">init 5  &#x2F;&#x2F; 将当前运行级别切换至5（图形模式），等同于 systemctl isolate graphical.target</span><br></pre></td></tr></table></figure>
 
 <p>在桌面模式，打开终端，设置启动级别：</p>
-<p><img src="77F4623D3979486188C5FE431CB7C9FE" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVLzH.png" alt="image"></p>
 <p>重启，即进入了命令行模式：</p>
-<p><img src="16137EF10BE64779A89D35A9D2203597" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVlKq.png" alt="image"></p>
 <p>在命令行模式，登录root用户，输入 init 5（或systemctl isolate graphical.target），即进入桌面模式（但重启后，还是进入命令后模式，因为改的是<strong>运行级别</strong>，而不是<strong>启动级别</strong>）：</p>
-<p><img src="5588901FBF66467EBD35190CFB7846AE" alt="image"></p>
-<p><img src="41094467DFF14F018177AF648BBDEBD5" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVvoX.png" alt="image"></p>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YVxip.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>教程</category>
