@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hadoop基础知识(1)——初识Hadoop</title>
+    <url>/2020/06/02/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1-%E2%80%94%E2%80%94%E5%88%9D%E8%AF%86Hadoop/</url>
+    <content><![CDATA[<h3 id="1-数据"><a href="#1-数据" class="headerlink" title="1. 数据"></a>1. 数据</h3><p>国际数据公司（IDC）曾经发布报告称，2013年数字世界（digital universe）项目统计得出全球数据总量为 4.4ZB（zettabyte），并预测在2020年将达到 44ZB。</p>
+<p>1ZB = 10^3^EB(exabytes) = 10^6^PB(petabytes) = 10^9^TB(terrabytes)</p>
+<p>数据“洪流”有很多来源，例如：</p>
+<ul>
+<li>纽约证交所每天所产生的交易数据大约在4TB至5TB之间；</li>
+<li>Facebook存储的照片超过2400亿张，并以每月至少7PB的速度增长；</li>
+<li>瑞士日内瓦附近的大型强子对撞机每年产生的数据约为30PB。</li>
+</ul>
+<p>同时，个人产生的数据正在快速增长。微软研究院 MyLifeBits 项目显示，在不久的将来，个人信息档案将日益普及。</p>
+<p>但更重要的是，作为物联网一部分的及其设备产生的数据可能远远超过我们个人所产生的数据。机器日志、RFID读卡器、传感器网络、车载GPS和零售交易数据等，所有这些都将产生巨量的数据。</p>
+<p>在网上公开发布的数据也在逐年增加中，这方面的先锋有 Amazon Web Services 和 Infochimps.org，它们所发布的共享数据集正在促进信息共享，供所有人自由下载和分析（或者只需要一个合理的价格）。</p>
+<p>有句话说的好：“<strong>大数据胜于好算法</strong>。”意思是，对于某些应用（譬如根据以往的偏好来推荐电影和音乐），不论算法有多牛，基于小数据的推荐效果往往都不如基于大量可用数据的一般算法的推荐效果。</p>
+<h3 id="2-数据的存储和分析"><a href="#2-数据的存储和分析" class="headerlink" title="2. 数据的存储和分析"></a>2. 数据的存储和分析</h3><p>当前的问题：多年来，硬盘存储容量不断提升，但是访问速度（硬盘数据读取速度）却没有与时俱进。</p>
+]]></content>
+      <categories>
+        <category>hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS更换yum源</title>
     <url>/2020/05/24/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/</url>
     <content><![CDATA[<h3 id="1-什么是-yum"><a href="#1-什么是-yum" class="headerlink" title="1. 什么是 yum"></a>1. 什么是 yum</h3><p>Yum（全称为 Yellow dog Updater, Modified）是一个在<strong>Fedora</strong>、<strong>RedHat</strong> 和 <strong>CentOS</strong> 中的 <strong>Shell前端软件包管理器</strong> 。</p>
@@ -43,31 +67,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu更换软件源</title>
-    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><h3 id="1-备份软件源配置文件"><a href="#1-备份软件源配置文件" class="headerlink" title="1.备份软件源配置文件"></a>1.备份软件源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-添加清华源"><a href="#2-添加清华源" class="headerlink" title="2.添加清华源"></a>2.添加清华源</h3><p>新建并打开sources.list：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
-
-<p>添加如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-更新软件源"><a href="#3-更新软件源" class="headerlink" title="3.更新软件源"></a>3.更新软件源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><p>安装 vim：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
-
-<p>速度很快。</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>更换软件源</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java多线程系列(1)——线程基础知识</title>
     <url>/2020/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97(1)%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<pre><code>说明：本博客内容参考《疯狂java讲义（第三版）》。</code></pre><p>几乎所有的操作系统都支持同时运行多个任务，一个任务就是一个程序，<strong>每个运行中的程序就是一个进程</strong>。</p>
@@ -100,26 +99,33 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>java线程</tag>
+        <tag>java多线程</tag>
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/05/10/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <title>Ubuntu更换软件源</title>
+    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><h3 id="1-备份软件源配置文件"><a href="#1-备份软件源配置文件" class="headerlink" title="1.备份软件源配置文件"></a>1.备份软件源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="2-添加清华源"><a href="#2-添加清华源" class="headerlink" title="2.添加清华源"></a>2.添加清华源</h3><p>新建并打开sources.list：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="3-更新软件源"><a href="#3-更新软件源" class="headerlink" title="3.更新软件源"></a>3.更新软件源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><p>安装 vim：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<p>速度很快。</p>
 ]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>更换软件源</tag>
+      </tags>
   </entry>
   <entry>
     <title>搭建hadoop集群</title>
@@ -331,5 +337,23 @@
       <tags>
         <tag>vmware</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/05/10/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
   </entry>
 </search>
