@@ -16,12 +16,47 @@
 <p>在网上公开发布的数据也在逐年增加中，这方面的先锋有 Amazon Web Services 和 Infochimps.org，它们所发布的共享数据集正在促进信息共享，供所有人自由下载和分析（或者只需要一个合理的价格）。</p>
 <p>有句话说的好：“<strong>大数据胜于好算法</strong>。”意思是，对于某些应用（譬如根据以往的偏好来推荐电影和音乐），不论算法有多牛，基于小数据的推荐效果往往都不如基于大量可用数据的一般算法的推荐效果。</p>
 <h3 id="2-数据的存储和分析"><a href="#2-数据的存储和分析" class="headerlink" title="2. 数据的存储和分析"></a>2. 数据的存储和分析</h3><p>当前的问题：多年来，硬盘存储容量不断提升，但是访问速度（硬盘数据读取速度）却没有与时俱进。</p>
+<p>Hadoop 为我们提供了一个可靠且可扩展的存储和分析平台。此外，由于 Hadoop 运行在商用硬件上且是开源的，因而可以说 Hadoop 的使用成本是在可承受范围内的。</p>
+<h3 id="3-查询所有数据"><a href="#3-查询所有数据" class="headerlink" title="3. 查询所有数据"></a>3. 查询所有数据</h3><p>MapReduce 是一个批量查询处理器，能够在合理的时间范围内处理针对整个数据集的动态查询。</p>
+<p>MapReduce 改变了我们对数据的传统看法，解放了以前只是保存在磁带和硬盘上的数据。</p>
+<h3 id="4-不仅仅是处理"><a href="#4-不仅仅是处理" class="headerlink" title="4. 不仅仅是处理"></a>4. 不仅仅是处理</h3><p>从 MapReduce 的所有长处来看，它基本上是一个批处理系统，并不适合交互式分析，你不可能执行一条查询并在几秒内或在更短的时间内得到结果。因此， MapReduce 更适合那种没有用户在现场等待查询结果的离线使用场景。</p>
+<p>然而，从最初的原型出现以来， Hadoop 的发展已经超越了批处理本身。实际上，<strong>名词“Hadoop”有时被用于指代一个更大的、多个项目组成的生态系统，而不仅仅是 HDFS 和 MapReduce</strong>。</p>
+<p>第一个提供在线访问的组建是 Hbase，一种使用 HDFS 作地层存储的键值存储模型。Hbase 不仅提供对单行的在线读/写访问，还提供对数据块读/写的操作。</p>
+<p>Hadoop2 中 YARN(Yet Another Resource Negotiator)的出现意味着 Hadoop 有了新的处理模型。 YARN 是一个集群资源管理系统，允许任何一个分布式程序（不仅仅是 MapReduce）基于Hadoop 集群的数据而运行。</p>
+<p>在过去的几年中，出现了许多不同的、能与 Hadoop 协同工作的处理模式。以下是一些例子：</p>
+<ul>
+<li><p><strong>交互式SQL（Interactive SQL）</strong></p>
+<p>  利用 MapReduce 进行分发并使用一个分布式查询引擎，使得在 Hadoop 上获得 SQL 查询低延迟响应的同时还能保持对大数据集规模的可扩展性。这个引擎使用指定的“总是开启（always on）”守护进程（如同 impala）或容器重用（如同 Tez 上的 Hive）。</p>
+</li>
+<li><p><strong>迭代处理（Iterative processing）</strong></p>
+<p>  许多算法，例如机器学习算法，自身具有迭代性，因此和那种每次迭代都从硬盘加载的方式相比，这种在内存中保存每次中间结果集的方式更加高效。MapReduce 的架构不允许这样，但如果使用 Spark 就会比较直接，它在使用数据集方面展现了一种高度探究的风格。</p>
+</li>
+<li><p><strong>流处理（Stream processing）</strong></p>
+<p>  流系统，例如 Storm， Spark Streaming，或 Samza 使得在无边界数据流上运行实时、分布式的计算，并向 Hadoop 存储系统或外部系统发布结果成为可能。</p>
+</li>
+<li><p><strong>搜索（Search）</strong></p>
+<p>  Solr 搜索平台能够在 Hadoop 集群上运行，当文档加入 HDFS 后就可以对其进行索引，且根据 HDFS 中存储的索引为搜索查询提供服务。</p>
+</li>
+</ul>
+<p>无论 Hadoop 上出现了多少不同的处理框架，就批处理而言，MapReduce仍然有着一席之地。MapReduce 提出的一些概念更具有通用性（例如，输入格式、数据集分片等），因此最好是能够了解 MapReduce 的工作机制。</p>
 ]]></content>
       <categories>
         <category>hadoop</category>
       </categories>
       <tags>
         <tag>Hadoop基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java多线程系列(2)——线程的创建和启动</title>
+    <url>/2020/05/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97-2-%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<pre><code>Java使用Thread类代表线程，所有的线程对象都必须是Thread类或其子类的实例。</code></pre><p>本文介绍三种方式创建线程。</p>
+<h3 id="1-继承-Thread-类创建线程类"><a href="#1-继承-Thread-类创建线程类" class="headerlink" title="1. 继承 Thread 类创建线程类"></a>1. 继承 Thread 类创建线程类</h3><h3 id="2-实现-Runnable-接口创建线程类"><a href="#2-实现-Runnable-接口创建线程类" class="headerlink" title="2. 实现 Runnable 接口创建线程类"></a>2. 实现 Runnable 接口创建线程类</h3><h3 id="3-使用-Callable-和-Future-创建线程"><a href="#3-使用-Callable-和-Future-创建线程" class="headerlink" title="3. 使用 Callable 和 Future 创建线程"></a>3. 使用 Callable 和 Future 创建线程</h3>]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -52,105 +87,6 @@
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java多线程系列(2)——线程的创建和启动</title>
-    <url>/2020/05/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97-2-%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<pre><code>Java使用Thread类代表线程，所有的线程对象都必须是Thread类或其子类的实例。</code></pre><p>本文介绍三种方式创建线程。</p>
-<h3 id="1-继承-Thread-类创建线程类"><a href="#1-继承-Thread-类创建线程类" class="headerlink" title="1. 继承 Thread 类创建线程类"></a>1. 继承 Thread 类创建线程类</h3><h3 id="2-实现-Runnable-接口创建线程类"><a href="#2-实现-Runnable-接口创建线程类" class="headerlink" title="2. 实现 Runnable 接口创建线程类"></a>2. 实现 Runnable 接口创建线程类</h3><h3 id="3-使用-Callable-和-Future-创建线程"><a href="#3-使用-Callable-和-Future-创建线程" class="headerlink" title="3. 使用 Callable 和 Future 创建线程"></a>3. 使用 Callable 和 Future 创建线程</h3>]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java多线程系列(1)——线程基础知识</title>
-    <url>/2020/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97(1)%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
-    <content><![CDATA[<pre><code>说明：本博客内容参考《疯狂java讲义（第三版）》。</code></pre><p>几乎所有的操作系统都支持同时运行多个任务，一个任务就是一个程序，<strong>每个运行中的程序就是一个进程</strong>。</p>
-<p>当一个程序运行时，内部可能包含了多个顺序执行流，<strong>每个顺序执行流就是一个线程</strong>。</p>
-<h3 id="1-线程和进程"><a href="#1-线程和进程" class="headerlink" title="1. 线程和进程"></a>1. 线程和进程</h3><p>运行中的任务通常对应一个进程（Process）。当一个程序进入内存运行时，即变成一个进程。</p>
-<p>一般而言，进程包含如下三个特征。</p>
-<ul>
-<li>独立性：进程是系统中独立存在的实体，它可以拥有自己独立的资源，每一个进程都有自己私有的地址空间。</li>
-<li>动态性：进程与程序的区别在于，程序只是一个静态的指令集合，而进程是一个正在系统中活动的指令集合。</li>
-<li>并发性：多个进程可以在单个处理器上并发执行，多个进程间不会互相影响。</li>
-</ul>
-<pre><code>并发性（concurrency）和并行性（parallel）是两个概念，并行指在同一时刻，有多条指令在多个处理器上同时执行；并发指在同一时刻只能有一条指令执行，但多个进程指令被快速轮换执行，使得在宏观上具有多个线程同时执行的效果。</code></pre><p>线程（Thread）也被称作轻量级进程（Lightweight Process），线程是进程的执行单元。<strong>当进程被初始化后，主线程就被创建了</strong>，对于绝大多数的应用程序，通常仅要求有一个主线程。</p>
-<p>线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程。<strong>线程</strong>可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但<strong>不拥有系统资源，它与父进程的其他线程共享该进程所拥有的全部资源</strong>。</p>
-<p>线程的特征：</p>
-<ul>
-<li>独立运行：它不知道进程中是否还有其他线程存在。</li>
-<li>抢占式执行：当前运行的线程在任何时候都可能被挂起，以便另一个线程可以运行。</li>
-<li>一个线程可以创建和撤销另一个线程。</li>
-</ul>
-<h3 id="2-多线程的优势"><a href="#2-多线程的优势" class="headerlink" title="2. 多线程的优势"></a>2. 多线程的优势</h3><p>线程比进程具有更高的性能，这是因为同一个进程中的线程都有共性——多个线程共享同一个进程虚拟空间。线程共享的环境包括：进一<br>当操作系统创建一个进程时，必须为该进程分配独立的内存空间，并分配大量的相关资源；但创建一个线程则简单得多，因此<strong>使用多线程来实现并发比使用多进程实现并发的性能要高得多</strong>。</p>
-<p>多线程优势：</p>
-<ul>
-<li>进程之间不能共享内存，但线程之间共享内存非常容易；</li>
-<li>系统创建进程时需要为该进程重新分配系统资源，但创建线程则代价小得多，因此使用多线程来实现多任务并发比多进程的效率高；</li>
-<li>Java语言内置了多线程功能支持，而不是单纯地作为地层操作系统的调度方式，从而简化了Java多线程编程。</li>
-</ul>
-<h3 id="3-多线程的应用"><a href="#3-多线程的应用" class="headerlink" title="3. 多线程的应用"></a>3. 多线程的应用</h3><p>多线程的应用非常广泛，尤其是耗时操作，如，浏览器同时下载多个图片；一个Web服务器同时响应多个用户请求；JVM本身在后台提供了一个超级线程来进行垃圾回收。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu更换软件源</title>
-    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><h3 id="1-备份软件源配置文件"><a href="#1-备份软件源配置文件" class="headerlink" title="1.备份软件源配置文件"></a>1.备份软件源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-添加清华源"><a href="#2-添加清华源" class="headerlink" title="2.添加清华源"></a>2.添加清华源</h3><p>新建并打开sources.list：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
-
-<p>添加如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-更新软件源"><a href="#3-更新软件源" class="headerlink" title="3.更新软件源"></a>3.更新软件源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><p>安装 vim：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
-
-<p>速度很快。</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>更换软件源</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建hadoop集群</title>
-    <url>/2020/05/10/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h3 id="大数据开发课程"><a href="#大数据开发课程" class="headerlink" title="大数据开发课程"></a>大数据开发课程</h3><h4 id="1-主讲教师"><a href="#1-主讲教师" class="headerlink" title="1. 主讲教师"></a>1. 主讲教师</h4><ul>
-<li>徐老师</li>
-<li>John</li>
-<li>Jefitar</li>
-</ul>
-<h3 id="2-课程内容"><a href="#2-课程内容" class="headerlink" title="2. 课程内容"></a>2. 课程内容</h3><ul>
-<li>java</li>
-<li>scala</li>
-<li>python</li>
-<li>hadoop</li>
-<li>spark</li>
-<li>hive</li>
-<li>flume</li>
-<li>zookeeper</li>
-</ul>
-]]></content>
-      <categories>
-        <category>hadoop</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -336,6 +272,93 @@
       </categories>
       <tags>
         <tag>vmware</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java多线程系列(1)——线程基础知识</title>
+    <url>/2020/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97(1)%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<pre><code>说明：本博客内容参考《疯狂java讲义（第三版）》。</code></pre><p>几乎所有的操作系统都支持同时运行多个任务，一个任务就是一个程序，<strong>每个运行中的程序就是一个进程</strong>。</p>
+<p>当一个程序运行时，内部可能包含了多个顺序执行流，<strong>每个顺序执行流就是一个线程</strong>。</p>
+<h3 id="1-线程和进程"><a href="#1-线程和进程" class="headerlink" title="1. 线程和进程"></a>1. 线程和进程</h3><p>运行中的任务通常对应一个进程（Process）。当一个程序进入内存运行时，即变成一个进程。</p>
+<p>一般而言，进程包含如下三个特征。</p>
+<ul>
+<li>独立性：进程是系统中独立存在的实体，它可以拥有自己独立的资源，每一个进程都有自己私有的地址空间。</li>
+<li>动态性：进程与程序的区别在于，程序只是一个静态的指令集合，而进程是一个正在系统中活动的指令集合。</li>
+<li>并发性：多个进程可以在单个处理器上并发执行，多个进程间不会互相影响。</li>
+</ul>
+<pre><code>并发性（concurrency）和并行性（parallel）是两个概念，并行指在同一时刻，有多条指令在多个处理器上同时执行；并发指在同一时刻只能有一条指令执行，但多个进程指令被快速轮换执行，使得在宏观上具有多个线程同时执行的效果。</code></pre><p>线程（Thread）也被称作轻量级进程（Lightweight Process），线程是进程的执行单元。<strong>当进程被初始化后，主线程就被创建了</strong>，对于绝大多数的应用程序，通常仅要求有一个主线程。</p>
+<p>线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程。<strong>线程</strong>可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但<strong>不拥有系统资源，它与父进程的其他线程共享该进程所拥有的全部资源</strong>。</p>
+<p>线程的特征：</p>
+<ul>
+<li>独立运行：它不知道进程中是否还有其他线程存在。</li>
+<li>抢占式执行：当前运行的线程在任何时候都可能被挂起，以便另一个线程可以运行。</li>
+<li>一个线程可以创建和撤销另一个线程。</li>
+</ul>
+<h3 id="2-多线程的优势"><a href="#2-多线程的优势" class="headerlink" title="2. 多线程的优势"></a>2. 多线程的优势</h3><p>线程比进程具有更高的性能，这是因为同一个进程中的线程都有共性——多个线程共享同一个进程虚拟空间。线程共享的环境包括：进一<br>当操作系统创建一个进程时，必须为该进程分配独立的内存空间，并分配大量的相关资源；但创建一个线程则简单得多，因此<strong>使用多线程来实现并发比使用多进程实现并发的性能要高得多</strong>。</p>
+<p>多线程优势：</p>
+<ul>
+<li>进程之间不能共享内存，但线程之间共享内存非常容易；</li>
+<li>系统创建进程时需要为该进程重新分配系统资源，但创建线程则代价小得多，因此使用多线程来实现多任务并发比多进程的效率高；</li>
+<li>Java语言内置了多线程功能支持，而不是单纯地作为地层操作系统的调度方式，从而简化了Java多线程编程。</li>
+</ul>
+<h3 id="3-多线程的应用"><a href="#3-多线程的应用" class="headerlink" title="3. 多线程的应用"></a>3. 多线程的应用</h3><p>多线程的应用非常广泛，尤其是耗时操作，如，浏览器同时下载多个图片；一个Web服务器同时响应多个用户请求；JVM本身在后台提供了一个超级线程来进行垃圾回收。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu更换软件源</title>
+    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><h3 id="1-备份软件源配置文件"><a href="#1-备份软件源配置文件" class="headerlink" title="1.备份软件源配置文件"></a>1.备份软件源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-添加清华源"><a href="#2-添加清华源" class="headerlink" title="2.添加清华源"></a>2.添加清华源</h3><p>新建并打开sources.list：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
+
+<p>添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-更新软件源"><a href="#3-更新软件源" class="headerlink" title="3.更新软件源"></a>3.更新软件源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><p>安装 vim：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<p>速度很快。</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>更换软件源</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建hadoop集群</title>
+    <url>/2020/05/10/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h3 id="大数据开发课程"><a href="#大数据开发课程" class="headerlink" title="大数据开发课程"></a>大数据开发课程</h3><h4 id="1-主讲教师"><a href="#1-主讲教师" class="headerlink" title="1. 主讲教师"></a>1. 主讲教师</h4><ul>
+<li>徐老师</li>
+<li>John</li>
+<li>Jefitar</li>
+</ul>
+<h3 id="2-课程内容"><a href="#2-课程内容" class="headerlink" title="2. 课程内容"></a>2. 课程内容</h3><ul>
+<li>java</li>
+<li>scala</li>
+<li>python</li>
+<li>hadoop</li>
+<li>spark</li>
+<li>hive</li>
+<li>flume</li>
+<li>zookeeper</li>
+</ul>
+]]></content>
+      <categories>
+        <category>hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
