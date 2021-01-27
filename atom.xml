@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-01-26T14:58:50.131Z</updated>
+  <updated>2021-01-26T15:30:54.557Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,19 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spark系列二——结构化API(2)—基本的结构化操作</title>
-    <link href="http://yoursite.com/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/"/>
-    <id>http://yoursite.com/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</id>
-    <published>2021-01-26T14:49:52.000Z</published>
-    <updated>2021-01-26T14:58:50.131Z</updated>
+    <title>test</title>
+    <link href="http://yoursite.com/2021/01/26/test/"/>
+    <id>http://yoursite.com/2021/01/26/test/</id>
+    <published>2021-01-26T15:27:53.000Z</published>
+    <updated>2021-01-26T15:30:54.557Z</updated>
     
-    <content type="html"><![CDATA[<pre><code>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</code></pre><p><img src="/.com//%E7%BA%A2%E6%B1%89.jpg" alt="悬空黑大汉"></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="/2021/01/26/test/hadoop.jpg" alt="test"></p><p><img src="/2021/01/26/test/red_han.jpg" alt="han"></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;pre&gt;&lt;code&gt;本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/.com//%E7%BA%A2%
+        &lt;p&gt;&lt;img src=&quot;/2021/01/26/test/hadoop.jpg&quot; alt=&quot;test&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2021/01/26/test/red_han.jpg&quot; alt=&quot;han&quot;&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Spark系列二——结构化API(2)—基本的结构化操作</title>
+    <link href="http://yoursite.com/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</id>
+    <published>2021-01-26T14:49:52.000Z</published>
+    <updated>2021-01-26T15:32:22.130Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</code></pre><p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/red_han.jpg" alt="han"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;pre&gt;&lt;code&gt;本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/2021/01/26/Spark
       
     
     </summary>

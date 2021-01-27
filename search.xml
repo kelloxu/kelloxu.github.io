@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>test</title>
+    <url>/2021/01/26/test/</url>
+    <content><![CDATA[<p><img src="/2021/01/26/test/hadoop.jpg" alt="test"></p>
+<p><img src="/2021/01/26/test/red_han.jpg" alt="han"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Spark系列二——结构化API(2)—基本的结构化操作</title>
     <url>/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<pre><code>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</code></pre><p><img src="/.com//%E7%BA%A2%E6%B1%89.jpg" alt="悬空黑大汉"></p>
+    <content><![CDATA[<pre><code>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</code></pre><p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/red_han.jpg" alt="han"></p>
 ]]></content>
       <tags>
         <tag>spark</tag>
