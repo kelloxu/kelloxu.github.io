@@ -15,10 +15,58 @@
   <entry>
     <title>Spark系列二——结构化API(2)—基本的结构化操作</title>
     <url>/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<pre><code>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</code></pre><p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/red_han.jpg" alt="han"></p>
-]]></content>
+    <content><![CDATA[<h2 id="本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window-function），以及连接操作（join）将在后面的博客中介绍。"><a href="#本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window-function），以及连接操作（join）将在后面的博客中介绍。" class="headerlink" title="本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。"></a>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</h2><hr>
+<p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/red_han.jpg" alt="han"></p>
+<h3 id="1-模式"><a href="#1-模式" class="headerlink" title="1. 模式"></a>1. 模式</h3><p>模式定义了DataFrame的列名和列的数据类型，可以用如下方法查询DataFrame的模式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.printSchema()</span><br></pre></td></tr></table></figure>
+
+<p>可以由数据源来定义模式（称为读时模式，schema-on-read），也可以由我们自己显示地来定义。</p>
+<blockquote>
+<p>根据实际应用场景决定定义Schema的方式。当应用于即席分析时，使用读时模式即可（尽管在处理如CSV和JSON等传文本文件时速度较慢），但是，也可能导致数据精度损失问题，例如将long型错误地解析为整数。当使用Spark实现生产级别ETL（Extract提取、Tranform转换操作、Load加载）的时候，最好采取显示定义Schema的方式，尤其时在处理诸如CSV和JSON之类的无类型数据源时更是如此。</p>
+</blockquote>
+<p>以下示例演示了如何为一个DataFrame创建并指定模式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.types.&#123;StructField, StructType, StringType, LongType&#125;</span><br><span class="line">import org.apache.spark.sql.types.Metadata</span><br><span class="line"></span><br><span class="line">val myManualSchema &#x3D; StructType(Array()</span><br><span class="line">    StructField(&quot;DST_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;ORIGIN_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;count&quot;, LongType, false, MetaData.fromJson(&quot;&#123;\&quot;hello\&quot;:\&quot;world\&quot;&#125;&quot;))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>一个模式是由许多字段构成的StructType，这些字段即为StructField，具有名称、类型、布尔标志（指定该列是否可以包含缺省值或空值），并且<strong>用户可以指定与该列关联的元数据（metadata，存储着有关此列的信息，Spark在其机器学习库中使用此功能）</strong>。</p>
+<h3 id="2-列和表达式"><a href="#2-列和表达式" class="headerlink" title="2. 列和表达式"></a>2. 列和表达式</h3><p>Spark可以对DataFrame中的列进行选择、转换操作和删除，并将这些操作表示为表达式。</p>
+<p>对于Spark而言，<strong>列是逻辑结构</strong>，它只是表示根据表达式为每个记录计算出的值，这意味着要为一列创建一个真值，我们需要有一行，而要有一行则需要有一个DataFrame，因此不能在DataFrame范围外操作一个列，必须对DataFrame使用Spark的转换操作来修改列的内容。</p>
+<h4 id="2-1-列"><a href="#2-1-列" class="headerlink" title="2.1. 列"></a>2.1. 列</h4><p>可以通过col()或者column()两个函数来构造和引用列。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.(col, column)</span><br><span class="line"></span><br><span class="line">col(&quot;someColumnName&quot;)</span><br><span class="line">column(&quot;someColumnName&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>DataFrame可能不包含某列，所以该列要将列名与catalog中维护的列名相比较后才会确定该列是否会被解析，列和数据表的解析在分析其阶段发生。</em></strong></p>
+<p>Scala中有一些特殊的语言支持，可以使用更简短的方式来引用列。下面的表达式同col()或column()，即创建或引用列，但并不能改善性能：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$&quot;myColumn&quot;</span><br><span class="line">&#39;myColumn</span><br></pre></td></tr></table></figure>
+
+<p>符号$将字符串指定为表达式，而符号’指定一个symbol，是scala引用标识符的特殊结构。</p>
+<h5 id="显示列引用"><a href="#显示列引用" class="headerlink" title="显示列引用"></a>显示列引用</h5><p>如果需要引用某个DataFrame的某一列，则可以在这个DataFrame上使用col方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.col(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>当执行连接操作时，如果两个连接的DataFrame存在一个同名列，该方法会非常有用。</p>
+<p><strong>显示引用列的另一个好处是Spark不用自己解析该列（在分析阶段）。</strong></p>
+<h4 id="2-2-表达式"><a href="#2-2-表达式" class="headerlink" title="2.2. 表达式"></a>2.2. 表达式</h4><p><strong>表达式（expression）是对一个DataFrame中某一个记录的一个或多个列的一组转换操作</strong>。</p>
+<p>把表达式想象成一个函数，它将一个或多个列名作为输入，解析它们，然后针对数据集中的每条记录应用表达式来得到一个单值（实际上可以是一个复杂的类型，如Map或Array）。</p>
+<p>在最简单的情况下，通过expr函数创建的表达式，仅仅是一个DataFrame列的引用，也就是说，expr(“someCol”)等同于col(“someCol”)。</p>
+<h5 id="列作为表达式"><a href="#列作为表达式" class="headerlink" title="列作为表达式"></a>列作为表达式</h5><p>列提供了表达式功能的一个子集。如果使用col()，并想对该列执行转换操作，则必须对该列的引用执行这些转换操作；当使用表达式时，expr函数实际上可以将字符串解析成转换操作和引用，也可以在之后将其传递到下一步的转换操作。</p>
+<p>例如，expr(“someCol - 5”) 与执行 col(“someCol”) - 5，甚至是 expr(“someCol”) - 5，都是相同的转换操作，Spark将它们编译为表示操作顺序的逻辑树。</p>
+<p>请记住下面两点：</p>
+<ul>
+<li><strong>列只是表达式</strong></li>
+<li>列与对这些列的转换操作被编译后生成的逻辑计划，与解析后的表达式的逻辑计划是一样的。</li>
+</ul>
+<p>以一个例子来说明：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(((col(&quot;someCol&quot;) + 5) * 200) - 6) &lt; col(&quot;otherCol&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>下图描述了上述代码的逻辑树结构：</p>
+<p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/logic_tree.jpg" alt="逻辑树"></p>
+<p>逻辑树是一种有向无环图，该图等同于以下代码；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.expr</span><br><span class="line"></span><br><span class="line">expr(&quot;(((someCol + 5) * 200) - 6) &lt; otherCol&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-记录和行"><a href="#3-记录和行" class="headerlink" title="3. 记录和行"></a>3. 记录和行</h3><h3 id="4-DataFrame转换操作"><a href="#4-DataFrame转换操作" class="headerlink" title="4. DataFrame转换操作"></a>4. DataFrame转换操作</h3>]]></content>
+      <categories>
+        <category>spark</category>
+      </categories>
       <tags>
-        <tag>spark</tag>
+        <tag>spark结构化API</tag>
       </tags>
   </entry>
   <entry>
