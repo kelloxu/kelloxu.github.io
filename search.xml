@@ -1,72 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>算法面试通关40讲_01_程序员必备内功-数据结构与算法</title>
-    <url>/2021/01/28/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%80%9A%E5%85%B340%E8%AE%B2-01-%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%E5%86%85%E5%8A%9F-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>/2021/01/26/test/</url>
-    <content><![CDATA[<p><img src="/2021/01/26/test/hadoop.jpg" alt="test"></p>
-<p><img src="/2021/01/26/test/red_han.jpg" alt="han"></p>
+    <title>CentOS更换yum源</title>
+    <url>/2020/05/24/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/</url>
+    <content><![CDATA[<h3 id="1-什么是-yum"><a href="#1-什么是-yum" class="headerlink" title="1. 什么是 yum"></a>1. 什么是 yum</h3><p>Yum（全称为 Yellow dog Updater, Modified）是一个在<strong>Fedora</strong>、<strong>RedHat</strong> 和 <strong>CentOS</strong> 中的 <strong>Shell前端软件包管理器</strong> 。</p>
+<p>Yum 基于RPM包管理，能够<strong>从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系</strong>，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
+<h3 id="2-YUM下载源定义文件"><a href="#2-YUM下载源定义文件" class="headerlink" title="2. YUM下载源定义文件"></a>2. YUM下载源定义文件</h3><p>YUM下载源定义文件存储在  <code>/etc/yum.repo.d/</code> 目录中，而且文件必须以 <code>.repo</code>为扩展名。</p>
+<h3 id="3-国内开源镜像"><a href="#3-国内开源镜像" class="headerlink" title="3. 国内开源镜像"></a>3. 国内开源镜像</h3><p>网易开源镜像站：<a href="http://mirrors.163.com/" target="_blank" rel="noopener">http://mirrors.163.com/</a></p>
+<p>centos的使用帮助：<a href="http://mirrors.163.com/.help/centos.html" target="_blank" rel="noopener">http://mirrors.163.com/.help/centos.html</a></p>
+<h3 id="4-更换-yum-源"><a href="#4-更换-yum-源" class="headerlink" title="4. 更换 yum 源"></a>4. 更换 yum 源</h3><h4 id="4-1-备份-CentOS-Base-repo"><a href="#4-1-备份-CentOS-Base-repo" class="headerlink" title="4.1. 备份 CentOS-Base.repo"></a>4.1. 备份 CentOS-Base.repo</h4><p>CentOS-Base.repo 为系统自带的yum下载源定义文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXDNR.png" alt="image"></p>
+<h4 id="4-2-下载对应版本repo文件"><a href="#4-2-下载对应版本repo文件" class="headerlink" title="4.2. 下载对应版本repo文件"></a>4.2. 下载对应版本repo文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O http:&#x2F;&#x2F;mirrors.163.com&#x2F;.help&#x2F;CentOS7-Base-163.repo</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXKis.png" alt="image"></p>
+<h4 id="4-3-文件改名"><a href="#4-3-文件改名" class="headerlink" title="4.3. 文件改名"></a>4.3. 文件改名</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv CentOS7-Base-163.repo CentOS-Base.repo</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-清除缓存"><a href="#4-4-清除缓存" class="headerlink" title="4.4. 清除缓存"></a>4.4. 清除缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum clean all</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXEyN.png" alt="image"></p>
+<h4 id="4-5-更新本地缓存"><a href="#4-5-更新本地缓存" class="headerlink" title="4.5. 更新本地缓存"></a>4.5. 更新本地缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXUVB.png" alt="image"></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Spark系列二——结构化API(2)—基本的结构化操作</title>
-    <url>/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window-function），以及连接操作（join）将在后面的博客中介绍。"><a href="#本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window-function），以及连接操作（join）将在后面的博客中介绍。" class="headerlink" title="本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。"></a>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</h2><hr>
-<p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/red_han.jpg" alt="han"></p>
-<h3 id="1-模式"><a href="#1-模式" class="headerlink" title="1. 模式"></a>1. 模式</h3><p>模式定义了DataFrame的列名和列的数据类型，可以用如下方法查询DataFrame的模式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.printSchema()</span><br></pre></td></tr></table></figure>
-
-<p>可以由数据源来定义模式（称为读时模式，schema-on-read），也可以由我们自己显示地来定义。</p>
-<blockquote>
-<p>根据实际应用场景决定定义Schema的方式。当应用于即席分析时，使用读时模式即可（尽管在处理如CSV和JSON等传文本文件时速度较慢），但是，也可能导致数据精度损失问题，例如将long型错误地解析为整数。当使用Spark实现生产级别ETL（Extract提取、Tranform转换操作、Load加载）的时候，最好采取显示定义Schema的方式，尤其时在处理诸如CSV和JSON之类的无类型数据源时更是如此。</p>
-</blockquote>
-<p>以下示例演示了如何为一个DataFrame创建并指定模式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.types.&#123;StructField, StructType, StringType, LongType&#125;</span><br><span class="line">import org.apache.spark.sql.types.Metadata</span><br><span class="line"></span><br><span class="line">val myManualSchema &#x3D; StructType(Array()</span><br><span class="line">    StructField(&quot;DST_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;ORIGIN_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;count&quot;, LongType, false, MetaData.fromJson(&quot;&#123;\&quot;hello\&quot;:\&quot;world\&quot;&#125;&quot;))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>一个模式是由许多字段构成的StructType，这些字段即为StructField，具有名称、类型、布尔标志（指定该列是否可以包含缺省值或空值），并且<strong>用户可以指定与该列关联的元数据（metadata，存储着有关此列的信息，Spark在其机器学习库中使用此功能）</strong>。</p>
-<h3 id="2-列和表达式"><a href="#2-列和表达式" class="headerlink" title="2. 列和表达式"></a>2. 列和表达式</h3><p>Spark可以对DataFrame中的列进行选择、转换操作和删除，并将这些操作表示为表达式。</p>
-<p>对于Spark而言，<strong>列是逻辑结构</strong>，它只是表示根据表达式为每个记录计算出的值，这意味着要为一列创建一个真值，我们需要有一行，而要有一行则需要有一个DataFrame，因此不能在DataFrame范围外操作一个列，必须对DataFrame使用Spark的转换操作来修改列的内容。</p>
-<h4 id="2-1-列"><a href="#2-1-列" class="headerlink" title="2.1. 列"></a>2.1. 列</h4><p>可以通过col()或者column()两个函数来构造和引用列。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.(col, column)</span><br><span class="line"></span><br><span class="line">col(&quot;someColumnName&quot;)</span><br><span class="line">column(&quot;someColumnName&quot;)</span><br></pre></td></tr></table></figure>
-
-<p><strong><em>DataFrame可能不包含某列，所以该列要将列名与catalog中维护的列名相比较后才会确定该列是否会被解析，列和数据表的解析在分析其阶段发生。</em></strong></p>
-<p>Scala中有一些特殊的语言支持，可以使用更简短的方式来引用列。下面的表达式同col()或column()，即创建或引用列，但并不能改善性能：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$&quot;myColumn&quot;</span><br><span class="line">&#39;myColumn</span><br></pre></td></tr></table></figure>
-
-<p>符号$将字符串指定为表达式，而符号’指定一个symbol，是scala引用标识符的特殊结构。</p>
-<h5 id="显示列引用"><a href="#显示列引用" class="headerlink" title="显示列引用"></a>显示列引用</h5><p>如果需要引用某个DataFrame的某一列，则可以在这个DataFrame上使用col方法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.col(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>当执行连接操作时，如果两个连接的DataFrame存在一个同名列，该方法会非常有用。</p>
-<p><strong>显示引用列的另一个好处是Spark不用自己解析该列（在分析阶段）。</strong></p>
-<h4 id="2-2-表达式"><a href="#2-2-表达式" class="headerlink" title="2.2. 表达式"></a>2.2. 表达式</h4><p><strong>表达式（expression）是对一个DataFrame中某一个记录的一个或多个列的一组转换操作</strong>。</p>
-<p>把表达式想象成一个函数，它将一个或多个列名作为输入，解析它们，然后针对数据集中的每条记录应用表达式来得到一个单值（实际上可以是一个复杂的类型，如Map或Array）。</p>
-<p>在最简单的情况下，通过expr函数创建的表达式，仅仅是一个DataFrame列的引用，也就是说，expr(“someCol”)等同于col(“someCol”)。</p>
-<h5 id="列作为表达式"><a href="#列作为表达式" class="headerlink" title="列作为表达式"></a>列作为表达式</h5><p>列提供了表达式功能的一个子集。如果使用col()，并想对该列执行转换操作，则必须对该列的引用执行这些转换操作；当使用表达式时，expr函数实际上可以将字符串解析成转换操作和引用，也可以在之后将其传递到下一步的转换操作。</p>
-<p>例如，expr(“someCol - 5”) 与执行 col(“someCol”) - 5，甚至是 expr(“someCol”) - 5，都是相同的转换操作，Spark将它们编译为表示操作顺序的逻辑树。</p>
-<p>请记住下面两点：</p>
-<ul>
-<li><strong>列只是表达式</strong></li>
-<li>列与对这些列的转换操作被编译后生成的逻辑计划，与解析后的表达式的逻辑计划是一样的。</li>
-</ul>
-<p>以一个例子来说明：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(((col(&quot;someCol&quot;) + 5) * 200) - 6) &lt; col(&quot;otherCol&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>下图描述了上述代码的逻辑树结构：</p>
-<p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/logic_tree.jpg" alt="逻辑树"></p>
-<p>逻辑树是一种有向无环图，该图等同于以下代码；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.expr</span><br><span class="line"></span><br><span class="line">expr(&quot;(((someCol + 5) * 200) - 6) &lt; otherCol&quot;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-记录和行"><a href="#3-记录和行" class="headerlink" title="3. 记录和行"></a>3. 记录和行</h3><h3 id="4-DataFrame转换操作"><a href="#4-DataFrame转换操作" class="headerlink" title="4. DataFrame转换操作"></a>4. DataFrame转换操作</h3>]]></content>
       <categories>
-        <category>spark</category>
+        <category>教程</category>
       </categories>
       <tags>
-        <tag>spark结构化API</tag>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java多线程系列(1)——线程基础知识</title>
+    <url>/2020/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97(1)%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<pre><code>说明：本博客内容参考《疯狂java讲义（第三版）》。</code></pre><p>几乎所有的操作系统都支持同时运行多个任务，一个任务就是一个程序，<strong>每个运行中的程序就是一个进程</strong>。</p>
+<p>当一个程序运行时，内部可能包含了多个顺序执行流，<strong>每个顺序执行流就是一个线程</strong>。</p>
+<h3 id="1-线程和进程"><a href="#1-线程和进程" class="headerlink" title="1. 线程和进程"></a>1. 线程和进程</h3><p>运行中的任务通常对应一个进程（Process）。当一个程序进入内存运行时，即变成一个进程。</p>
+<p>一般而言，进程包含如下三个特征。</p>
+<ul>
+<li>独立性：进程是系统中独立存在的实体，它可以拥有自己独立的资源，每一个进程都有自己私有的地址空间。</li>
+<li>动态性：进程与程序的区别在于，程序只是一个静态的指令集合，而进程是一个正在系统中活动的指令集合。</li>
+<li>并发性：多个进程可以在单个处理器上并发执行，多个进程间不会互相影响。</li>
+</ul>
+<pre><code>并发性（concurrency）和并行性（parallel）是两个概念，并行指在同一时刻，有多条指令在多个处理器上同时执行；并发指在同一时刻只能有一条指令执行，但多个进程指令被快速轮换执行，使得在宏观上具有多个线程同时执行的效果。</code></pre><p>线程（Thread）也被称作轻量级进程（Lightweight Process），线程是进程的执行单元。<strong>当进程被初始化后，主线程就被创建了</strong>，对于绝大多数的应用程序，通常仅要求有一个主线程。</p>
+<p>线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程。<strong>线程</strong>可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但<strong>不拥有系统资源，它与父进程的其他线程共享该进程所拥有的全部资源</strong>。</p>
+<p>线程的特征：</p>
+<ul>
+<li>独立运行：它不知道进程中是否还有其他线程存在。</li>
+<li>抢占式执行：当前运行的线程在任何时候都可能被挂起，以便另一个线程可以运行。</li>
+<li>一个线程可以创建和撤销另一个线程。</li>
+</ul>
+<h3 id="2-多线程的优势"><a href="#2-多线程的优势" class="headerlink" title="2. 多线程的优势"></a>2. 多线程的优势</h3><p>线程比进程具有更高的性能，这是因为同一个进程中的线程都有共性——多个线程共享同一个进程虚拟空间。线程共享的环境包括：进一<br>当操作系统创建一个进程时，必须为该进程分配独立的内存空间，并分配大量的相关资源；但创建一个线程则简单得多，因此<strong>使用多线程来实现并发比使用多进程实现并发的性能要高得多</strong>。</p>
+<p>多线程优势：</p>
+<ul>
+<li>进程之间不能共享内存，但线程之间共享内存非常容易；</li>
+<li>系统创建进程时需要为该进程重新分配系统资源，但创建线程则代价小得多，因此使用多线程来实现多任务并发比多进程的效率高；</li>
+<li>Java语言内置了多线程功能支持，而不是单纯地作为地层操作系统的调度方式，从而简化了Java多线程编程。</li>
+</ul>
+<h3 id="3-多线程的应用"><a href="#3-多线程的应用" class="headerlink" title="3. 多线程的应用"></a>3. 多线程的应用</h3><p>多线程的应用非常广泛，尤其是耗时操作，如，浏览器同时下载多个图片；一个Web服务器同时响应多个用户请求；JVM本身在后台提供了一个超级线程来进行垃圾回收。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -201,9 +198,242 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop基础知识-2——关于MapReduce</title>
-    <url>/2020/06/06/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-2%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8EMapReduce/</url>
+    <title>Spark系列二——结构化API(2)—基本的结构化操作</title>
+    <url>/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</p>
+<p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/red_han.jpg" alt="han"></p>
+<h2 id="1-模式"><a href="#1-模式" class="headerlink" title="1. 模式"></a>1. 模式</h2><p>模式定义了DataFrame的列名和列的数据类型，可以用如下方法查询DataFrame的模式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.printSchema()</span><br></pre></td></tr></table></figure>
+
+<p>可以由数据源来定义模式（称为读时模式，schema-on-read），也可以由我们自己显示地来定义。</p>
+<blockquote>
+<p>根据实际应用场景决定定义Schema的方式。当应用于即席分析时，使用读时模式即可（尽管在处理如CSV和JSON等传文本文件时速度较慢），但是，也可能导致数据精度损失问题，例如将long型错误地解析为整数。当使用Spark实现生产级别ETL（Extract提取、Tranform转换操作、Load加载）的时候，最好采取显示定义Schema的方式，尤其时在处理诸如CSV和JSON之类的无类型数据源时更是如此。</p>
+</blockquote>
+<p>以下示例演示了如何为一个DataFrame创建并指定模式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.types.&#123;StructField, StructType, StringType, LongType&#125;</span><br><span class="line">import org.apache.spark.sql.types.Metadata</span><br><span class="line"></span><br><span class="line">val myManualSchema &#x3D; StructType(Array()</span><br><span class="line">    StructField(&quot;DST_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;ORIGIN_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;count&quot;, LongType, false, MetaData.fromJson(&quot;&#123;\&quot;hello\&quot;:\&quot;world\&quot;&#125;&quot;))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>一个模式是由许多字段构成的StructType，这些字段即为StructField，具有名称、类型、布尔标志（指定该列是否可以包含缺省值或空值），并且<strong>用户可以指定与该列关联的元数据（metadata，存储着有关此列的信息，Spark在其机器学习库中使用此功能）</strong>。</p>
+<h2 id="2-列和表达式"><a href="#2-列和表达式" class="headerlink" title="2. 列和表达式"></a>2. 列和表达式</h2><p>Spark可以对DataFrame中的列进行选择、转换操作和删除，并将这些操作表示为表达式。</p>
+<p>对于Spark而言，<strong>列是逻辑结构</strong>，它只是表示根据表达式为每个记录计算出的值，这意味着要为一列创建一个真值，我们需要有一行，而要有一行则需要有一个DataFrame，因此不能在DataFrame范围外操作一个列，必须对DataFrame使用Spark的转换操作来修改列的内容。</p>
+<h3 id="2-1-列"><a href="#2-1-列" class="headerlink" title="2.1. 列"></a>2.1. 列</h3><p>可以通过col()或者column()两个函数来构造和引用列。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.(col, column)</span><br><span class="line"></span><br><span class="line">col(&quot;someColumnName&quot;)</span><br><span class="line">column(&quot;someColumnName&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>DataFrame可能不包含某列，所以该列要将列名与catalog中维护的列名相比较后才会确定该列是否会被解析，列和数据表的解析在分析其阶段发生。</em></strong></p>
+<p>Scala中有一些特殊的语言支持，可以使用更简短的方式来引用列。下面的表达式同col()或column()，即创建或引用列，但并不能改善性能：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$&quot;myColumn&quot;</span><br><span class="line">&#39;myColumn</span><br></pre></td></tr></table></figure>
+
+<p>符号$将字符串指定为表达式，而符号’指定一个symbol，是scala引用标识符的特殊结构。</p>
+<h4 id="显示列引用"><a href="#显示列引用" class="headerlink" title="显示列引用"></a>显示列引用</h4><p>如果需要引用某个DataFrame的某一列，则可以在这个DataFrame上使用col方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.col(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>当执行连接操作时，如果两个连接的DataFrame存在一个同名列，该方法会非常有用。</p>
+<p><strong>显示引用列的另一个好处是Spark不用自己解析该列（在分析阶段）。</strong></p>
+<h3 id="2-2-表达式"><a href="#2-2-表达式" class="headerlink" title="2.2. 表达式"></a>2.2. 表达式</h3><p><strong>表达式（expression）是对一个DataFrame中某一个记录的一个或多个列的一组转换操作</strong>。</p>
+<p>把表达式想象成一个函数，它将一个或多个列名作为输入，解析它们，然后针对数据集中的每条记录应用表达式来得到一个单值（实际上可以是一个复杂的类型，如Map或Array）。</p>
+<p>在最简单的情况下，通过expr函数创建的表达式，仅仅是一个DataFrame列的引用，也就是说，expr(“someCol”)等同于col(“someCol”)。</p>
+<h4 id="列作为表达式"><a href="#列作为表达式" class="headerlink" title="列作为表达式"></a>列作为表达式</h4><p>列提供了表达式功能的一个子集。如果使用col()，并想对该列执行转换操作，则必须对该列的引用执行这些转换操作；当使用表达式时，expr函数实际上可以将字符串解析成转换操作和引用，也可以在之后将其传递到下一步的转换操作。</p>
+<p>例如，expr(“someCol - 5”) 与执行 col(“someCol”) - 5，甚至是 expr(“someCol”) - 5，都是相同的转换操作，Spark将它们编译为表示操作顺序的逻辑树。</p>
+<p>请记住下面两点：</p>
+<ul>
+<li><strong>列只是表达式</strong></li>
+<li>列与对这些列的转换操作被编译后生成的逻辑计划，与解析后的表达式的逻辑计划是一样的。</li>
+</ul>
+<p>以一个例子来说明：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(((col(&quot;someCol&quot;) + 5) * 200) - 6) &lt; col(&quot;otherCol&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>下图描述了上述代码的逻辑树结构：</p>
+<img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/logic_tree.jpg" width="400" height="300" alt="逻辑树" align="center">
+
+<p>逻辑树是一种有向无环图，该图等同于以下代码；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.expr</span><br><span class="line"></span><br><span class="line">expr(&quot;(((someCol + 5) * 200) - 6) &lt; otherCol&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-记录和行"><a href="#3-记录和行" class="headerlink" title="3. 记录和行"></a>3. 记录和行</h2><p>Spark中，DataFrame的每一行都是一个记录，而<strong>记录是Row类型的对象</strong>，Spark使用列表达式操纵Row类型对象。</p>
+<p>R<strong>ow对象内部其实是字节数组</strong>，但是Spark没有提供访问这些数组的接口，因此只能使用列表达式去操纵。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.first() &#x2F;&#x2F; 查看第一行</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建行"><a href="#创建行" class="headerlink" title="创建行"></a>创建行</h4><p>可以基于已知的每列数值去手动实例化一个Row对象来创建行，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.Row</span><br><span class="line"></span><br><span class="line">val myRow &#x3D; Row(&quot;Hello&quot;, null, 1, false)</span><br></pre></td></tr></table></figure>
+
+<p>访问行的数据：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; in Scala</span><br><span class="line">myRow(0)  &#x2F;&#x2F; 任意类型</span><br><span class="line">myRow(0).asInstanceOf[String] &#x2F;&#x2F; 字符串</span><br><span class="line">myRow.getString(0) &#x2F;&#x2F; 字符串</span><br><span class="line">myRow.getInt(2) &#x2F;&#x2F; 整型</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用Scala或Java时，你必须使用辅助方法或显示地指定值类型；而使用Python或R时，该值将被自动转化为正确的类型。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; in Python</span><br><span class="line">myRow[0]</span><br><span class="line">myRow[3]</span><br></pre></td></tr></table></figure>
+
+<p>还可以使用DataSet的API通过相应的Java虚拟机对象中显示返回一组Data数据（将在Spark系列十一中介绍）。</p>
+<h2 id="4-DataFrame转换操作"><a href="#4-DataFrame转换操作" class="headerlink" title="4. DataFrame转换操作"></a>4. DataFrame转换操作</h2><p>几个核心操作：</p>
+<ul>
+<li>添加行或列</li>
+<li>删除行或列</li>
+<li>将一行转换操作为一列（或者将一列转换操作为一行）</li>
+<li>根据列中的值更改行的顺序</li>
+</ul>
+<h4 id="创建DataFrame"><a href="#创建DataFrame" class="headerlink" title="创建DataFrame"></a>创建DataFrame</h4><ul>
+<li>从原始数据源中创建DataFrame</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val df &#x3D; spark.read.format(&quot;json&quot;)</span><br><span class="line">    .load(&quot;&#x2F;flight-data&#x2F;json&#x2F;2015-summary.json&quot;)</span><br><span class="line">df.createOrReplaceTempView(&quot;dfTable&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>以上示例，<font color="#dd00dd">将DataFrame注册为临时视图，以便在后面的示例中可以用SQL访问并展示一些SQL中的基本转换操作。</font></p>
+<ul>
+<li>通过获取一组行并将它们转换操作为一个DataFrame来即时创建DataFrame</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.Row</span><br><span class="line">import org.apache.spark.sql.types.&#123;StructField, StructType, StringType, LongType&#125;</span><br><span class="line"></span><br><span class="line">val schema &#x3D; new StructType(Array(</span><br><span class="line">    new StructField(&quot;some&quot;, StringType, true),</span><br><span class="line">    new StructField(&quot;col&quot;, StringType, true),</span><br><span class="line">    new StructField(&quot;names&quot;, LongType, false)))</span><br><span class="line"></span><br><span class="line">val myRows &#x3D; Seq(Row(&quot;Hello&quot;, null, 1L))</span><br><span class="line">val myRDD &#x3D; spark.sparkContext.parallelize(myRows)</span><br><span class="line">val myDf &#x3D; spark.createDataFrame(myRDD, schema)</span><br><span class="line">myDf.show(false)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/26/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%8C%96API-2-%E2%80%94%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/createDF.png" alt="spark-shell演示"></p>
+<h4 id="select-和selectExpr"><a href="#select-和selectExpr" class="headerlink" title="select()和selectExpr()"></a>select()和selectExpr()</h4><p>select()和selectExpr()支持在DataFrame上执行类似数据库表的SQL查询:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># SQL</span><br><span class="line">select colName * 10, otherCol, someOtherCol as c from df</span><br></pre></td></tr></table></figure>
+
+<p>可以通过多种不同的方式引用列，而且这些方式可以等家互换：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.&#123;expr, col, column&#125;</span><br><span class="line"></span><br><span class="line">df.select(</span><br><span class="line">    df.col(&quot;colName&quot;),</span><br><span class="line">    col(&quot;colName&quot;),</span><br><span class="line">    column(&quot;colName&quot;),</span><br><span class="line">    &#39;colName,</span><br><span class="line">    $&quot;colName&quot;,</span><br><span class="line">    expr(&quot;colName&quot;))</span><br><span class="line">  .show(2)</span><br></pre></td></tr></table></figure>
+
+<p><font color="#dd00dd">expr是目前最灵活的引用方式，它能够引用一列，也可以引用对列进行操纵的字符串表达式</font>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 将列名改为destination</span><br><span class="line">df.select(expr(&quot;DEST_COUNTRY_NAME AS destination&quot;)).show(2)</span><br><span class="line">&#x2F;&#x2F; 将列名改回原来的名称</span><br><span class="line">df.select(expr(&quot;DEST_COUNTRY_NAME AS destination&quot;)).alias(&quot;DEST_COUNTRY_NAME&quot;).show(2)</span><br></pre></td></tr></table></figure>
+
+<p>因为select后面跟着一系列expr是非常常见的写法，所以Spark有一个有效地描述此操作序列的接口：selectExpr，这是Spark最强大的地方，我们可以利用selectExpr构建复杂表达式来创建DataFrame。实际上，<strong>我们可以添加不包含任何聚合操作的有效SQL语句，并且只要列可以解析，它就是有效的！</strong>下面是最简单的例子，在DataFrame中增加一个新列withinCountry，该列描述了destination和origin是否相同：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.selectExpr(</span><br><span class="line">    &quot;*&quot;,</span><br><span class="line">    &quot;(DEST_COUNTRY_NAME &#x3D; ORIGIN_COUNTRY_NAME) as withinCountry&quot;)</span><br><span class="line">  .show(2)</span><br></pre></td></tr></table></figure>
+
+<p>使用selectExpr，还可以利用系统预定义好的聚合函数来指定在整个DataFrame上的聚合操作：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.selectExpr(&quot;avg(count)&quot;, &quot;count(distinct(DEST_COUNTRY_NAME))&quot;).show(2)</span><br></pre></td></tr></table></figure>
+<h4 id="转换操作成Spark类型（字面量）"><a href="#转换操作成Spark类型（字面量）" class="headerlink" title="转换操作成Spark类型（字面量）"></a>转换操作成Spark类型（字面量）</h4><p>有时候需要给Spark传递显示的值，它们只是一个值而非新列。我们的方式是通过字面量（literal）传递，就是将给定的编程语言的字面上的值转换操作为Spark可以理解的值。</p>
+<p>字面量就是表达式，可以用操作表达式的方式来使用它们：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.lit</span><br><span class="line"></span><br><span class="line">df.select(expr(&quot;*&quot;), lit（1）.as(&quot;One&quot;)).show(2)</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.withColumn(&quot;numberOne&quot;, lit(1)).show(2)</span><br><span class="line">df.withColumn(&quot;withinCountry&quot;, expr(&quot;ORIGIN_COUNTRY_NAME &#x3D;&#x3D; DEST_COUNTRY_NAME&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以使用withColumn对某一列重命名：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.withColumn(&quot;dest&quot;, expr(&quot;DEST_COUNTRY_NAME&quot;))</span><br></pre></td></tr></table></figure>
+
+<h4 id="重命名列"><a href="#重命名列" class="headerlink" title="重命名列"></a>重命名列</h4><p>我们不仅可以使用withColumn对列重命名，还可以使用withColumnRenamed：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.withColumnRenamed(&quot;DEST_COUNTRY_NAME&quot;, &quot;dest&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="保留字与关键字"><a href="#保留字与关键字" class="headerlink" title="保留字与关键字"></a>保留字与关键字</h4><p>列名中可能会包含空格或者连字符等保留字符，要处理这些保留字符需要适当地对列名进行转义，在Spark中，使用反引号`来实现。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.expr</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建一个包含空格或连字符的列，不需要转义</span><br><span class="line">val dfNew &#x3D; df.withColumn(</span><br><span class="line">    &quot;This Long Column-Name&quot;,</span><br><span class="line">    expr(&quot;ORIGIN_COUNTRY_NAME&quot;))</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 表达式中引用了包含空格或连字符的列，需要使用反引号来转义</span><br><span class="line">dfNew.selectExpr(</span><br><span class="line">    &quot;&#96;This Long Column-Name&#96;&quot;,</span><br><span class="line">    &quot;&#96;This Long Column-Name&#96; as &#96;new col&#96;&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>如果<strong>显示地使用字符串</strong>（这个字符串会被解释成字面值，而不是表达式）来引用列，则不需要转义（我们只需转义使用保留字符或关键字的表达式）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dfNew.select(col(&quot;This Long Column-Name&quot;)).show(2)</span><br></pre></td></tr></table></figure>
+
+<h4 id="区分大小写"><a href="#区分大小写" class="headerlink" title="区分大小写"></a>区分大小写</h4><p>Spark默认不区分大小写，可以通过如下配置使Spark区分大小写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- in SQL</span><br><span class="line">set spark.sql.caseSensitive true</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.drop(&quot;col_to_drop&quot;).columns()</span><br><span class="line">df.drop(&quot;col1&quot;, &quot;col2&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="更改列的类型（强制类型转换）"><a href="#更改列的类型（强制类型转换）" class="headerlink" title="更改列的类型（强制类型转换）"></a>更改列的类型（强制类型转换）</h4><p>将count列从integer整型转为Long长整型：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.withColumn(&quot;count2&quot;, col(&quot;count&quot;).cast(long))</span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤行"><a href="#过滤行" class="headerlink" title="过滤行"></a>过滤行</h4><p>有两种过滤方式：where和filter，以下过滤器是等效：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.filter(col(&quot;count&quot;) &lt; 2).show(2)</span><br><span class="line">df.where(&quot;count &lt; 2&quot;).show(2)</span><br></pre></td></tr></table></figure>
+
+<p>我们可能本能地想把多个过滤条件放到一个表达式中，尽管这种方式可行，但并不总是有效的。因为<font color="#dd00dd"><strong>Spark不管过滤条件的先后顺序，会同时执行所有过滤操作</strong></font>，因此当你乡指定多个AND过滤操作时，只要按照先后顺序以链式的方式把这些过滤条件串联起来即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.where(col(&quot;count&quot;) &lt; 2).where(col(&quot;ORIGIN_COUNTRY_NAME&quot;) &#x3D;!&#x3D; &quot;Croatia&quot;).show(2)</span><br></pre></td></tr></table></figure>
+
+<h4 id="获得去重后的行"><a href="#获得去重后的行" class="headerlink" title="获得去重后的行"></a>获得去重后的行</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.select(&quot;ORIGIN_COUNTRY_NAME&quot;, &quot;DEST_COUNTRY_NAME&quot;).distinct().count</span><br><span class="line">df.dropDuplicates(&quot;ORIGIN_COUNTRY_NAME&quot;, &quot;DEST_COUNTRY_NAME&quot;).count</span><br></pre></td></tr></table></figure>
+
+<p>以上代码结果相同。</p>
+<h4 id="随即抽样"><a href="#随即抽样" class="headerlink" title="随即抽样"></a>随即抽样</h4><p>使用sample()按照一定比例从DataFrame中随即抽取一部分行，可以通过withReplacement参数指定是否放回抽样，true为有放回，false为无放回。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val seed &#x3D; 5</span><br><span class="line">val withReplacement &#x3D; false</span><br><span class="line">val fraction &#x3D; 0.5</span><br><span class="line">df.sample(withReplacement, fraction, seed).count</span><br></pre></td></tr></table></figure>
+
+<h4 id="随即分割"><a href="#随即分割" class="headerlink" title="随即分割"></a>随即分割</h4><h4 id="连接和追加行（联合操作）"><a href="#连接和追加行（联合操作）" class="headerlink" title="连接和追加行（联合操作）"></a>连接和追加行（联合操作）</h4><h4 id="行排序"><a href="#行排序" class="headerlink" title="行排序"></a>行排序</h4><h4 id="limit-方法"><a href="#limit-方法" class="headerlink" title="limit 方法"></a>limit 方法</h4><h4 id="重划分和合并"><a href="#重划分和合并" class="headerlink" title="重划分和合并"></a>重划分和合并</h4><h4 id="驱动器获取行"><a href="#驱动器获取行" class="headerlink" title="驱动器获取行"></a>驱动器获取行</h4>]]></content>
+      <categories>
+        <category>spark</category>
+      </categories>
+      <tags>
+        <tag>spark结构化API</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java多线程系列(2)——线程的创建和启动</title>
+    <url>/2020/05/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97-2-%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<pre><code>Java使用Thread类代表线程，所有的线程对象都必须是Thread类或其子类的实例。</code></pre><p>本文介绍三种方式创建线程。</p>
+<h3 id="1-继承-Thread-类创建线程类"><a href="#1-继承-Thread-类创建线程类" class="headerlink" title="1. 继承 Thread 类创建线程类"></a>1. 继承 Thread 类创建线程类</h3><h3 id="2-实现-Runnable-接口创建线程类"><a href="#2-实现-Runnable-接口创建线程类" class="headerlink" title="2. 实现 Runnable 接口创建线程类"></a>2. 实现 Runnable 接口创建线程类</h3><h3 id="3-使用-Callable-和-Future-创建线程"><a href="#3-使用-Callable-和-Future-创建线程" class="headerlink" title="3. 使用 Callable 和 Future 创建线程"></a>3. 使用 Callable 和 Future 创建线程</h3>]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu更换软件源</title>
+    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><h3 id="1-备份软件源配置文件"><a href="#1-备份软件源配置文件" class="headerlink" title="1.备份软件源配置文件"></a>1.备份软件源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-添加清华源"><a href="#2-添加清华源" class="headerlink" title="2.添加清华源"></a>2.添加清华源</h3><p>新建并打开sources.list：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
+
+<p>添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-更新软件源"><a href="#3-更新软件源" class="headerlink" title="3.更新软件源"></a>3.更新软件源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><p>安装 vim：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<p>速度很快。</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>更换软件源</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>/2021/01/26/test/</url>
+    <content><![CDATA[<p><img src="/2021/01/26/test/hadoop.jpg" alt="test"></p>
+<p><img src="/2021/01/26/test/red_han.jpg" alt="han"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>算法面试通关40讲_01_程序员必备内功-数据结构与算法</title>
+    <url>/2021/01/28/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%80%9A%E5%85%B340%E8%AE%B2-01-%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%E5%86%85%E5%8A%9F-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/05/10/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>搭建hadoop集群</title>
+    <url>/2020/05/10/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h3 id="大数据开发课程"><a href="#大数据开发课程" class="headerlink" title="大数据开发课程"></a>大数据开发课程</h3><h4 id="1-主讲教师"><a href="#1-主讲教师" class="headerlink" title="1. 主讲教师"></a>1. 主讲教师</h4><ul>
+<li>徐老师</li>
+<li>John</li>
+<li>Jefitar</li>
+</ul>
+<h3 id="2-课程内容"><a href="#2-课程内容" class="headerlink" title="2. 课程内容"></a>2. 课程内容</h3><ul>
+<li>java</li>
+<li>scala</li>
+<li>python</li>
+<li>hadoop</li>
+<li>spark</li>
+<li>hive</li>
+<li>flume</li>
+<li>zookeeper</li>
+</ul>
+]]></content>
+      <categories>
+        <category>hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hadoop基础知识(1)——初识Hadoop</title>
@@ -315,48 +545,6 @@
       </categories>
       <tags>
         <tag>Hadoop基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java多线程系列(2)——线程的创建和启动</title>
-    <url>/2020/05/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97-2-%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<pre><code>Java使用Thread类代表线程，所有的线程对象都必须是Thread类或其子类的实例。</code></pre><p>本文介绍三种方式创建线程。</p>
-<h3 id="1-继承-Thread-类创建线程类"><a href="#1-继承-Thread-类创建线程类" class="headerlink" title="1. 继承 Thread 类创建线程类"></a>1. 继承 Thread 类创建线程类</h3><h3 id="2-实现-Runnable-接口创建线程类"><a href="#2-实现-Runnable-接口创建线程类" class="headerlink" title="2. 实现 Runnable 接口创建线程类"></a>2. 实现 Runnable 接口创建线程类</h3><h3 id="3-使用-Callable-和-Future-创建线程"><a href="#3-使用-Callable-和-Future-创建线程" class="headerlink" title="3. 使用 Callable 和 Future 创建线程"></a>3. 使用 Callable 和 Future 创建线程</h3>]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS更换yum源</title>
-    <url>/2020/05/24/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/</url>
-    <content><![CDATA[<h3 id="1-什么是-yum"><a href="#1-什么是-yum" class="headerlink" title="1. 什么是 yum"></a>1. 什么是 yum</h3><p>Yum（全称为 Yellow dog Updater, Modified）是一个在<strong>Fedora</strong>、<strong>RedHat</strong> 和 <strong>CentOS</strong> 中的 <strong>Shell前端软件包管理器</strong> 。</p>
-<p>Yum 基于RPM包管理，能够<strong>从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系</strong>，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
-<h3 id="2-YUM下载源定义文件"><a href="#2-YUM下载源定义文件" class="headerlink" title="2. YUM下载源定义文件"></a>2. YUM下载源定义文件</h3><p>YUM下载源定义文件存储在  <code>/etc/yum.repo.d/</code> 目录中，而且文件必须以 <code>.repo</code>为扩展名。</p>
-<h3 id="3-国内开源镜像"><a href="#3-国内开源镜像" class="headerlink" title="3. 国内开源镜像"></a>3. 国内开源镜像</h3><p>网易开源镜像站：<a href="http://mirrors.163.com/" target="_blank" rel="noopener">http://mirrors.163.com/</a></p>
-<p>centos的使用帮助：<a href="http://mirrors.163.com/.help/centos.html" target="_blank" rel="noopener">http://mirrors.163.com/.help/centos.html</a></p>
-<h3 id="4-更换-yum-源"><a href="#4-更换-yum-源" class="headerlink" title="4. 更换 yum 源"></a>4. 更换 yum 源</h3><h4 id="4-1-备份-CentOS-Base-repo"><a href="#4-1-备份-CentOS-Base-repo" class="headerlink" title="4.1. 备份 CentOS-Base.repo"></a>4.1. 备份 CentOS-Base.repo</h4><p>CentOS-Base.repo 为系统自带的yum下载源定义文件。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXDNR.png" alt="image"></p>
-<h4 id="4-2-下载对应版本repo文件"><a href="#4-2-下载对应版本repo文件" class="headerlink" title="4.2. 下载对应版本repo文件"></a>4.2. 下载对应版本repo文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O http:&#x2F;&#x2F;mirrors.163.com&#x2F;.help&#x2F;CentOS7-Base-163.repo</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXKis.png" alt="image"></p>
-<h4 id="4-3-文件改名"><a href="#4-3-文件改名" class="headerlink" title="4.3. 文件改名"></a>4.3. 文件改名</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv CentOS7-Base-163.repo CentOS-Base.repo</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-4-清除缓存"><a href="#4-4-清除缓存" class="headerlink" title="4.4. 清除缓存"></a>4.4. 清除缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum clean all</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXEyN.png" alt="image"></p>
-<h4 id="4-5-更新本地缓存"><a href="#4-5-更新本地缓存" class="headerlink" title="4.5. 更新本地缓存"></a>4.5. 更新本地缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.img.wenhairu.com/images/2020/05/24/YXUVB.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
       </tags>
   </entry>
   <entry>
@@ -545,108 +733,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Java多线程系列(1)——线程基础知识</title>
-    <url>/2020/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97(1)%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
-    <content><![CDATA[<pre><code>说明：本博客内容参考《疯狂java讲义（第三版）》。</code></pre><p>几乎所有的操作系统都支持同时运行多个任务，一个任务就是一个程序，<strong>每个运行中的程序就是一个进程</strong>。</p>
-<p>当一个程序运行时，内部可能包含了多个顺序执行流，<strong>每个顺序执行流就是一个线程</strong>。</p>
-<h3 id="1-线程和进程"><a href="#1-线程和进程" class="headerlink" title="1. 线程和进程"></a>1. 线程和进程</h3><p>运行中的任务通常对应一个进程（Process）。当一个程序进入内存运行时，即变成一个进程。</p>
-<p>一般而言，进程包含如下三个特征。</p>
-<ul>
-<li>独立性：进程是系统中独立存在的实体，它可以拥有自己独立的资源，每一个进程都有自己私有的地址空间。</li>
-<li>动态性：进程与程序的区别在于，程序只是一个静态的指令集合，而进程是一个正在系统中活动的指令集合。</li>
-<li>并发性：多个进程可以在单个处理器上并发执行，多个进程间不会互相影响。</li>
-</ul>
-<pre><code>并发性（concurrency）和并行性（parallel）是两个概念，并行指在同一时刻，有多条指令在多个处理器上同时执行；并发指在同一时刻只能有一条指令执行，但多个进程指令被快速轮换执行，使得在宏观上具有多个线程同时执行的效果。</code></pre><p>线程（Thread）也被称作轻量级进程（Lightweight Process），线程是进程的执行单元。<strong>当进程被初始化后，主线程就被创建了</strong>，对于绝大多数的应用程序，通常仅要求有一个主线程。</p>
-<p>线程是进程的组成部分，一个进程可以拥有多个线程，一个线程必须有一个父进程。<strong>线程</strong>可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但<strong>不拥有系统资源，它与父进程的其他线程共享该进程所拥有的全部资源</strong>。</p>
-<p>线程的特征：</p>
-<ul>
-<li>独立运行：它不知道进程中是否还有其他线程存在。</li>
-<li>抢占式执行：当前运行的线程在任何时候都可能被挂起，以便另一个线程可以运行。</li>
-<li>一个线程可以创建和撤销另一个线程。</li>
-</ul>
-<h3 id="2-多线程的优势"><a href="#2-多线程的优势" class="headerlink" title="2. 多线程的优势"></a>2. 多线程的优势</h3><p>线程比进程具有更高的性能，这是因为同一个进程中的线程都有共性——多个线程共享同一个进程虚拟空间。线程共享的环境包括：进一<br>当操作系统创建一个进程时，必须为该进程分配独立的内存空间，并分配大量的相关资源；但创建一个线程则简单得多，因此<strong>使用多线程来实现并发比使用多进程实现并发的性能要高得多</strong>。</p>
-<p>多线程优势：</p>
-<ul>
-<li>进程之间不能共享内存，但线程之间共享内存非常容易；</li>
-<li>系统创建进程时需要为该进程重新分配系统资源，但创建线程则代价小得多，因此使用多线程来实现多任务并发比多进程的效率高；</li>
-<li>Java语言内置了多线程功能支持，而不是单纯地作为地层操作系统的调度方式，从而简化了Java多线程编程。</li>
-</ul>
-<h3 id="3-多线程的应用"><a href="#3-多线程的应用" class="headerlink" title="3. 多线程的应用"></a>3. 多线程的应用</h3><p>多线程的应用非常广泛，尤其是耗时操作，如，浏览器同时下载多个图片；一个Web服务器同时响应多个用户请求；JVM本身在后台提供了一个超级线程来进行垃圾回收。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu更换软件源</title>
-    <url>/2020/05/17/Ubuntu%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<pre><code>编者按：系统为Ubuntu Kylin 16.04 LTS。</code></pre><h3 id="1-备份软件源配置文件"><a href="#1-备份软件源配置文件" class="headerlink" title="1.备份软件源配置文件"></a>1.备份软件源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt&#x2F;</span><br><span class="line">sudo mv sources.list sources.list.bak</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-添加清华源"><a href="#2-添加清华源" class="headerlink" title="2.添加清华源"></a>2.添加清华源</h3><p>新建并打开sources.list：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi sources.list</span><br></pre></td></tr></table></figure>
-
-<p>添加如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-更新软件源"><a href="#3-更新软件源" class="headerlink" title="3.更新软件源"></a>3.更新软件源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><p>安装 vim：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
-
-<p>速度很快。</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>更换软件源</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建hadoop集群</title>
-    <url>/2020/05/10/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h3 id="大数据开发课程"><a href="#大数据开发课程" class="headerlink" title="大数据开发课程"></a>大数据开发课程</h3><h4 id="1-主讲教师"><a href="#1-主讲教师" class="headerlink" title="1. 主讲教师"></a>1. 主讲教师</h4><ul>
-<li>徐老师</li>
-<li>John</li>
-<li>Jefitar</li>
-</ul>
-<h3 id="2-课程内容"><a href="#2-课程内容" class="headerlink" title="2. 课程内容"></a>2. 课程内容</h3><ul>
-<li>java</li>
-<li>scala</li>
-<li>python</li>
-<li>hadoop</li>
-<li>spark</li>
-<li>hive</li>
-<li>flume</li>
-<li>zookeeper</li>
-</ul>
-]]></content>
-      <categories>
-        <category>hadoop</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/05/10/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
+    <title>Hadoop基础知识-2——关于MapReduce</title>
+    <url>/2020/06/06/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-2%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8EMapReduce/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
