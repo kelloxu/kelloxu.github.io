@@ -67,7 +67,7 @@
 <p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.first() &#x2F;&#x2F; 查看第一行</span><br></pre></td></tr></table></figure>
 
-<h4 id="创建行"><a href="#创建行" class="headerlink" title="创建行"></a>创建行</h4><p>可以基于已知的每列数值去手动实例化一个Row对象来创建行，例如：</p>
+<p>可以基于已知的每列数值去手动实例化一个Row对象来创建行，例如：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.spark.sql.Row</span><br><span class="line"></span><br><span class="line">val myRow &#x3D; Row(&quot;Hello&quot;, null, 1, false)</span><br></pre></td></tr></table></figure>
 
 <p>访问行的数据：</p>
