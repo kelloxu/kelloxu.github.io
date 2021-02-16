@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-01-28T08:20:48.471Z</updated>
+  <updated>2021-02-16T04:54:36.961Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>算法面试通关40讲_01_程序员必备内功-数据结构与算法</title>
-    <link href="http://yoursite.com/2021/01/28/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%80%9A%E5%85%B340%E8%AE%B2-01-%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%E5%86%85%E5%8A%9F-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    <id>http://yoursite.com/2021/01/28/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%80%9A%E5%85%B340%E8%AE%B2-01-%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%E5%86%85%E5%8A%9F-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</id>
-    <published>2021-01-28T08:20:48.000Z</published>
-    <updated>2021-01-28T08:20:48.471Z</updated>
+    <title>Ubuntu安装hadoop+Spark</title>
+    <link href="http://yoursite.com/2021/02/16/Ubuntu%E5%AE%89%E8%A3%85hadoop-Spark/"/>
+    <id>http://yoursite.com/2021/02/16/Ubuntu%E5%AE%89%E8%A3%85hadoop-Spark/</id>
+    <published>2021-02-16T04:54:36.000Z</published>
+    <updated>2021-02-16T04:54:36.961Z</updated>
     
     <summary type="html">
     
@@ -32,22 +32,36 @@
   </entry>
   
   <entry>
-    <title>test</title>
-    <link href="http://yoursite.com/2021/01/26/test/"/>
-    <id>http://yoursite.com/2021/01/26/test/</id>
-    <published>2021-01-26T15:27:53.000Z</published>
-    <updated>2021-01-26T15:30:54.557Z</updated>
+    <title>Spark系列二——处理不同的数据类型</title>
+    <link href="http://yoursite.com/2021/02/15/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/2021/02/15/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
+    <published>2021-02-15T14:17:42.000Z</published>
+    <updated>2021-02-16T04:50:12.639Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2021/01/26/test/hadoop.jpg" alt="test"></p><p><img src="/2021/01/26/test/red_han.jpg" alt="han"></p>]]></content>
+    <content type="html"><![CDATA[<p>本篇博客将介绍对不同数据类型的处理，主要包括以下内容：</p><ul><li>布尔型</li><li>数字型</li><li>字符串型</li><li>日期和时间戳类型</li><li>空值处理</li><li>复杂类型</li><li>用户自定义的函数</li></ul><h2 id="1-在哪里查找API"><a href="#1-在哪里查找API" class="headerlink" title="1. 在哪里查找API"></a>1. 在哪里查找API</h2><h4 id="DataFrame-DataSet-方法"><a href="#DataFrame-DataSet-方法" class="headerlink" title="DataFrame(DataSet)方法"></a>DataFrame(DataSet)方法</h4><p>因为DataFrame本质上就是一个Row类型的DataSet，所以可以直接去看DataSet的方法，请访问 <a href="http://spark.apache.org/docs/2.2.1/api/java/org/apache/spark/sql/Dataset.html" target="_blank" rel="noopener">http://spark.apache.org/docs/2.2.1/api/java/org/apache/spark/sql/Dataset.html</a> 。</p><p>DataSet的子模块有更多的解决具体问题的方法，如DataFrameStatFunctions包含许多统计相关的函数，DataFrameNaFunctions包含处理空值相关的函数。</p><h4 id="Column类型的方法"><a href="#Column类型的方法" class="headerlink" title="Column类型的方法"></a>Column类型的方法</h4><p>上篇博客（结构化API-2）中介绍了大部分Column类型的方法，其中包含各种与列相关的通用方法，例如alias或contains，请访问 <a href="http://spark.apache.org/docs/2.2.1/api/java/org/apache/spark/sql/Column.html" target="_blank" rel="noopener">http://spark.apache.org/docs/2.2.1/api/java/org/apache/spark/sql/Column.html</a> 获取Column的API。</p><h4 id="functions包"><a href="#functions包" class="headerlink" title="functions包"></a>functions包</h4><p>org.apache.spark.sql.functions 包含针对一系列不同数据类型的函数方法，因为这些函数方法经常被用到，所以这个包经常被整个导入代码中，可以在这里找到SQL和DataFrame的函数方法。</p><p>首先读取数据，以便后续分析使用：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val df &#x3D; spark.read.format(&quot;csv&quot;)</span><br><span class="line">    .option(&quot;header&quot;, &quot;true&quot;)</span><br><span class="line">    .option(&quot;inferSchema&quot;, &quot;true&quot;)</span><br><span class="line">    .load(&quot;~&#x2F;bigdata&#x2F;data&#x2F;retail-data&#x2F;by-day&#x2F;2010-12-01.csv&quot;)</span><br><span class="line">df.printSchema()</span><br><span class="line">df.createOrReplaceTempView(&quot;dfTable&quot;)</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;img src=&quot;/2021/01/26/test/hadoop.jpg&quot; alt=&quot;test&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2021/01/26/test/red_han.jpg&quot; alt=&quot;han&quot;&gt;&lt;/p&gt;
-
-      
+      模式定义了DataFrame列的名以及列的数据类型；DataFrame的分区定义了DataFrame以及DataSet在集群上的物理分布，而划分模式定义了partition的分配方式。
+    
+    </summary>
+    
+    
+      <category term="spark" scheme="http://yoursite.com/categories/spark/"/>
+    
+    
+      <category term="spark数据类型" scheme="http://yoursite.com/tags/spark%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法面试通关40讲_01_程序员必备内功-数据结构与算法</title>
+    <link href="http://yoursite.com/2021/01/28/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%80%9A%E5%85%B340%E8%AE%B2-01-%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%E5%86%85%E5%8A%9F-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    <id>http://yoursite.com/2021/01/28/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%80%9A%E5%85%B340%E8%AE%B2-01-%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%E5%86%85%E5%8A%9F-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</id>
+    <published>2021-01-28T08:20:48.000Z</published>
+    <updated>2021-01-28T08:20:48.471Z</updated>
+    
+    <summary type="html">
     
     </summary>
     
