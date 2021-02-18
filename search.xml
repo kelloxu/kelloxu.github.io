@@ -2,12 +2,12 @@
 <search>
   <entry>
     <title>CentOS7搭建Spark2集群</title>
-    <url>/2021/02/16/Ubuntu%E5%AE%89%E8%A3%85hadoop-Spark/</url>
+    <url>/2021/02/16/CentOS7%E6%90%AD%E5%BB%BASpark2%E9%9B%86%E7%BE%A4/</url>
     <content><![CDATA[<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>最近在复习Spark集群的搭建，选择了Spark-2.4.6。</p>
 <p>虽然Spark自身提供了集群环境（standalone模式），但是生产环境一般不用，而是使用hadoop集群环境（hadoop2成为yarn），所以本博客还会介绍hadoop集群的搭建方法。</p>
 <p>另外，spark和hadoop都需要jdk，那么jdk应该选择哪个版本的呢？hadoop应该选择哪个版本呢？如果你使用scala进行spark开发，那么scala应该选择那个版本呢？以上这三个问题很好解决，查看spark的源码，选择2.4.6的tag，查看pom.xml即可（<a href="https://github.com/apache/spark/blob/v2.4.6-rc8/pom.xml）：" target="_blank" rel="noopener">https://github.com/apache/spark/blob/v2.4.6-rc8/pom.xml）：</a></p>
-<p><img src="/2021/02/16/Ubuntu%E5%AE%89%E8%A3%85hadoop-Spark/spark2.4.6_properties.png" alt="jdk-hadoop版本"></p>
-<p><img src="/2021/02/16/Ubuntu%E5%AE%89%E8%A3%85hadoop-Spark/spark2.4.6_properties_scala.png" alt="scala版本"></p>
+<p><img src="/2021/02/16/CentOS7%E6%90%AD%E5%BB%BASpark2%E9%9B%86%E7%BE%A4/spark2.4.6_properties.png" alt="jdk-hadoop版本"></p>
+<p><img src="/2021/02/16/CentOS7%E6%90%AD%E5%BB%BASpark2%E9%9B%86%E7%BE%A4/spark2.4.6_properties_scala.png" alt="scala版本"></p>
 <p>所以，要想搭建Spark-2.4.6集群，jdk版本不能低于1.8，hadoop版本不能低于2.6.5，scala版本不能低于2.11.12。</p>
 <p>但是，scala版本不能选择2.12的，因为对于spark 2，除了2.4.2是用scala 2.12预编译的，其他版本都是用scala 2.11预编译的；对于spark 3，都是用scala 2.12预编译的（ <a href="http://spark.apache.org/downloads.html）。" target="_blank" rel="noopener">http://spark.apache.org/downloads.html）。</a></p>
 <h2 id="2-环境及准备"><a href="#2-环境及准备" class="headerlink" title="2. 环境及准备"></a>2. 环境及准备</h2><h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><p>CentOS Linux release 7.7.1908 (Core)，共有5台机器，一台作为master（hostname为master），另外四台作为slave（hostname为slave1、slave2、slave3、slave4）。</p>
