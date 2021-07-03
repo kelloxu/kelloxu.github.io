@@ -622,9 +622,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成一个指令的有向无还图。
-指令的图的执行过程作为一个作业由一个动作操作触发，在执行过程中一个作业被分解成多个阶段(stage)和任务(task)在集群上执行。
-转换操作和动作操作操纵的逻辑结构是 DataFrame 和 DataSet，创建一个新的 DataFrame 或 DataSet 需要调用一个转换操作。如果要...
+        结构化API指以下三种核心分布式集合类型的API：
+
+DataSet类型
+DataFrame类型
+SQL表和视图
+
+Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成一个指令的有向无环图。
+指令的图的执行过程作为一个作业由一个动作操作触发，在执行过程中一个作业被分解成多个**阶段(stage)和任务(task)**在集群上执行。
+转换操作和动作操作操纵的逻辑结构是...
       
     
   </div>
