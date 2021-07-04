@@ -552,7 +552,46 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  
+  <p>DataSet: 结构化API的基本类型；<br>DataFrame: Row类型的DataSet。</p>
+<p><font color="#dd00dd">DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一起使用</font>。</p>
+<p><strong>你可以定义DataSet中每一行所包含的对象，在Scala中就是一个case类对象，它实质上定义了一种模式schema；而在java中就是Java Bean。</strong></p>
+<blockquote>
+<p>经验丰富的程序猿经常将DataSet称为Spark中的“类型化API”（因为DataSet在编译时就检查类型，而DataFrame是在运行时检查类型）。</p>
+</blockquote>
+<p>为了有效支持特定领域（scala或java）的对象，需要一个称为“编码器”（Encoder）的特殊概念，它将特定领域类型T映射为Spark内部类型。</p>
+<p>例如，给定一个类Person具有两个字段，名称（string）和年龄（int），编码器保证Spark在运行时生成代码以序列化Person对象为二进制结构，使用DataFrame时，此二进制结构就是Row类型；当我们要创建自己的特定领域对象时，可以在scala中指定一个case类，或者在java中使用java bean，这样我们可以通过Spark以分布式方式操作此对象（不是Row类型的对象）。</p>
+<p>当使用DataSet API时，将Spark Row格式的每一行转换为指定的特定领域类型的对象，此转换会减慢操作速度，但是可以提供更大的灵活性。</p>
+<h2 id="1-何时使用Dataset"><a href="#1-何时使用Dataset" class="headerlink" title="1. 何时使用Dataset"></a>1. 何时使用Dataset</h2><p>你可能回想，如果在使用Dataset时损失性能，那为什么还要使用呢？有两点主要原因：</p>
+<ul>
+<li>当你要执行的操作无法使用DataFrame操作表示时</li>
+<li>如果需要类型安全，并且愿意牺牲一定性能来实现它</li>
+</ul>
+<p>你可能有业务逻辑想用特定的函数而非SQL或DataFrame来实现，这就要使用Dataset了；此外，因为Dataset API是类型安全的，对于其类型无效的操作将在编译时出错，而不是在运行时失败，如果正确性和防御性代码（bulletproof code）是你更需要考虑的事情，那么牺牲一些性能或许是最好的选择。</p>
+<p>使用Dataset的另一种情况是，<strong>在单点作业和Spark作业之间重用对行的各种转化代码</strong>。Spark API 包含了 Scala Sequence 类型，它们以分布式方式运行，因此，使用Dataset的一个优点是，如果你<strong>将所有数据和转换定义为case类，那么在分布式和单机作业中使用它们没什么区别</strong>。</p>
+<p>最流行的应用场景可能是<strong>先用DataFrame和再用Dataset</strong>的情况，这可以手动在性能和类型安全之间进行权衡。这在有些情况是很有用的，比如基于DataFrame执行的提取、转换和加载（ETL）转换作业之后，想将数据送入驱动器并使用单机库操作时。</p>
+<h2 id="2-创建DataSet"><a href="#2-创建DataSet" class="headerlink" title="2. 创建DataSet"></a>2. 创建DataSet</h2><h3 id="Java编码器"><a href="#Java编码器" class="headerlink" title="Java编码器"></a>Java编码器</h3><p>Java编码器很简单，只需指定类，然后对DataFrame（即DataSet<Row>类型）进行编码，得到Dataset&lt;Java类&gt;：</Row></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Encoders;</span><br><span class="line"></span><br><span class="line">public class Flight implements Serializable &#123;</span><br><span class="line">  String DEST_COUNTRY_NAME;</span><br><span class="line">  String ORIGIN_COUNTRY_NAME;</span><br><span class="line">  Long count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dataset&lt;Flight&gt; flights = spark.read</span><br><span class="line">  .parquet($data_path)</span><br><span class="line">  .as(Encoders.bean(Flight.class));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Scala-Case类"><a href="#Scala-Case类" class="headerlink" title="Scala: Case类"></a>Scala: Case类</h3><p>在Scala中创建Dataset，要定义case类，case类具有以下特征：</p>
+<ul>
+<li>不可变</li>
+<li>通过模式匹配可分解，类获取类属性</li>
+<li>允许基于结构的比较而不是基于引用的比较</li>
+<li>易于使用和操作</li>
+</ul>
+<p>这些特点对数据分析很有用，因为case类很容易解析，而最重要的特性应该是<strong>case类的不变性，可以通过内容结构而不是引用进行比较</strong>。下面时Scala文档对它的描述：</p>
+<ul>
+<li>不变性使你无需跟踪对象变化、时间和位置</li>
+<li>“按值比较”允许直接比较实例的值，就像它们是基本类型值一样，避免了混淆类实例基于值比较或基于引用比较所带来的不确定性</li>
+<li>模式匹配简化了分支逻辑，bug少，代码可读性更好</li>
+</ul>
+<p>创建Dataset，首先为数据集定义一个case class:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case class Flight(DEST_COUNTRY_NAME: String,</span><br><span class="line">                  ORIGIN_COUNTRY_NAME: String,</span><br><span class="line">                  count: BigInt)</span><br></pre></td></tr></table></figure>
+
+<p>当读数据时，我们会得到一个DataFrame，使用 as 方法将其强制转化为指定的行类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val flightsDF = spark.read.parquet($data_path)</span><br><span class="line">val flights = flightsDF.as[Flight]</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-动作操作"><a href="#3-动作操作" class="headerlink" title="3. 动作操作"></a>3. 动作操作</h2><h2 id="4-转换操作"><a href="#4-转换操作" class="headerlink" title="4. 转换操作"></a>4. 转换操作</h2><h2 id="5-过滤"><a href="#5-过滤" class="headerlink" title="5. 过滤"></a>5. 过滤</h2><h2 id="6-映射"><a href="#6-映射" class="headerlink" title="6. 映射"></a>6. 映射</h2><h2 id="7-连接"><a href="#7-连接" class="headerlink" title="7. 连接"></a>7. 连接</h2><h2 id="8-分组和聚合"><a href="#8-分组和聚合" class="headerlink" title="8. 分组和聚合"></a>8. 分组和聚合</h2>
   
   
     
@@ -596,7 +635,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T12:03:47+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T23:41:55+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月4日</p>
@@ -716,6 +755,20 @@ SQL（结构化查询语言，Structured Quer...</p>
     
 
 
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8Dataset"><span class="toc-text">1. 何时使用Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BADataSet"><span class="toc-text">2. 创建DataSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-text">Java编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scala-Case%E7%B1%BB"><span class="toc-text">Scala: Case类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8A%A8%E4%BD%9C%E6%93%8D%E4%BD%9C"><span class="toc-text">3. 动作操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. 转换操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%BF%87%E6%BB%A4"><span class="toc-text">5. 过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%98%A0%E5%B0%84"><span class="toc-text">6. 映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%BF%9E%E6%8E%A5"><span class="toc-text">7. 连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%88%86%E7%BB%84%E5%92%8C%E8%81%9A%E5%90%88"><span class="toc-text">8. 分组和聚合</span></a></li></ol>
+    </div>
+  </section>
 
 
   

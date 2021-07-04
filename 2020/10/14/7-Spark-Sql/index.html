@@ -652,7 +652,95 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>实际上，视图等同于从现有DataFrame创建新的DataFrame。</p>
 <h4 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h4><p>可以按照删除表的方式删除视图。</p>
 <p>删除视图不会删除基础数据，只删除视图定义本身。</p>
-<h3 id="2-3-数据库"><a href="#2-3-数据库" class="headerlink" title="2.3. 数据库"></a>2.3. 数据库</h3><h3 id="2-4-选择语句"><a href="#2-4-选择语句" class="headerlink" title="2.4. 选择语句"></a>2.4. 选择语句</h3><h2 id="3-高级主题"><a href="#3-高级主题" class="headerlink" title="3. 高级主题"></a>3. 高级主题</h2><h3 id="3-1-复杂类型"><a href="#3-1-复杂类型" class="headerlink" title="3.1. 复杂类型"></a>3.1. 复杂类型</h3><h4 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h4><h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h3 id="3-2-函数"><a href="#3-2-函数" class="headerlink" title="3.2. 函数"></a>3.2. 函数</h3><h4 id="用户定义函数"><a href="#用户定义函数" class="headerlink" title="用户定义函数"></a>用户定义函数</h4><h3 id="3-3-子查询"><a href="#3-3-子查询" class="headerlink" title="3.3. 子查询"></a>3.3. 子查询</h3><h4 id="不相关谓词子查询"><a href="#不相关谓词子查询" class="headerlink" title="不相关谓词子查询"></a>不相关谓词子查询</h4><h4 id="相关谓词子查询"><a href="#相关谓词子查询" class="headerlink" title="相关谓词子查询"></a>相关谓词子查询</h4><h4 id="不相关标量查询"><a href="#不相关标量查询" class="headerlink" title="不相关标量查询"></a>不相关标量查询</h4><h2 id="4-其他功能"><a href="#4-其他功能" class="headerlink" title="4. 其他功能"></a>4. 其他功能</h2>
+<h3 id="2-3-数据库"><a href="#2-3-数据库" class="headerlink" title="2.3. 数据库"></a>2.3. 数据库</h3><p>查看所有数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW DATABASES</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE some_db</span><br></pre></td></tr></table></figure>
+
+<h4 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USE some_db</span><br></pre></td></tr></table></figure>
+
+<p>产看当前正在使用的数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT current_database()</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP DATABASE IF EXISTS some_db</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-选择语句"><a href="#2-4-选择语句" class="headerlink" title="2.4. 选择语句"></a>2.4. 选择语句</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SELECT [ALL|DISTINCT] named_expression[, named_expression, ...]</span><br><span class="line">    FROM relation[, relation, ...]</span><br><span class="line">    [lateral_view[, lateral_view, ...]]</span><br><span class="line">    [WHERE boolean_expression]</span><br><span class="line">    [aggregation [HAVING boolean_expression]]</span><br><span class="line">    [ORDER BY sort_expressions]</span><br><span class="line">    [CLUSTER BY expressions]</span><br><span class="line">    [DISTRIBUTE BY expressions]</span><br><span class="line">    [SORT BY sort_expressions]</span><br><span class="line">    [WINDOW named_window[, WINDOW named_window, ...]]</span><br><span class="line">    [LIMIT num_rows]</span><br></pre></td></tr></table></figure>
+
+<p>named_expression:<br>    : expression [AS alias]</p>
+<p>relation:<br>    | join_relation<br>    | (table_name|query|relation) [sample] [AS alias]<br>    : VALUES (expressions)[, (expressions), …]<br>        [AS (column_name[, column_name, …])]</p>
+<p>expressions:<br>    : expression[, expression, …]</p>
+<p>sort_expressions:<br>    : expression [ASC|DESC][, expression [ASC|DESC], …]</p>
+<h4 id="case…when…语句"><a href="#case…when…语句" class="headerlink" title="case…when…语句"></a>case…when…语句</h4><p>通过使用case…when…then…end类型语句来实现“在SQL查询中依据某条件来替换值”，这相当于程序中的if语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">  CASE WHEN DEST_COUNTRY_NAME = &#x27;UNITED STATES&#x27; THEN 1</span><br><span class="line">       WHEN DEST_COUNTRY_NAME = &#x27;Egypt&#x27; THEN 0</span><br><span class="line">       ELSE -1 END</span><br><span class="line"></span><br><span class="line">FROM flights_partitioned</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-高级主题"><a href="#3-高级主题" class="headerlink" title="3. 高级主题"></a>3. 高级主题</h2><h3 id="3-1-复杂类型"><a href="#3-1-复杂类型" class="headerlink" title="3.1. 复杂类型"></a>3.1. 复杂类型</h3><p>标准SQL中不支持复杂类型。</p>
+<p><font color="#dd00dd">SPARK SQL 中支持了三种复杂类型：<strong>结构体（struct）、列表（list）和映射（map）</strong>。</font></p>
+<h4 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h4><p>结构体提供了一种在Spark中创建或查询嵌套数据的方法。</p>
+<p>要创建一个结构体，只需要在括号中包含一组列（或表达式）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW IF NOT EXISTS nested_data AS</span><br><span class="line">  SELECT (DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME) as country, count FROM flights</span><br></pre></td></tr></table></figure>
+
+<p>你可以查询次数据的形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM nested_data</span><br></pre></td></tr></table></figure>
+
+<p>你也可以查询结构中的每一列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT country.DEST_COUNTRY_NAME, count FROM nested_data</span><br></pre></td></tr></table></figure>
+
+<p>还可以使用结构体的名字选择结构体所有的子值以及所有的子列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT country.*, count FROM nested_data</span><br></pre></td></tr></table></figure>
+
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>SPARK SQL有两种创建列表的方式：</p>
+<ul>
+<li>collect_list 创建一个包含值的列表</li>
+<li>collect_set  创建一个不包含有重复值的列表</li>
+</ul>
+<p>这两种函数都是聚合函数，因此<strong>只能在聚合操作中使用</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT DEST_COUNTRY_NAME as new_name, collect_list(count) as flight_couns,</span><br><span class="line">  collect_set(ORIGIN_COUNTRY_NAME) as origin_set</span><br><span class="line">FROM flights GROUP BY DEST_COUNTRY_NAME</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过设定值的方法来手动创建数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DEST_COUNTRY_NAME, ARRAY(1, 2, 3) FROM flights</span><br></pre></td></tr></table></figure>
+
+<p>还可以按位置查询列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT DEST_COUNTRY_NAME as new_name, collect_list(count)[0] FROM flights GROUP BY</span><br><span class="line">DEST_COUNTRY_NAME</span><br></pre></td></tr></table></figure>
+
+<p>还可以使用<font color="#dd00dd">explode函数</font>来执行诸如将数组转换回行的操作，为了演示，我们先创建一个包含聚合结果的新视图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE OR REPLACE TEMP VIEW flights_agg AS</span><br><span class="line">  SELECT DEST_COUNTRY_NAME, collect_list(count) as collected_counts</span><br><span class="line">  FROM flights GROUP BY DEST_COUNTRY_NAME</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们将复杂类型数组中的每个值作为结果中的一行，DEST_COUNTRY_NAME将被重复复制到数组中的每个值，<strong>执行与原始collect相反的操作</strong>，返回一个DataFrame：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT explode(collected_counts), DEST_COUNTRY_NAME FROM flights_agg</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-函数"><a href="#3-2-函数" class="headerlink" title="3.2. 函数"></a>3.2. 函数</h3><p>使用如下语句查看Spark SQl中的函数列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW FUNCTIONS</span><br></pre></td></tr></table></figure>
+
+<p>还可以指定查询系统函数（Spark内置函数）和用户函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHOW SYSTEM FUNCTIONS</span><br><span class="line">SHOW USER FUNCTIONS</span><br></pre></td></tr></table></figure>
+
+<p>通过传递带有通配符的字符串来实现过滤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW FUNCTIONS &quot;s*&quot;  // 查看以“s”开头的所有函数</span><br></pre></td></tr></table></figure>
+
+<p>也可以包括LIKE关键字：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW FUNCTIONS LIKE &quot;collect*&quot;</span><br></pre></td></tr></table></figure>
+
+<p>使用DESCRIBE关键字，返回特定函数的文档，了解函数的更多信息。</p>
+<h4 id="用户定义函数"><a href="#用户定义函数" class="headerlink" title="用户定义函数"></a>用户定义函数</h4><p>Spark允许用户定义自己的函数并以分布式方式使用它们。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def power3(number: Double): Double = number * number * number  // 定义函数</span><br><span class="line">spark.udf.register(&quot;power3&quot;, power3(_: Double): Double)        // 注册函数</span><br><span class="line">SELECT count, power3(count) FROM flights                       // 使用函数</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-子查询"><a href="#3-3-子查询" class="headerlink" title="3.3. 子查询"></a>3.3. 子查询</h3><p>Spark中有两个基本子查询：</p>
+<ul>
+<li>相关子查询（Correlated Subquery）， 使用来自查询外的一些信息</li>
+<li>不相关子查询（Uncorrelated Subquery）， 不包括外部的信息</li>
+</ul>
+<p>每个子查询可以返回单个值或多个值。</p>
+<p>Spark包括对<strong>谓词子查询</strong>（Predicate Subquery）的支持，它允许基于值进行筛选。</p>
+<h4 id="不相关谓词子查询"><a href="#不相关谓词子查询" class="headerlink" title="不相关谓词子查询"></a>不相关谓词子查询</h4><p>以下查询，由两个不相关查询组成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM flights</span><br><span class="line">WHERE origin_country_name IN (SELECT dest_country_name FROM flights</span><br><span class="line">      GROUP BY dest_country_name ORDER BY sum(count) DESC LIMIT 5)</span><br></pre></td></tr></table></figure>
+
+<p>此查询是不相关的，因为它不包含来自查询外部的信息。</p>
+<h4 id="相关谓词子查询"><a href="#相关谓词子查询" class="headerlink" title="相关谓词子查询"></a>相关谓词子查询</h4><p>相关谓词子查询允许你在内部查询中使用外部作用域的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM flights f1</span><br><span class="line">WHERE EXISTS (SELECT 1 FROM flights f2</span><br><span class="line">            WHERE f1.dest_country_name = f2.origin_country_name)</span><br><span class="line">AND EXISTS (SELECT 1 FROM flights f2</span><br><span class="line">            WHERE f2.dest_country_name = f1.origin_country_name)</span><br></pre></td></tr></table></figure>
+
+<h4 id="不相关标量查询"><a href="#不相关标量查询" class="headerlink" title="不相关标量查询"></a>不相关标量查询</h4><p>使用不相关变量查询scalar query，可以引入一些以前可能没有的补充信息。例如，将航班次数最大值包含在整个计数数据集中作为其中的一列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT *, (SELECT max(count) FROM flights) AS maximum FROM flights</span><br></pre></td></tr></table></figure>
+
   
   
     
@@ -696,7 +784,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T17:05:34+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T22:31:02+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月4日</p>
@@ -777,7 +865,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2020/10/19/8-DataSet/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>8 DataSet</p>
-          <p class='content'></p>
+          <p class='content'>DataSet: 结构化API的基本类型；DataFrame: Row类型的DataSet。
+DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一起使用。
+你可以...</p>
         </a>
       
       
@@ -826,7 +916,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C-Spark-SQL-%E6%9F%A5%E8%AF%A2"><span class="toc-text">1. 如何运行 Spark SQL 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Spark-SQL-CLI"><span class="toc-text">1.1. Spark SQL CLI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Spark%E7%9A%84%E5%8F%AF%E7%BC%96%E7%A8%8BSQL%E6%8E%A5%E5%8F%A3"><span class="toc-text">1.2. Spark的可编程SQL接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-SparkSQL-Thrift-JDBC-ODBC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">1.3. SparkSQL Thrift JDBC&#x2F;ODBC服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Catalog"><span class="toc-text">2. Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="toc-text">2.1. 数据表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark%E6%89%98%E7%AE%A1%E8%A1%A8"><span class="toc-text">Spark托管表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="toc-text">创建外部表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A1%A8"><span class="toc-text">插入表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E8%A1%A8%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">描述表的元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">刷新元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%A1%A8"><span class="toc-text">缓存表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%A7%86%E5%9B%BE"><span class="toc-text">2.2. 视图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-text">创建视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE"><span class="toc-text">删除视图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">2.3. 数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5"><span class="toc-text">2.4. 选择语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98"><span class="toc-text">3. 高级主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B"><span class="toc-text">3.1. 复杂类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">结构体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%87%BD%E6%95%B0"><span class="toc-text">3.2. 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">用户定义函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">3.3. 子查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E8%B0%93%E8%AF%8D%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">不相关谓词子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B0%93%E8%AF%8D%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">相关谓词子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E6%A0%87%E9%87%8F%E6%9F%A5%E8%AF%A2"><span class="toc-text">不相关标量查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="toc-text">4. 其他功能</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C-Spark-SQL-%E6%9F%A5%E8%AF%A2"><span class="toc-text">1. 如何运行 Spark SQL 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Spark-SQL-CLI"><span class="toc-text">1.1. Spark SQL CLI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Spark%E7%9A%84%E5%8F%AF%E7%BC%96%E7%A8%8BSQL%E6%8E%A5%E5%8F%A3"><span class="toc-text">1.2. Spark的可编程SQL接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-SparkSQL-Thrift-JDBC-ODBC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">1.3. SparkSQL Thrift JDBC&#x2F;ODBC服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Catalog"><span class="toc-text">2. Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="toc-text">2.1. 数据表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark%E6%89%98%E7%AE%A1%E8%A1%A8"><span class="toc-text">Spark托管表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="toc-text">创建外部表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A1%A8"><span class="toc-text">插入表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E8%A1%A8%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">描述表的元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">刷新元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%A1%A8"><span class="toc-text">缓存表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%A7%86%E5%9B%BE"><span class="toc-text">2.2. 视图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-text">创建视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE"><span class="toc-text">删除视图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">2.3. 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">创建数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">选择数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">删除数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5"><span class="toc-text">2.4. 选择语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#case%E2%80%A6when%E2%80%A6%E8%AF%AD%E5%8F%A5"><span class="toc-text">case…when…语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98"><span class="toc-text">3. 高级主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B"><span class="toc-text">3.1. 复杂类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">结构体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%87%BD%E6%95%B0"><span class="toc-text">3.2. 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">用户定义函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">3.3. 子查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E8%B0%93%E8%AF%8D%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">不相关谓词子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B0%93%E8%AF%8D%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">相关谓词子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E6%A0%87%E9%87%8F%E6%9F%A5%E8%AF%A2"><span class="toc-text">不相关标量查询</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
