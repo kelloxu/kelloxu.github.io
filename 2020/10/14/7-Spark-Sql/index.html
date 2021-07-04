@@ -267,7 +267,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div class="m_search">
         <form name="searchform" class="form u-search-form">
           <i class="icon fas fa-search fa-fw"></i>
-          <input type="text" class="input u-search-input" placeholder="Search..." />
+          <input type="text" class="input u-search-input" placeholder="Search...
+- https://img.wenhairu.com/images/2021/07/02/9PkrB.th.jpg - https://img.wenhairu.com/images/2021/07/02/9P7Cn.th.jpg" />
         </form>
       </div>
 
@@ -499,7 +500,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
 <div class='new-meta-item author'>
   <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="">
+    <img no-lazy src="https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png">
     <p>John Xu</p>
   </a>
 </div>
@@ -630,8 +631,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>如果要删除非托管表（例如 hive_flights），则不会删除数据，只会删除元数据，因此你将无法再按表明引用此数据。</p>
 <h4 id="缓存表"><a href="#缓存表" class="headerlink" title="缓存表"></a>缓存表</h4><p>就像 DataFrame 一样，你可以缓存或释放表。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CACHE TABLE FLIGHTS</span><br><span class="line">UNCACHE TABLE FLIGHTS</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-视图"><a href="#2-2-视图" class="headerlink" title="2.2. 视图"></a>2.2. 视图</h3><p>定义视图即基于现有表的一组转换操作，基本上只是保存查询计划，这可以方便地组织或重用查询逻辑。</p>
+<p>Spark中，视图可以是全局的，也可以是针对某个数据库的或针对每个会话的。</p>
+<h4 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h4><p>对于终端用户，视图可以被视为表，但是数据并没有重写到新位置，它们<strong>只是在查询时对数据源执行转换操作</strong>（filter, select, 或者更大规模的GROUP BY 或 ROLLUP）:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW just_usa_view AS</span><br><span class="line">  SELECT * FROM flights WHERE dest_country_name = &#x27;United States&#x27;</span><br></pre></td></tr></table></figure>
 
+<p>与表类似，你可以创建仅在当前会话期间可用，且未注册到数据库的临时视图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE TEMP VIEW just_as_view_temp AS</span><br><span class="line">  SELECT * FROM flights WHERE dest_country_name = &#x27;United States&#x27;</span><br></pre></td></tr></table></figure>
 
+<p>也可以是全局临时视图，与具体Database无关，在整个Spark应用程序中都可以查看，但在会话结束时会删除它们：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE GLOBAL TEMP VIEW just_usa_global_view_temp AS</span><br><span class="line">  SELECT * FROM flights WHERE dest_country_name = &#x27;United States&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>还可以使用显式的关键字指定是否覆盖视图（如果已存在），可以覆盖临时视图和常规视图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE OR REPLACE TEMP VIEW just_usa_view_temp AS</span><br><span class="line">  SELECT * FROM flights WHERE dest_country_name = &#x27;United States&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>现在，你可以像查询数据表一样查询此视图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM just_usa_view_temp</span><br></pre></td></tr></table></figure>
+
+<p><strong>视图实际上是一种转换，Spark只会在查询时执行它</strong>。</p>
+<p>实际上，视图等同于从现有DataFrame创建新的DataFrame。</p>
+<h4 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h4><p>可以按照删除表的方式删除视图。</p>
+<p>删除视图不会删除基础数据，只删除视图定义本身。</p>
+<h3 id="2-3-数据库"><a href="#2-3-数据库" class="headerlink" title="2.3. 数据库"></a>2.3. 数据库</h3><h3 id="2-4-选择语句"><a href="#2-4-选择语句" class="headerlink" title="2.4. 选择语句"></a>2.4. 选择语句</h3><h2 id="3-高级主题"><a href="#3-高级主题" class="headerlink" title="3. 高级主题"></a>3. 高级主题</h2><h3 id="3-1-复杂类型"><a href="#3-1-复杂类型" class="headerlink" title="3.1. 复杂类型"></a>3.1. 复杂类型</h3><h4 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h4><h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h3 id="3-2-函数"><a href="#3-2-函数" class="headerlink" title="3.2. 函数"></a>3.2. 函数</h3><h4 id="用户定义函数"><a href="#用户定义函数" class="headerlink" title="用户定义函数"></a>用户定义函数</h4><h3 id="3-3-子查询"><a href="#3-3-子查询" class="headerlink" title="3.3. 子查询"></a>3.3. 子查询</h3><h4 id="不相关谓词子查询"><a href="#不相关谓词子查询" class="headerlink" title="不相关谓词子查询"></a>不相关谓词子查询</h4><h4 id="相关谓词子查询"><a href="#相关谓词子查询" class="headerlink" title="相关谓词子查询"></a>相关谓词子查询</h4><h4 id="不相关标量查询"><a href="#不相关标量查询" class="headerlink" title="不相关标量查询"></a>不相关标量查询</h4><h2 id="4-其他功能"><a href="#4-其他功能" class="headerlink" title="4. 其他功能"></a>4. 其他功能</h2>
   
   
     
@@ -658,9 +679,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class='donate'>
           <div class='imgs'>
             
-              <img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'>
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pi5H.png'>
             
-              <img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'>
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pdqd.png'>
             
           </div>
         </div>
@@ -675,7 +696,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T15:17:44+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T17:05:34+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月4日</p>
@@ -805,7 +826,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C-Spark-SQL-%E6%9F%A5%E8%AF%A2"><span class="toc-text">1. 如何运行 Spark SQL 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Spark-SQL-CLI"><span class="toc-text">1.1. Spark SQL CLI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Spark%E7%9A%84%E5%8F%AF%E7%BC%96%E7%A8%8BSQL%E6%8E%A5%E5%8F%A3"><span class="toc-text">1.2. Spark的可编程SQL接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-SparkSQL-Thrift-JDBC-ODBC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">1.3. SparkSQL Thrift JDBC&#x2F;ODBC服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Catalog"><span class="toc-text">2. Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="toc-text">2.1. 数据表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark%E6%89%98%E7%AE%A1%E8%A1%A8"><span class="toc-text">Spark托管表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="toc-text">创建外部表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A1%A8"><span class="toc-text">插入表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E8%A1%A8%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">描述表的元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">刷新元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%A1%A8"><span class="toc-text">缓存表</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C-Spark-SQL-%E6%9F%A5%E8%AF%A2"><span class="toc-text">1. 如何运行 Spark SQL 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Spark-SQL-CLI"><span class="toc-text">1.1. Spark SQL CLI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Spark%E7%9A%84%E5%8F%AF%E7%BC%96%E7%A8%8BSQL%E6%8E%A5%E5%8F%A3"><span class="toc-text">1.2. Spark的可编程SQL接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-SparkSQL-Thrift-JDBC-ODBC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">1.3. SparkSQL Thrift JDBC&#x2F;ODBC服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Catalog"><span class="toc-text">2. Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="toc-text">2.1. 数据表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark%E6%89%98%E7%AE%A1%E8%A1%A8"><span class="toc-text">Spark托管表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="toc-text">创建外部表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A1%A8"><span class="toc-text">插入表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E8%A1%A8%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">描述表的元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">刷新元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%A1%A8"><span class="toc-text">缓存表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%A7%86%E5%9B%BE"><span class="toc-text">2.2. 视图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-text">创建视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE"><span class="toc-text">删除视图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">2.3. 数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5"><span class="toc-text">2.4. 选择语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98"><span class="toc-text">3. 高级主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B"><span class="toc-text">3.1. 复杂类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">结构体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%87%BD%E6%95%B0"><span class="toc-text">3.2. 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">用户定义函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">3.3. 子查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E8%B0%93%E8%AF%8D%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">不相关谓词子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B0%93%E8%AF%8D%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">相关谓词子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E6%A0%87%E9%87%8F%E6%9F%A5%E8%AF%A2"><span class="toc-text">不相关标量查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="toc-text">4. 其他功能</span></a></li></ol>
     </div>
   </section>
 
