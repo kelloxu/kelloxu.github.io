@@ -488,36 +488,50 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <div class="all-cats">
             
               
-                <a class="" href="/categories/Hadoop/">
-                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Hadoop</span>
+                <a class="" href="/categories/Hadoop%E4%B9%8BMapReduce/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Hadoop之MapReduce</span>
                   <span class="title">
-                    (1)
+                    (4)
                   </span>
                 </a>
               
-                <a class="" href="/categories/Java/">
-                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Java</span>
+                <a class="" href="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Hadoop之操作</span>
                   <span class="title">
                     (2)
                   </span>
                 </a>
               
-                <a class="" href="/categories/Spark/">
-                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Spark</span>
+                <a class="" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Hadoop基础知识</span>
+                  <span class="title">
+                    (5)
+                  </span>
+                </a>
+              
+                <a class="" href="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Java多线程</span>
+                  <span class="title">
+                    (2)
+                  </span>
+                </a>
+              
+                <a class="" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Spark系列三</span>
                   <span class="title">
                     (3)
                   </span>
                 </a>
               
-                <a class="" href="/categories/Ubuntu/">
-                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Ubuntu</span>
+                <a class="" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Spark系列二</span>
                   <span class="title">
-                    (1)
+                    (8)
                   </span>
                 </a>
               
-                <a class="" href="/categories/hadoop/">
-                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;hadoop</span>
+                <a class="" href="/categories/Ubuntu/">
+                  <span><i class='fas fa-folder-open fa-fw' aria-hidden="true"></i>&nbsp;&nbsp;Ubuntu</span>
                   <span class="title">
                     (1)
                   </span>
@@ -1114,7 +1128,7 @@ $(function () {
       // 请求 PV 并自增
       var pvCtn = document.querySelector('#lc-sv');
       if (pvCtn || enableIncr) {
-        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+        var pvGetter = this.getRecord(Counter, 'https://kelloxu.github.io' + '/#lc-sv', 'Visits').then((record) => {
           incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-sv #number');
           if (eles.length > 0) {
@@ -1132,7 +1146,7 @@ $(function () {
       // 请求 UV 并自增
       var uvCtn = document.querySelector('#lc-uv');
       if (uvCtn || enableIncr) {
-        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+        var uvGetter = this.getRecord(Counter, 'https://kelloxu.github.io' + '/#lc-uv', 'Visitors').then((record) => {
           var vuv = this.validUV();
           vuv && incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-uv #number');
@@ -1154,7 +1168,7 @@ $(function () {
         for (i = 0; i < allPV.length; i++) {
           let pv = allPV[i];
           let title = pv.getAttribute('data-title');
-          var url = 'http://example.com' + pv.getAttribute('data-path');
+          var url = 'https://kelloxu.github.io' + pv.getAttribute('data-path');
           if (url) {
             var viewGetter = this.getRecord(Counter, url, title).then((record) => {
               // 是当前页面就自增
