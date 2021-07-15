@@ -523,6 +523,57 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BJava/">
+        Spark Dataset操作之Java
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        1. 实战场景实际工作中，我们经常会遇到将 Dataset 转为 Dataset 的情况，甚至有时候这些对象是嵌套的，这就比较复杂了。
+对于这类转换，使用 MapFunctions 或这 FlatMapFunctions 即可解决，但是还要注意对象的序列化问题。
+MapFunctions 用于“一行-&gt;一行”的场景，而 FlatMapFunctions 则用于“一行-&gt;多行”的场...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2021-07-08</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BJava/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2020/11/04/3-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/">
         3 分布式共享变量
       </a>
@@ -957,63 +1008,6 @@ SQL（结构化查询语言，Structured Query Language）是一种表示数据�
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/08/16/1%20%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/">
-        1 结构化API概述
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        结构化API指以下三种核心分布式集合类型的API：
-
-DataSet类型
-DataFrame类型
-SQL表和视图
-
-Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成一个指令的有向无环图。
-指令的图的执行过程作为一个作业由一个动作操作触发，在执行过程中一个作业被分解成多个**阶段(stage)和任务(task)**在集群上执行。
-转换操作和动作操作操纵的逻辑结构是...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-08-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/08/16/1%20%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1158,6 +1152,11 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
             ><div class='name'>Spark系列二</div><div class='badge'>(8)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
+            id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
+            ><div class='name'>Spark编程实战</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/Ubuntu/" href="/categories/Ubuntu/"
             id="categoriesUbuntu"
             ><div class='name'>Ubuntu</div><div class='badge'>(1)</div></a></li>
@@ -1194,7 +1193,7 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 
 
     <div class='content'>
-      <a href="/tags/Hadoop/" style="font-size: 14px; color: #999">Hadoop</a> <a href="/tags/Java/" style="font-size: 15.67px; color: #8e8e8e">Java</a> <a href="/tags/Mapreduce/" style="font-size: 14px; color: #999">Mapreduce</a> <a href="/tags/Spark/" style="font-size: 17.33px; color: #828282">Spark</a> <a href="/tags/Vmware/" style="font-size: 14px; color: #999">Vmware</a> <a href="/tags/hadoop/" style="font-size: 20.67px; color: #6c6c6c">hadoop</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/mapreduce/" style="font-size: 19px; color: #777">mapreduce</a> <a href="/tags/spark/" style="font-size: 22.33px; color: #606060">spark</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 14px; color: #999">教程</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a>
+      <a href="/tags/Dataset/" style="font-size: 14px; color: #999">Dataset</a> <a href="/tags/Hadoop/" style="font-size: 14px; color: #999">Hadoop</a> <a href="/tags/Java/" style="font-size: 17.33px; color: #828282">Java</a> <a href="/tags/Mapreduce/" style="font-size: 14px; color: #999">Mapreduce</a> <a href="/tags/Spark/" style="font-size: 17.33px; color: #828282">Spark</a> <a href="/tags/Vmware/" style="font-size: 14px; color: #999">Vmware</a> <a href="/tags/hadoop/" style="font-size: 20.67px; color: #6c6c6c">hadoop</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/mapreduce/" style="font-size: 19px; color: #777">mapreduce</a> <a href="/tags/spark/" style="font-size: 22.33px; color: #606060">spark</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 14px; color: #999">教程</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a>
     </div>
   </section>
 

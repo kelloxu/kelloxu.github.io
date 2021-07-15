@@ -569,7 +569,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>你可能有业务逻辑想用特定的函数而非SQL或DataFrame来实现，这就要使用Dataset了；此外，因为Dataset API是类型安全的，对于其类型无效的操作将在编译时出错，而不是在运行时失败，如果正确性和防御性代码（bulletproof code）是你更需要考虑的事情，那么牺牲一些性能或许是最好的选择。</p>
 <p>使用Dataset的另一种情况是，<strong>在单点作业和Spark作业之间重用对行的各种转化代码</strong>。Spark API 包含了 Scala Sequence 类型，它们以分布式方式运行，因此，使用Dataset的一个优点是，如果你<strong>将所有数据和转换定义为case类，那么在分布式和单机作业中使用它们没什么区别</strong>。</p>
 <p>最流行的应用场景可能是<strong>先用DataFrame和再用Dataset</strong>的情况，这可以手动在性能和类型安全之间进行权衡。这在有些情况是很有用的，比如基于DataFrame执行的提取、转换和加载（ETL）转换作业之后，想将数据送入驱动器并使用单机库操作时。</p>
-<h2 id="2-创建DataSet"><a href="#2-创建DataSet" class="headerlink" title="2. 创建DataSet"></a>2. 创建DataSet</h2><h3 id="Java编码器"><a href="#Java编码器" class="headerlink" title="Java编码器"></a>Java编码器</h3><p>Java编码器很简单，只需指定类，然后对DataFrame（即DataSet<Row>类型）进行编码，得到Dataset&lt;Java类&gt;：</Row></p>
+<h2 id="2-创建DataSet"><a href="#2-创建DataSet" class="headerlink" title="2. 创建DataSet"></a>2. 创建DataSet</h2><p>数据源(parquet)自带schema：</p>
+<p><img src="/2020/10/19/8-DataSet/source_data.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/source_data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="Java编码器"><a href="#Java编码器" class="headerlink" title="Java编码器"></a>Java编码器</h3><p>Java编码器很简单，只需指定类，然后对DataFrame（即DataSet<Row>类型）进行编码，得到Dataset&lt;Java类&gt;：</Row></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Encoders;</span><br><span class="line"></span><br><span class="line">public class Flight implements Serializable &#123;</span><br><span class="line">  String DEST_COUNTRY_NAME;</span><br><span class="line">  String ORIGIN_COUNTRY_NAME;</span><br><span class="line">  Long count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dataset&lt;Flight&gt; flights = spark.read</span><br><span class="line">  .parquet($data_path)</span><br><span class="line">  .as(Encoders.bean(Flight.class));</span><br></pre></td></tr></table></figure>
 
 <h3 id="Scala-Case类"><a href="#Scala-Case类" class="headerlink" title="Scala: Case类"></a>Scala: Case类</h3><p>在Scala中创建Dataset，要定义case类，case类具有以下特征：</p>
@@ -591,7 +593,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>当读数据时，我们会得到一个DataFrame，使用 as 方法将其强制转化为指定的行类型：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val flightsDF = spark.read.parquet($data_path)</span><br><span class="line">val flights = flightsDF.as[Flight]</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-动作操作"><a href="#3-动作操作" class="headerlink" title="3. 动作操作"></a>3. 动作操作</h2><h2 id="4-转换操作"><a href="#4-转换操作" class="headerlink" title="4. 转换操作"></a>4. 转换操作</h2><h2 id="5-过滤"><a href="#5-过滤" class="headerlink" title="5. 过滤"></a>5. 过滤</h2><h2 id="6-映射"><a href="#6-映射" class="headerlink" title="6. 映射"></a>6. 映射</h2><h2 id="7-连接"><a href="#7-连接" class="headerlink" title="7. 连接"></a>7. 连接</h2><h2 id="8-分组和聚合"><a href="#8-分组和聚合" class="headerlink" title="8. 分组和聚合"></a>8. 分组和聚合</h2>
+<p><img src="/2020/10/19/8-DataSet/dataset_from_case_class.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/dataset_from_case_class.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h2 id="3-动作操作"><a href="#3-动作操作" class="headerlink" title="3. 动作操作"></a>3. 动作操作</h2><p>collect，将所有节点上的数据收集到驱动器上；<br>take<br>count</p>
+<h2 id="4-转换操作"><a href="#4-转换操作" class="headerlink" title="4. 转换操作"></a>4. 转换操作</h2><p>Dataset上的转换操作与DataFrame上的转换操作相同。</p>
+<p>Dataset还允许我们指定比DataFrame转换更复杂的和强类型的转换操作，因为我们可以操作底层的Java虚拟机类型。为了说明这个底层对象操作，我们在刚创建的Dataset上执行filter过滤操作。</p>
+<h3 id="4-1-过滤"><a href="#4-1-过滤" class="headerlink" title="4.1. 过滤"></a>4.1. 过滤</h3><p>过滤出出发地和目的地相同的行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def originIsDestination(row: Flight): Boolean = &#123;</span><br><span class="line">    return row.ORIGIN_COUNTRY_NAME == row.DEST_COUNTRY_NAME</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flights.filter(row =&gt; originIsDestination(row)).show(5, false)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/8-DataSet/filter.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/filter.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><strong>通过指定函数，强制Spark在Dataset中的每一行上验证此函数，这可能非常耗资源，所以对于简单过滤器，总是首选编写SQL表达式，这将大大降低过滤数据的成本</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights.filter(&quot;ORIGIN_COUNTRY_NAME = DEST_COUNTRY_NAME&quot;).show(5, false)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/8-DataSet/filter_use_sql.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/filter_use_sql.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>两种过滤操作执行计划的比较：</p>
+<p><img src="/2020/10/19/8-DataSet/filter_explain" class="lazyload" data-srcset="/2020/10/19/8-DataSet/filter_explain" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>可以看出，对于 filterUseSql， 过滤器首先被应用，甚至被下推到 parquet file读取器；而对于 filterUseFunc，Spark无法执行此优化，并将筛选器作为最后一步应用，丢失了优化。</p>
+<h3 id="4-2-映射"><a href="#4-2-映射" class="headerlink" title="4.2. 映射"></a>4.2. 映射</h3><h3 id="4-3-连接"><a href="#4-3-连接" class="headerlink" title="4.3. 连接"></a>4.3. 连接</h3><h3 id="4-4-分组和聚合"><a href="#4-4-分组和聚合" class="headerlink" title="4.4. 分组和聚合"></a>4.4. 分组和聚合</h3>
   
   
     
@@ -635,10 +652,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T23:41:55+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-15T23:10:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月4日</p>
+    <p>更新于：2021年7月15日</p>
   </a>
 </div>
 
@@ -766,7 +783,7 @@ SQL（结构化查询语言，Structured Quer...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8Dataset"><span class="toc-text">1. 何时使用Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BADataSet"><span class="toc-text">2. 创建DataSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-text">Java编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scala-Case%E7%B1%BB"><span class="toc-text">Scala: Case类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8A%A8%E4%BD%9C%E6%93%8D%E4%BD%9C"><span class="toc-text">3. 动作操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. 转换操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%BF%87%E6%BB%A4"><span class="toc-text">5. 过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%98%A0%E5%B0%84"><span class="toc-text">6. 映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%BF%9E%E6%8E%A5"><span class="toc-text">7. 连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%88%86%E7%BB%84%E5%92%8C%E8%81%9A%E5%90%88"><span class="toc-text">8. 分组和聚合</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8Dataset"><span class="toc-text">1. 何时使用Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BADataSet"><span class="toc-text">2. 创建DataSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-text">Java编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scala-Case%E7%B1%BB"><span class="toc-text">Scala: Case类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8A%A8%E4%BD%9C%E6%93%8D%E4%BD%9C"><span class="toc-text">3. 动作操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. 转换操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%BF%87%E6%BB%A4"><span class="toc-text">4.1. 过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%98%A0%E5%B0%84"><span class="toc-text">4.2. 映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E8%BF%9E%E6%8E%A5"><span class="toc-text">4.3. 连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%88%86%E7%BB%84%E5%92%8C%E8%81%9A%E5%90%88"><span class="toc-text">4.4. 分组和聚合</span></a></li></ol></li></ol>
     </div>
   </section>
 
