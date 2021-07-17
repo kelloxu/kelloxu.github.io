@@ -646,7 +646,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>也可以在驱动器上获取它们：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights2.take(2)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_take" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_take" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_result_take.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_result_take.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>当然，常规连接（join）就会很好的运行，尽管在这种情况下会得到一个DataFrame（丢失了JVM类型信息）:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val flights3 = flights.join(flightsMeta, Seq(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
 
@@ -695,7 +695,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T11:49:40+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T12:01:49+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月17日</p>
