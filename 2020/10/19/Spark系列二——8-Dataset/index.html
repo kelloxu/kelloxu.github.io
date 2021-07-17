@@ -22,9 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>8 DataSet - 铁人博客</title>
+  <title>Spark系列二——8-Dataset - 铁人博客</title>
   
-    <meta name="keywords" content="大数据,spark">
+    <meta name="keywords" content="大数据,Spark,Dataset">
   
 
   
@@ -492,7 +492,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        8 DataSet
+        Spark系列二——8-Dataset
       </h1>
       <div class='new-meta-box'>
         
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="8 DataSet" data-path="/2020/10/19/8-DataSet/">
+      <div id="lc-pv" data-title="Spark系列二——8-Dataset" data-path="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -570,9 +570,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>使用Dataset的另一种情况是，<strong>在单点作业和Spark作业之间重用对行的各种转化代码</strong>。Spark API 包含了 Scala Sequence 类型，它们以分布式方式运行，因此，使用Dataset的一个优点是，如果你<strong>将所有数据和转换定义为case类，那么在分布式和单机作业中使用它们没什么区别</strong>。</p>
 <p>最流行的应用场景可能是<strong>先用DataFrame和再用Dataset</strong>的情况，这可以手动在性能和类型安全之间进行权衡。这在有些情况是很有用的，比如基于DataFrame执行的提取、转换和加载（ETL）转换作业之后，想将数据送入驱动器并使用单机库操作时。</p>
 <h2 id="2-创建DataSet"><a href="#2-创建DataSet" class="headerlink" title="2. 创建DataSet"></a>2. 创建DataSet</h2><p>数据源(parquet)自带schema：</p>
-<p><img src="/2020/10/19/8-DataSet/source_data.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/source_data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/source_data.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/source_data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h3 id="Java编码器"><a href="#Java编码器" class="headerlink" title="Java编码器"></a>Java编码器</h3><p>Java编码器很简单，只需指定类，然后对DataFrame（即DataSet<Row>类型）进行编码，得到Dataset&lt;Java类&gt;：</Row></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Encoders;</span><br><span class="line"></span><br><span class="line">public class Flight implements Serializable &#123;</span><br><span class="line">  String DEST_COUNTRY_NAME;</span><br><span class="line">  String ORIGIN_COUNTRY_NAME;</span><br><span class="line">  Long count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dataset&lt;Flight&gt; flights = spark.read</span><br><span class="line">  .parquet($data_path)</span><br><span class="line">  .as(Encoders.bean(Flight.class));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Encoders;</span><br><span class="line"></span><br><span class="line">public class Flight implements Serializable &#123;</span><br><span class="line">  String DEST_COUNTRY_NAME;</span><br><span class="line">  String ORIGIN_COUNTRY_NAME;</span><br><span class="line">  Long count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dataset&lt;Flight&gt; flights = spark.read</span><br><span class="line">  .parquet(&quot;/datasets/flight-data/parquet/2010-summary.parquet&quot;)</span><br><span class="line">  .as(Encoders.bean(Flight.class));</span><br></pre></td></tr></table></figure>
 
 <h3 id="Scala-Case类"><a href="#Scala-Case类" class="headerlink" title="Scala: Case类"></a>Scala: Case类</h3><p>在Scala中创建Dataset，要定义case类，case类具有以下特征：</p>
 <ul>
@@ -591,39 +591,67 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case class Flight(DEST_COUNTRY_NAME: String,</span><br><span class="line">                  ORIGIN_COUNTRY_NAME: String,</span><br><span class="line">                  count: BigInt)</span><br></pre></td></tr></table></figure>
 
 <p>当读数据时，我们会得到一个DataFrame，使用 as 方法将其强制转化为指定的行类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val flightsDF = spark.read.parquet($data_path)</span><br><span class="line">val flights = flightsDF.as[Flight]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val flightsDF = spark.read.parquet(&quot;/datasets/flight-data/parquet/2010-summary.parquet&quot;)</span><br><span class="line">val flights = flightsDF.as[Flight]</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2020/10/19/8-DataSet/dataset_from_case_class.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/dataset_from_case_class.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<h2 id="3-动作操作"><a href="#3-动作操作" class="headerlink" title="3. 动作操作"></a>3. 动作操作</h2><h3 id="3-1-collect"><a href="#3-1-collect" class="headerlink" title="3.1. collect()"></a>3.1. collect()</h3><p>将数据集中所有元素（数有节点上的数据）以数组形式返回驱动器（driver）程序。</p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/dataset_from_case_class.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/dataset_from_case_class.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h2 id="3-动作操作"><a href="#3-动作操作" class="headerlink" title="3. 动作操作"></a>3. 动作操作</h2><h3 id="collect"><a href="#collect" class="headerlink" title="collect()"></a>collect()</h3><p>将数据集中所有元素（数有节点上的数据）以数组形式返回驱动器（driver）程序。</p>
 <p>通常用于，在RDD进行了filter或其他过滤操作后，将一个<strong>足够小的数据子集</strong>返回到驱动器内存中。</p>
-<h3 id="3-2-take"><a href="#3-2-take" class="headerlink" title="3.2. take()"></a>3.2. take()</h3><p>返回数据集中前 n 个元素。</p>
-<h3 id="3-3-count"><a href="#3-3-count" class="headerlink" title="3.3. count()"></a>3.3. count()</h3><p>返回数据集中元素个数。</p>
-<h3 id="3-4-first"><a href="#3-4-first" class="headerlink" title="3.4. first()"></a>3.4. first()</h3><p>返回数据集中首个元素，类似于 take(1)。</p>
-<h3 id="3-5-reduce-func"><a href="#3-5-reduce-func" class="headerlink" title="3.5. reduce(func)"></a>3.5. reduce(func)</h3><p>将 RDD 中元素按 func 进行聚合，func是一个 <code>(T,T) =&gt; T</code> 的映射函数，其中 T 为源 RDD 元素类型，并且 func 需要满足交换律和结合律以便支持并行计算。</p>
-<h3 id="3-6-takeSample-withReplacement-num-seed"><a href="#3-6-takeSample-withReplacement-num-seed" class="headerlink" title="3.6. takeSample(withReplacement,num, [seed])"></a>3.6. takeSample(withReplacement,num, [seed])</h3><p>返回数据集的随机采样子集，最多包含 num 个元素，withReplacement 表示是否使用回置采样，最后一个参数为可选参数seed，随机数生成器的种子。</p>
-<h3 id="3-7-takeOrdered-n-ordering"><a href="#3-7-takeOrdered-n-ordering" class="headerlink" title="3.7. takeOrdered(n, [ordering])"></a>3.7. takeOrdered(n, [ordering])</h3><p>按元素排序（可以通过 ordering 自定义排序规则）后，返回前 n 个元素。</p>
-<h3 id="3-8-saveAsTextFile-path"><a href="#3-8-saveAsTextFile-path" class="headerlink" title="3.8. saveAsTextFile(path)"></a>3.8. saveAsTextFile(path)</h3><p>将数据集中元素保存到指定目录下的文本文件中（或者多个文本文件），支持本地文件系统、HDFS 或者其他任何Hadoop支持的文件系统。</p>
+<h3 id="take"><a href="#take" class="headerlink" title="take()"></a>take()</h3><p>返回数据集中前 n 个元素。</p>
+<h3 id="count"><a href="#count" class="headerlink" title="count()"></a>count()</h3><p>返回数据集中元素个数。</p>
+<h3 id="first"><a href="#first" class="headerlink" title="first()"></a>first()</h3><p>返回数据集中首个元素，类似于 take(1)。</p>
+<h3 id="reduce-func"><a href="#reduce-func" class="headerlink" title="reduce(func)"></a>reduce(func)</h3><p>将 RDD 中元素按 func 进行聚合，func是一个 <code>(T,T) =&gt; T</code> 的映射函数，其中 T 为源 RDD 元素类型，并且 func 需要满足交换律和结合律以便支持并行计算。</p>
+<h3 id="takeSample-withReplacement-num-seed"><a href="#takeSample-withReplacement-num-seed" class="headerlink" title="takeSample(withReplacement,num, [seed])"></a>takeSample(withReplacement,num, [seed])</h3><p>返回数据集的随机采样子集，最多包含 num 个元素，withReplacement 表示是否使用回置采样，最后一个参数为可选参数seed，随机数生成器的种子。</p>
+<h3 id="takeOrdered-n-ordering"><a href="#takeOrdered-n-ordering" class="headerlink" title="takeOrdered(n, [ordering])"></a>takeOrdered(n, [ordering])</h3><p>按元素排序（可以通过 ordering 自定义排序规则）后，返回前 n 个元素。</p>
+<h3 id="saveAsTextFile-path"><a href="#saveAsTextFile-path" class="headerlink" title="saveAsTextFile(path)"></a>saveAsTextFile(path)</h3><p>将数据集中元素保存到指定目录下的文本文件中（或者多个文本文件），支持本地文件系统、HDFS 或者其他任何Hadoop支持的文件系统。</p>
 <p>保存过程中，<strong>Spark会调用每个元素的 toString()</strong> 方法，并将结果保存成文件中的一行。</p>
-<h3 id="3-9-saveAsSequenceFile-path-Java-and-Scala"><a href="#3-9-saveAsSequenceFile-path-Java-and-Scala" class="headerlink" title="3.9. saveAsSequenceFile(path)(Java and Scala)"></a>3.9. saveAsSequenceFile(path)(Java and Scala)</h3><p>将数据集中元素保存到指定目录下的 Hadoop Sequence 文件中，支持本地文件系统、HDFS 或者其他任何Hadoop支持的文件系统。</p>
+<h3 id="saveAsSequenceFile-path-Java-and-Scala"><a href="#saveAsSequenceFile-path-Java-and-Scala" class="headerlink" title="saveAsSequenceFile(path)(Java and Scala)"></a>saveAsSequenceFile(path)(Java and Scala)</h3><p>将数据集中元素保存到指定目录下的 Hadoop Sequence 文件中，支持本地文件系统、HDFS 或者其他任何Hadoop支持的文件系统。</p>
 <p><strong>适用于实现了Writable接口的键值对RDD</strong>。</p>
 <p>在Scala中，同样也适用于能够被隐式转换为Writable的类型（Spark实现了所有基本类型的隐式转换，如：Int，Double，String 等）。</p>
-<h3 id="3-10-saveAsObjectFile-path-Java-and-Scala"><a href="#3-10-saveAsObjectFile-path-Java-and-Scala" class="headerlink" title="3.10. saveAsObjectFile(path)(Java and Scala)"></a>3.10. saveAsObjectFile(path)(Java and Scala)</h3><p>将RDD元素以Java序列化的格式保存成文件，保存结果文件可以使用 SparkContext.objectFile 来读取。</p>
-<h3 id="3-11-countByKey"><a href="#3-11-countByKey" class="headerlink" title="3.11. countByKey()"></a>3.11. countByKey()</h3><p><strong>只适用于包含键值对(K, V)的RDD</strong>，并返回一个哈希表，包含 (K, Int) 对，表示每个key的个数。</p>
-<h3 id="3-12-foreach-func"><a href="#3-12-foreach-func" class="headerlink" title="3.12. foreach(func)"></a>3.12. foreach(func)</h3><p>在RDD的每个元素上运行 func 函数。通常被用于累加操作，如：更新一个累加器（Accumulator）或者和外部存储系统互操作。</p>
+<h3 id="saveAsObjectFile-path-Java-and-Scala"><a href="#saveAsObjectFile-path-Java-and-Scala" class="headerlink" title="saveAsObjectFile(path)(Java and Scala)"></a>saveAsObjectFile(path)(Java and Scala)</h3><p>将RDD元素以Java序列化的格式保存成文件，保存结果文件可以使用 SparkContext.objectFile 来读取。</p>
+<h3 id="countByKey"><a href="#countByKey" class="headerlink" title="countByKey()"></a>countByKey()</h3><p><strong>只适用于包含键值对(K, V)的RDD</strong>，并返回一个哈希表，包含 (K, Int) 对，表示每个key的个数。</p>
+<h3 id="foreach-func"><a href="#foreach-func" class="headerlink" title="foreach(func)"></a>foreach(func)</h3><p>在RDD的每个元素上运行 func 函数。通常被用于累加操作，如：更新一个累加器（Accumulator）或者和外部存储系统互操作。</p>
 <h2 id="4-转换操作"><a href="#4-转换操作" class="headerlink" title="4. 转换操作"></a>4. 转换操作</h2><p>Dataset上的转换操作与DataFrame上的转换操作相同。</p>
 <p>Dataset还允许我们指定比DataFrame转换更复杂的和强类型的转换操作，因为我们可以操作底层的Java虚拟机类型。为了说明这个底层对象操作，我们在刚创建的Dataset上执行filter过滤操作。</p>
 <h3 id="4-1-过滤"><a href="#4-1-过滤" class="headerlink" title="4.1. 过滤"></a>4.1. 过滤</h3><p>过滤出出发地和目的地相同的行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def originIsDestination(row: Flight): Boolean = &#123;</span><br><span class="line">    return row.ORIGIN_COUNTRY_NAME == row.DEST_COUNTRY_NAME</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flights.filter(row =&gt; originIsDestination(row)).show(5, false)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2020/10/19/8-DataSet/filter.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/filter.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/filter.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/filter.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p><strong>通过指定函数，强制Spark在Dataset中的每一行上验证此函数，这可能非常耗资源，所以对于简单过滤器，总是首选编写SQL表达式，这将大大降低过滤数据的成本</strong>:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights.filter(&quot;ORIGIN_COUNTRY_NAME = DEST_COUNTRY_NAME&quot;).show(5, false)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2020/10/19/8-DataSet/filter_use_sql.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/filter_use_sql.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/filter_use_sql.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/filter_use_sql.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>两种过滤操作执行计划的比较：</p>
-<p><img src="/2020/10/19/8-DataSet/filter_explain.png" class="lazyload" data-srcset="/2020/10/19/8-DataSet/filter_explain.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/filter_explain.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/filter_explain.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>可以看出，对于 filterUseSql， 过滤器首先被应用，甚至被下推到 parquet file读取器；而对于 filterUseFunc，Spark无法执行此优化，并将筛选器作为最后一步应用，丢失了优化。</p>
-<h3 id="4-2-映射"><a href="#4-2-映射" class="headerlink" title="4.2. 映射"></a>4.2. 映射</h3><h3 id="4-3-连接"><a href="#4-3-连接" class="headerlink" title="4.3. 连接"></a>4.3. 连接</h3><h3 id="4-4-分组和聚合"><a href="#4-4-分组和聚合" class="headerlink" title="4.4. 分组和聚合"></a>4.4. 分组和聚合</h3>
+<h3 id="4-2-映射"><a href="#4-2-映射" class="headerlink" title="4.2. 映射"></a>4.2. 映射</h3><p>映射最简单的示例为，从Dataset的每行中提取一个值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val destination = flights.map(f =&gt; f.DEST_COUNTRY_NAME)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以在驱动器上collect结果并返回字符串数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val localDestinations = destinations.take(5)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-连接"><a href="#4-3-连接" class="headerlink" title="4.3. 连接"></a>4.3. 连接</h3><p>连接操作的用法与DataFrame一样，但是，Dataset还提供了更复杂的方法，即 joinWith 方法。</p>
+<p>joinWith 大致等同于一个 co-group，将两个 Dataset 整合成一个，<strong>每一列表示一个 Dataset</strong>，并可以相应地进行操作。</p>
+<p>我们创建一个测试数据来演示joinWith：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">case class FlightMetadata(count: BigInt, randomData: BigInt)</span><br><span class="line"></span><br><span class="line">val flightsMeta = spark.range(500)</span><br><span class="line">    .map(x =&gt; (x, scala.util.Random.nextLong))</span><br><span class="line">    .withColumnRenamed(&quot;_1&quot;, &quot;count).withColumnRenamed(&quot;_2&quot;, &quot;randomData)</span><br><span class="line">    .as[FlightMetadata]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_data.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>执行joinWith操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val fights2 = flights</span><br><span class="line">    .joinWith(flightMeta, flights.col(&quot;count&quot;) === flightsMeta.col(&quot;count&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>注意，我们<strong>输出包含一个键值对的Dataset</strong>，其中每一行表示一个Flight和FlightMetadata。</p>
+<p>当然，我们可以查询这些Dataset（或具有复杂类型的DataFrame）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights2.selectExpr(&quot;_1.DEST_COUNTRY_NAME&quot;).show(5, false)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_result.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_result.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_reuslt_show.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_reuslt_show.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>也可以在驱动器上获取它们：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights2.take(2)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_take" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join_with_take" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>当然，常规连接（join）就会很好的运行，尽管在这种情况下会得到一个DataFrame（丢失了JVM类型信息）:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val flights3 = flights.join(flightsMeta, Seq(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="4-4-分组和聚合"><a href="#4-4-分组和聚合" class="headerlink" title="4.4. 分组和聚合"></a>4.4. 分组和聚合</h3>
   
   
     
@@ -640,7 +668,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/10/19/8-DataSet/>https://kelloxu.github.io/2020/10/19/8-DataSet/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/>https://kelloxu.github.io/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/</a></p>
               
             
           </blockquote>
@@ -667,10 +695,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-16T23:14:26+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T11:49:40+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月16日</p>
+    <p>更新于：2021年7月17日</p>
   </a>
 </div>
 
@@ -679,7 +707,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Dataset/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Dataset</p></a></div>
 
 
         
@@ -692,7 +720,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/10/19/8-DataSet/&title=8 DataSet - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/&title=Spark系列二——8-Dataset - 铁人博客&summary="
           
           >
           
@@ -704,7 +732,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/10/19/8-DataSet/&title=8 DataSet - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/&title=Spark系列二——8-Dataset - 铁人博客&summary="
           
           >
           
@@ -716,7 +744,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/10/19/8-DataSet/&title=8 DataSet - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/&title=Spark系列二——8-Dataset - 铁人博客&summary="
           
           >
           
@@ -798,7 +826,7 @@ SQL（结构化查询语言，Structured Quer...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8Dataset"><span class="toc-text">1. 何时使用Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BADataSet"><span class="toc-text">2. 创建DataSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-text">Java编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scala-Case%E7%B1%BB"><span class="toc-text">Scala: Case类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8A%A8%E4%BD%9C%E6%93%8D%E4%BD%9C"><span class="toc-text">3. 动作操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-collect"><span class="toc-text">3.1. collect()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-take"><span class="toc-text">3.2. take()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-count"><span class="toc-text">3.3. count()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-first"><span class="toc-text">3.4. first()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-reduce-func"><span class="toc-text">3.5. reduce(func)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-takeSample-withReplacement-num-seed"><span class="toc-text">3.6. takeSample(withReplacement,num, [seed])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-takeOrdered-n-ordering"><span class="toc-text">3.7. takeOrdered(n, [ordering])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-saveAsTextFile-path"><span class="toc-text">3.8. saveAsTextFile(path)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-saveAsSequenceFile-path-Java-and-Scala"><span class="toc-text">3.9. saveAsSequenceFile(path)(Java and Scala)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-saveAsObjectFile-path-Java-and-Scala"><span class="toc-text">3.10. saveAsObjectFile(path)(Java and Scala)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-11-countByKey"><span class="toc-text">3.11. countByKey()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-12-foreach-func"><span class="toc-text">3.12. foreach(func)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. 转换操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%BF%87%E6%BB%A4"><span class="toc-text">4.1. 过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%98%A0%E5%B0%84"><span class="toc-text">4.2. 映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E8%BF%9E%E6%8E%A5"><span class="toc-text">4.3. 连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%88%86%E7%BB%84%E5%92%8C%E8%81%9A%E5%90%88"><span class="toc-text">4.4. 分组和聚合</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8Dataset"><span class="toc-text">1. 何时使用Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BADataSet"><span class="toc-text">2. 创建DataSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-text">Java编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scala-Case%E7%B1%BB"><span class="toc-text">Scala: Case类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8A%A8%E4%BD%9C%E6%93%8D%E4%BD%9C"><span class="toc-text">3. 动作操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#collect"><span class="toc-text">collect()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#take"><span class="toc-text">take()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#count"><span class="toc-text">count()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#first"><span class="toc-text">first()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduce-func"><span class="toc-text">reduce(func)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#takeSample-withReplacement-num-seed"><span class="toc-text">takeSample(withReplacement,num, [seed])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#takeOrdered-n-ordering"><span class="toc-text">takeOrdered(n, [ordering])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#saveAsTextFile-path"><span class="toc-text">saveAsTextFile(path)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#saveAsSequenceFile-path-Java-and-Scala"><span class="toc-text">saveAsSequenceFile(path)(Java and Scala)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#saveAsObjectFile-path-Java-and-Scala"><span class="toc-text">saveAsObjectFile(path)(Java and Scala)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#countByKey"><span class="toc-text">countByKey()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#foreach-func"><span class="toc-text">foreach(func)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. 转换操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%BF%87%E6%BB%A4"><span class="toc-text">4.1. 过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%98%A0%E5%B0%84"><span class="toc-text">4.2. 映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E8%BF%9E%E6%8E%A5"><span class="toc-text">4.3. 连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%88%86%E7%BB%84%E5%92%8C%E8%81%9A%E5%90%88"><span class="toc-text">4.4. 分组和聚合</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -817,7 +845,7 @@ SQL（结构化查询语言，Structured Quer...</p>
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="8 DataSet";
+  pdata.postTitle="Spark系列二——8-Dataset";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
