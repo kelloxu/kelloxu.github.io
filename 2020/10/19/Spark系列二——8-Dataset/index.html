@@ -651,7 +651,35 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val flights3 = flights.join(flightsMeta, Seq(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/join.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<h3 id="4-4-分组和聚合"><a href="#4-4-分组和聚合" class="headerlink" title="4.4. 分组和聚合"></a>4.4. 分组和聚合</h3>
+<h3 id="4-4-分组和聚合"><a href="#4-4-分组和聚合" class="headerlink" title="4.4. 分组和聚合"></a>4.4. 分组和聚合</h3><p>分组（grouping）和聚合（aggregation）返回的是 DataFrame（会丢失类型信息） 而不是 Dataset：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights.groupBy(&quot;DEST_COUNTRY_NAME&quot;).count()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/groupBy.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/groupBy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>这通常不会造成太大的损失，但如果你想保持类型信息，也有其他方法可以执行分组和聚合，一个很好的示例就是 <strong>groupByKey</strong> 方法，它可以<strong>按 Dataset 中的特定键进行分组，并返回具有类型信息的 Dataset</strong>。</p>
+<blockquote>
+<p>groupByKey 接受一个函数而非特定的列名，这使你可以指定更复杂的分组功能。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights.groupByKey(x =&gt; x.DEST_COUNTRY_NAME).count()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/groupByKey.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/groupByKey.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>虽然这提供了灵活性，但需要我们根据实际情况去权衡，因为现在我们引入了 JVM 类型以及无法被 Spark 优化的函数，这意味着会影响性能 ，查看下解释计划即可明白：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flights.groupByKey(x =&gt; x.DEST_COUNTRY_NAME).count.explain</span><br><span class="line">== Physical Plan ==</span><br><span class="line">*(3) HashAggregate(keys=[value#157], functions=[count(1)])</span><br><span class="line">+- Exchange hashpartitioning(value#157, 200)</span><br><span class="line">   +- *(2) HashAggregate(keys=[value#157], functions=[partial_count(1)])</span><br><span class="line">      +- *(2) Project [value#157]</span><br><span class="line">         +- AppendColumns &lt;function1&gt;, newInstance(class $line14.$read$$iw$$iw$Flight), [staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, input[0, java.lang.String, true], true, false) AS value#157]</span><br><span class="line">            +- *(1) FileScan parquet [DEST_COUNTRY_NAME#0,ORIGIN_COUNTRY_NAME#1,count#2L] Batched: true, Format: Parquet, Location: InMemoryFileIndex[hdfs://master:9000/datasets/flight-data/parquet/2010-summary.parquet], PartitionFilters: [], PushedFilters: [], ReadSchema: struct&lt;DEST_COUNTRY_NAME:string,ORIGIN_COUNTRY_NAME:string,count:bigint&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在Dataset上根据某key执行分组后，就可以在 Key Value Dataset 上根据自定义的函数操作数据（该函数将分组作为原始操作对象）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def grpSum(countryName: String, values: Iterator[Flight]) = &#123;</span><br><span class="line">    values.dropWhile(_.count &lt; 1000).map(x =&gt; (contryName, x, x.count))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flights.groupBykey(x =&gt; x.DEST_COUNTRY_NAME).flatMapGroups(grpSum).show(2, false)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/faltMapGroups.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/faltMapGroups.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def grpSum2(f: Flight): Integer = &#123; 1 &#125;</span><br><span class="line"></span><br><span class="line">flights.groupByKey(x =&gt; x.DEST_COUNTRY_NAME).mapValues(grpSum2).count().take(5)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/mapValues.png" class="lazyload" data-srcset="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/mapValues.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>甚至可以创建新的操作并定义如何执行 reduceGroups 聚合：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def sum2(left: Flight, right: Flight) = &#123;</span><br><span class="line">    Flight(left.DEST_COUNTRY_NAME, null, left.count + right.count) </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flights.groupByKey(x =&gt; x.DEST_COUNTRY_NAME).reduceGroups((l, r) =&gt; sum2(l, r)).take(5)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array[(String, Flight)] = Array((Anguilla,Flight(Anguilla,United States,21)), (Russia,Flight(Russia,United States,152)), (Paraguay,Flight(Paraguay,United States,90)), (Senegal,Flight(Senegal,United States,29)), (Sweden,Flight(Sweden,United States,65)))</span><br></pre></td></tr></table></figure>
+
+<p>所以，<font color="#dd00dd">仅在用户定义分组聚合时使用 Dataset 才有意义，这可能在大数据流水线处理的开始或结束的位置</font>。</p>
+
   
   
     
@@ -695,7 +723,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T12:01:49+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T14:29:58+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月17日</p>
