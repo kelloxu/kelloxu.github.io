@@ -22,9 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>1 弹性分布式数据集 - 铁人博客</title>
+  <title>Spark系列三——1-弹性分布式数据集 - 铁人博客</title>
   
-    <meta name="keywords" content="大数据,spark">
+    <meta name="keywords" content="大数据,spark,RDD">
   
 
   
@@ -492,7 +492,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        1 弹性分布式数据集
+        Spark系列三——1-弹性分布式数据集
       </h1>
       <div class='new-meta-box'>
         
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="1 弹性分布式数据集" data-path="/2020/10/22/1-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/">
+      <div id="lc-pv" data-title="Spark系列三——1-弹性分布式数据集" data-path="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -552,7 +552,57 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  
+  <p>Spark系列二中介绍了Spark的结构化API，在绝大多数场景下使用这些结构化API就可以解决业务问题，但当这类高级API无法解决特殊的业务或工程问题时，就需要使用Spark的低级API，特别是<strong>弹性分布式数据集（RDD）、SparkContext和分布式共享变量（例如累加器和广播变量）</strong>。</p>
+<h2 id="1-什么是低级API"><a href="#1-什么是低级API" class="headerlink" title="1  什么是低级API"></a>1  什么是低级API</h2><p>有两种低级API：</p>
+<ul>
+<li>一种用于处理分布式数据（RDD）</li>
+<li>另一种用于分发和处理分布式共享变量（广播变量和累加器）</li>
+</ul>
+<h3 id="1-1-何时使用低级API"><a href="#1-1-何时使用低级API" class="headerlink" title="1.1 何时使用低级API"></a>1.1 何时使用低级API</h3><ul>
+<li>当在高级API中找不到所需功能时（例如要对集群中数据的物理放置进行非常严格的控制时）</li>
+<li>当需要维护一些使用RDD编写的遗留代码库时</li>
+<li>当需要执行一些自定义共享变量操作时（关于共享变量，请查看 <a href="https://kelloxu.github.io/2020/11/04/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%943-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/">Spark系列三——3-分布式共享变量</a>）</li>
+</ul>
+<blockquote>
+<p>当调用一个DataFrame的转换操作时，实际上等价于一组RDD的转换操作，当你开始条调试越来越复杂的工作负载，这种对等价转换的理解可以帮你更容易完成任务。</p>
+</blockquote>
+<h3 id="1-2-如何使用低级API"><a href="#1-2-如何使用低级API" class="headerlink" title="1.2 如何使用低级API"></a>1.2 如何使用低级API</h3><p><strong>SparkContext</strong> 是低级API函数库的入口，可以通过 SparkSession 来获取 SparkContext，SparkSession 是用于在 Spark 集群上执行计算的工具（将在下一篇博客中介绍SparkSeesion）。</p>
+<h2 id="2-关于RDD"><a href="#2-关于RDD" class="headerlink" title="2. 关于RDD"></a>2. 关于RDD</h2><p>RDD 是 Spark1.x 中主要的API，在 Spark 2.x 中仍然可以使用它，但已不常用，因为主要使用 DataFrame 和 Dataset，不过，无论是 DataFrame 还是 Dataset，运行的所有 Spark 代码都将编译成一个 RDD，所以对 RDD是什么以及如何使用它要有一个基本的了解。</p>
+<p><font color="#dd00dd">RDD 是一个只读不可变的且且已分块的记录集合，并可以被并行处理</font>。</p>
+<p>RDD 与 DataFrame 不同，<strong>DataFrame中每个记录是一个结构化的数据行，各字段已知且 schema 已知，而 RDD 中的记录仅仅是程序员选择的 Java、Scala或Pythond对象</strong>，正因为如此，我们可以完全控制 RDD，<strong>即能以任何格式在这些对象中存储任何内容</strong>，但是这也带来了一些潜在问题：</p>
+<ul>
+<li>无论实现什么任务，都必须从底层开发</li>
+<li>Spark不象对结构化API那样清除地理解记录的内部结构，所以往往需要程序员自己写优化代码。</li>
+</ul>
+<blockquote>
+<p>Spark的结构化API会自动以优化后的二进制压缩格式存储数据u，而在使用低级API时，为了实现同样的空间效率和性能，需要在对象内部实现这种压缩格式，以及针对该格式进行计算的所有低级操作。同样，像重排过滤和聚合等这类 SparkSQL 中自动化的优化操作，也需要手动实现。</p>
+</blockquote>
+<p>RDD API 与 Dataset 类似，不同的是 RDD 不在结构化数据引擎上进行存储或处理。然而，在 RDD 和 Dataset 之间来回转换的代价很小，因此可以同时使用两种 API 来取长补短。</p>
+<h3 id="2-1-RDD类型"><a href="#2-1-RDD类型" class="headerlink" title="2.1. RDD类型"></a>2.1. RDD类型</h3><p>Spark API 文档中，有很多RDD子类，大部分是 DataFrame API 优化物理执行计划时用到的内部表示，而作为用户，一般只会创建两种类型的 RDD:</p>
+<ul>
+<li>通用型RDD</li>
+<li>提供附加函数的key-value RDD，例如基于key的聚合函数</li>
+</ul>
+<p>这两种最常用，<strong>都是表示对象的集合，但是 key-value RDD 支持特殊操作并支持按key的自定义数据分片</strong>。</p>
+<p>现在来正式定义 RDD，每个 RDD 具有以下五个主要内部属性：</p>
+<ul>
+<li>数据分片（Partition）列表</li>
+<li>作用在每个数据分片的计算函数</li>
+<li>描述与其他RDD的依赖关系</li>
+<li>（可选）为ke-value RDD配置的Partitioner（分片方法，如hash分片）</li>
+<li>（可选）优先位置列表，根据数据的本地特性，指定了每个Partition分片的处理位置偏好（例如，对于一个HDFS文件来说，这个列表就是每个文件块所在的节点）</li>
+</ul>
+<blockquote>
+<p>如果正确地使用你自定义的Partitioner，则能在性能和稳定性上得到有效提升（将在下一篇博客介绍键值对RDD时，深入介绍Partitioner）。</p>
+</blockquote>
+<p>RDD 支持两种类型的算子操作：<strong>惰性执行的转换操作和立即执行的动作操作，都是以分布式的方式来处理数据</strong>。</p>
+<p>RDD 中没有“行”的概念，RDD 的单个记录只是原始的 Java/Scala/Python 对象，因此必须手动处理这些数据，而不能使用结构化API中的函数库。</p>
+<p>对于 Scala和Java 而言，使用RDD的性能基本是相同的，主要的性能开销花费在处理原始对象上；而对于 Python，使用RDD会极大地影响性能（运行 Python RDD 等同于逐行运行用户自定义的 Python函数，我们需要将数据序列化到 Python 进程中，使用 Python 进行操作，然后在将其序列化到Java虚拟机中）。</p>
+<h3 id="2-2-何时使用RDD"><a href="#2-2-何时使用RDD" class="headerlink" title="2.2. 何时使用RDD"></a>2.2. 何时使用RDD</h3><p>除非有非常明确的理由，否则不要手动创建 RDD，在绝大多数情况下，Dataframe 比 RDD 更高效、更稳定并且具有更强大的表达能力。</p>
+<p>当你需要对数据的物理分布进行细粒度控制（自定义数据分区）是，可能才需要使用RDD。</p>
+<h3 id="2-3-Dataset和使用Case-Clase转化的RDD"><a href="#2-3-Dataset和使用Case-Clase转化的RDD" class="headerlink" title="2.3. Dataset和使用Case Clase转化的RDD"></a>2.3. Dataset和使用Case Clase转化的RDD</h3><p>使用Case Clase转化的RDD 和 Dataset 的不同之处在于，虽然它们可以执行相同的功能，但是 Dataset 可以利用结构化API提供的丰富功能和优化，无需选则在“JVM类型”还是“Spark类型”上进行操作。</p>
+<p>你可以采用其中最简单或最灵活的方式。</p>
+<h2 id="3-创建RDD"><a href="#3-创建RDD" class="headerlink" title="3. 创建RDD"></a>3. 创建RDD</h2><h3 id="3-1-在DataFrame、Dataset和RDD之间进行交互操作"><a href="#3-1-在DataFrame、Dataset和RDD之间进行交互操作" class="headerlink" title="3.1. 在DataFrame、Dataset和RDD之间进行交互操作"></a>3.1. 在DataFrame、Dataset和RDD之间进行交互操作</h3><h3 id="3-2-从本地集合中创建RDD"><a href="#3-2-从本地集合中创建RDD" class="headerlink" title="3.2. 从本地集合中创建RDD"></a>3.2. 从本地集合中创建RDD</h3><h3 id="3-3-从数据源创建"><a href="#3-3-从数据源创建" class="headerlink" title="3.3. 从数据源创建"></a>3.3. 从数据源创建</h3><h2 id="4-操作RDD"><a href="#4-操作RDD" class="headerlink" title="4. 操作RDD"></a>4. 操作RDD</h2><h3 id="4-1-转换操作"><a href="#4-1-转换操作" class="headerlink" title="4.1. 转换操作"></a>4.1. 转换操作</h3><h3 id="4-2-动作操作"><a href="#4-2-动作操作" class="headerlink" title="4.2. 动作操作"></a>4.2. 动作操作</h3><h3 id="4-3-保存文件"><a href="#4-3-保存文件" class="headerlink" title="4.3. 保存文件"></a>4.3. 保存文件</h3><h4 id="saveAsTextFile"><a href="#saveAsTextFile" class="headerlink" title="saveAsTextFile"></a>saveAsTextFile</h4><h4 id="SequenceFiles"><a href="#SequenceFiles" class="headerlink" title="SequenceFiles"></a>SequenceFiles</h4><h4 id="Hadoop文件"><a href="#Hadoop文件" class="headerlink" title="Hadoop文件"></a>Hadoop文件</h4><h3 id="4-4-缓存"><a href="#4-4-缓存" class="headerlink" title="4.4. 缓存"></a>4.4. 缓存</h3><h3 id="4-5-检查点"><a href="#4-5-检查点" class="headerlink" title="4.5. 检查点"></a>4.5. 检查点</h3><h3 id="4-6-通过pipe方法调用系统命令操作RDD"><a href="#4-6-通过pipe方法调用系统命令操作RDD" class="headerlink" title="4.6. 通过pipe方法调用系统命令操作RDD"></a>4.6. 通过pipe方法调用系统命令操作RDD</h3>
   
   
     
@@ -569,7 +619,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/10/22/1-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/>https://kelloxu.github.io/2020/10/22/1-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/>https://kelloxu.github.io/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/</a></p>
               
             
           </blockquote>
@@ -596,10 +646,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T12:04:57+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T23:28:23+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月4日</p>
+    <p>更新于：2021年7月17日</p>
   </a>
 </div>
 
@@ -608,7 +658,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/RDD/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>RDD</p></a></div>
 
 
         
@@ -621,7 +671,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/10/22/1-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/&title=1 弹性分布式数据集 - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/&title=Spark系列三——1-弹性分布式数据集 - 铁人博客&summary="
           
           >
           
@@ -633,7 +683,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/10/22/1-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/&title=1 弹性分布式数据集 - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/&title=Spark系列三——1-弹性分布式数据集 - 铁人博客&summary="
           
           >
           
@@ -645,7 +695,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/10/22/1-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/&title=1 弹性分布式数据集 - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/&title=Spark系列三——1-弹性分布式数据集 - 铁人博客&summary="
           
           >
           
@@ -675,8 +725,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2020/10/30/2-%E9%AB%98%E7%BA%A7RDD/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2 高级RDD</p>
+        <a class='prev' href='/2020/10/30/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%942-%E9%AB%98%E7%BA%A7RDD/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark系列三——2-高级RDD</p>
           <p class='content'></p>
         </a>
       
@@ -718,6 +768,20 @@ DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一
 
 
 
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BD%8E%E7%BA%A7API"><span class="toc-text">1  什么是低级API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E4%BD%8E%E7%BA%A7API"><span class="toc-text">1.1 何时使用低级API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%BD%8E%E7%BA%A7API"><span class="toc-text">1.2 如何使用低级API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%85%B3%E4%BA%8ERDD"><span class="toc-text">2. 关于RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-RDD%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.1. RDD类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8RDD"><span class="toc-text">2.2. 何时使用RDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Dataset%E5%92%8C%E4%BD%BF%E7%94%A8Case-Clase%E8%BD%AC%E5%8C%96%E7%9A%84RDD"><span class="toc-text">2.3. Dataset和使用Case Clase转化的RDD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BARDD"><span class="toc-text">3. 创建RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%9C%A8DataFrame%E3%80%81Dataset%E5%92%8CRDD%E4%B9%8B%E9%97%B4%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92%E6%93%8D%E4%BD%9C"><span class="toc-text">3.1. 在DataFrame、Dataset和RDD之间进行交互操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BB%8E%E6%9C%AC%E5%9C%B0%E9%9B%86%E5%90%88%E4%B8%AD%E5%88%9B%E5%BB%BARDD"><span class="toc-text">3.2. 从本地集合中创建RDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%BB%8E%E6%95%B0%E6%8D%AE%E6%BA%90%E5%88%9B%E5%BB%BA"><span class="toc-text">3.3. 从数据源创建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%93%8D%E4%BD%9CRDD"><span class="toc-text">4. 操作RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4.1. 转换操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%8A%A8%E4%BD%9C%E6%93%8D%E4%BD%9C"><span class="toc-text">4.2. 动作操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6"><span class="toc-text">4.3. 保存文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#saveAsTextFile"><span class="toc-text">saveAsTextFile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SequenceFiles"><span class="toc-text">SequenceFiles</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hadoop%E6%96%87%E4%BB%B6"><span class="toc-text">Hadoop文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E7%BC%93%E5%AD%98"><span class="toc-text">4.4. 缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E6%A3%80%E6%9F%A5%E7%82%B9"><span class="toc-text">4.5. 检查点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E9%80%9A%E8%BF%87pipe%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9CRDD"><span class="toc-text">4.6. 通过pipe方法调用系统命令操作RDD</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
 
   
 
@@ -733,7 +797,7 @@ DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="1 弹性分布式数据集";
+  pdata.postTitle="Spark系列三——1-弹性分布式数据集";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
