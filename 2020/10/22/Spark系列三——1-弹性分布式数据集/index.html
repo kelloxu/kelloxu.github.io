@@ -631,7 +631,50 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.sparkContext.wholeTextFiles(&quot;/some/path/withTextFiles&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>在该 RDD 中，文件的名称是第一个对象，文本文件的内容则是第二个字符串对象。</p>
-<h2 id="4-操作RDD"><a href="#4-操作RDD" class="headerlink" title="4. 操作RDD"></a>4. 操作RDD</h2><h3 id="4-1-转换操作"><a href="#4-1-转换操作" class="headerlink" title="4.1. 转换操作"></a>4.1. 转换操作</h3><h3 id="4-2-动作操作"><a href="#4-2-动作操作" class="headerlink" title="4.2. 动作操作"></a>4.2. 动作操作</h3><h3 id="4-3-保存文件"><a href="#4-3-保存文件" class="headerlink" title="4.3. 保存文件"></a>4.3. 保存文件</h3><h4 id="saveAsTextFile"><a href="#saveAsTextFile" class="headerlink" title="saveAsTextFile"></a>saveAsTextFile</h4><h4 id="SequenceFiles"><a href="#SequenceFiles" class="headerlink" title="SequenceFiles"></a>SequenceFiles</h4><h4 id="Hadoop文件"><a href="#Hadoop文件" class="headerlink" title="Hadoop文件"></a>Hadoop文件</h4><h3 id="4-4-缓存"><a href="#4-4-缓存" class="headerlink" title="4.4. 缓存"></a>4.4. 缓存</h3><h3 id="4-5-检查点"><a href="#4-5-检查点" class="headerlink" title="4.5. 检查点"></a>4.5. 检查点</h3><h3 id="4-6-通过pipe方法调用系统命令操作RDD"><a href="#4-6-通过pipe方法调用系统命令操作RDD" class="headerlink" title="4.6. 通过pipe方法调用系统命令操作RDD"></a>4.6. 通过pipe方法调用系统命令操作RDD</h3>
+<h2 id="4-操作RDD"><a href="#4-操作RDD" class="headerlink" title="4. 操作RDD"></a>4. 操作RDD</h2><p>操作 RDD 的方式与操作 DataFrame 的方式非常相似，核心区别在于 RDD 操作的是原始 Java 或 Scala 对象而非 Spark 类型，以及还缺乏一些可以帮助你简化计算的“辅助”方法或函数，因此<strong>必须自己定义每个过滤器filter、映射函数map functions、聚合aggregation，以及其他想被作为函数使用的任何操作</strong>。</p>
+<h3 id="4-1-转换操作"><a href="#4-1-转换操作" class="headerlink" title="4.1. 转换操作"></a>4.1. 转换操作</h3><p>就像使用DataFrame和Dataset一样，需要在RDD上指定转换操作来创建一个新的RDD，这也将导致新的RDD依赖于原有的RDD。</p>
+<ul>
+<li>distinct</li>
+</ul>
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/distinct.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/distinct.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>filter<br>等同于创建一个类似SQL中的where子句，可以通过RDD中的记录来查看谓词函数匹配，该匹配的函数被用来作为过滤函数时，只需要返回一个布尔类型值即可。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def startsWithY(str: String) = &#123;</span><br><span class="line">    str.startsWith(&quot;Y&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">words.filter(word =&gt; startsWithY(word)).collect()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/filter.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/filter.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>map</li>
+</ul>
+<p>指定一个函数，将给定数据集中的记录<strong>一条一条</strong>地输入该函数处理以得到你期望的结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val words2 = words.map(word =&gt; (word, word(0), word.startsWith(&quot;y&quot;)))</span><br></pre></td></tr></table></figure>
+
+<p>可以继续根据words2中的布尔值（即三元组的第三项）来进行过滤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">words2.filter(w =&gt; w._3).take(5)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/map.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/map.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>flatMap</li>
+</ul>
+<p>展平操作，即将每个当前行映射为多行，例如，将一组单词映射为一组字符。注意，<strong>flatMap 要求输出时一个可展开的迭代器</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">words.flatMap(word =&gt; word.toSeq).take(5)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/flatMap.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/flatMap.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>排序</li>
+</ul>
+<p>要对RDD排序，<strong>必须使用 sortBy 方法</strong>，同其他RDD操作一样，可以通过指定一个函数从RDD对象中读取值，然后对该值进行排序。以下示例按字长倒排：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">words.sortBy(word =&gt; word.length() * -1).take(5)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/sort.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/sort.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>随机分割</li>
+</ul>
+<p>通过 randomSplit() 将一个RDD随机切分成若干个RDD，这些RDD组成一个RDD的Array返回。 randomSplit方法包含两个参数，一个是包含权重的Array（根据weight权重值进行切分，权重越高，划分得到的元素较多的概率就越大，数组的长度即为划分的RDD的数量）；一个是随机数种子（seed，可选参数）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val randomSplit = words.randomSplit(Array[Double](0.3, 0.7))</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/randomSplit.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/randomSplit.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>注意，权重值的加和应为1。</p>
+</blockquote>
+<h3 id="4-2-动作操作"><a href="#4-2-动作操作" class="headerlink" title="4.2. 动作操作"></a>4.2. 动作操作</h3><h3 id="4-3-保存文件"><a href="#4-3-保存文件" class="headerlink" title="4.3. 保存文件"></a>4.3. 保存文件</h3><h4 id="saveAsTextFile"><a href="#saveAsTextFile" class="headerlink" title="saveAsTextFile"></a>saveAsTextFile</h4><h4 id="SequenceFiles"><a href="#SequenceFiles" class="headerlink" title="SequenceFiles"></a>SequenceFiles</h4><h4 id="Hadoop文件"><a href="#Hadoop文件" class="headerlink" title="Hadoop文件"></a>Hadoop文件</h4><h3 id="4-4-缓存"><a href="#4-4-缓存" class="headerlink" title="4.4. 缓存"></a>4.4. 缓存</h3><h3 id="4-5-检查点"><a href="#4-5-检查点" class="headerlink" title="4.5. 检查点"></a>4.5. 检查点</h3><h3 id="4-6-通过pipe方法调用系统命令操作RDD"><a href="#4-6-通过pipe方法调用系统命令操作RDD" class="headerlink" title="4.6. 通过pipe方法调用系统命令操作RDD"></a>4.6. 通过pipe方法调用系统命令操作RDD</h3>
   
   
     
@@ -675,7 +718,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-18T11:41:22+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-18T12:41:22+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月18日</p>
