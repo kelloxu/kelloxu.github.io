@@ -602,7 +602,36 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>当你需要对数据的物理分布进行细粒度控制（自定义数据分区）是，可能才需要使用RDD。</p>
 <h3 id="2-3-Dataset和使用Case-Clase转化的RDD"><a href="#2-3-Dataset和使用Case-Clase转化的RDD" class="headerlink" title="2.3. Dataset和使用Case Clase转化的RDD"></a>2.3. Dataset和使用Case Clase转化的RDD</h3><p>使用Case Clase转化的RDD 和 Dataset 的不同之处在于，虽然它们可以执行相同的功能，但是 Dataset 可以利用结构化API提供的丰富功能和优化，无需选则在“JVM类型”还是“Spark类型”上进行操作。</p>
 <p>你可以采用其中最简单或最灵活的方式。</p>
-<h2 id="3-创建RDD"><a href="#3-创建RDD" class="headerlink" title="3. 创建RDD"></a>3. 创建RDD</h2><h3 id="3-1-在DataFrame、Dataset和RDD之间进行交互操作"><a href="#3-1-在DataFrame、Dataset和RDD之间进行交互操作" class="headerlink" title="3.1. 在DataFrame、Dataset和RDD之间进行交互操作"></a>3.1. 在DataFrame、Dataset和RDD之间进行交互操作</h3><h3 id="3-2-从本地集合中创建RDD"><a href="#3-2-从本地集合中创建RDD" class="headerlink" title="3.2. 从本地集合中创建RDD"></a>3.2. 从本地集合中创建RDD</h3><h3 id="3-3-从数据源创建"><a href="#3-3-从数据源创建" class="headerlink" title="3.3. 从数据源创建"></a>3.3. 从数据源创建</h3><h2 id="4-操作RDD"><a href="#4-操作RDD" class="headerlink" title="4. 操作RDD"></a>4. 操作RDD</h2><h3 id="4-1-转换操作"><a href="#4-1-转换操作" class="headerlink" title="4.1. 转换操作"></a>4.1. 转换操作</h3><h3 id="4-2-动作操作"><a href="#4-2-动作操作" class="headerlink" title="4.2. 动作操作"></a>4.2. 动作操作</h3><h3 id="4-3-保存文件"><a href="#4-3-保存文件" class="headerlink" title="4.3. 保存文件"></a>4.3. 保存文件</h3><h4 id="saveAsTextFile"><a href="#saveAsTextFile" class="headerlink" title="saveAsTextFile"></a>saveAsTextFile</h4><h4 id="SequenceFiles"><a href="#SequenceFiles" class="headerlink" title="SequenceFiles"></a>SequenceFiles</h4><h4 id="Hadoop文件"><a href="#Hadoop文件" class="headerlink" title="Hadoop文件"></a>Hadoop文件</h4><h3 id="4-4-缓存"><a href="#4-4-缓存" class="headerlink" title="4.4. 缓存"></a>4.4. 缓存</h3><h3 id="4-5-检查点"><a href="#4-5-检查点" class="headerlink" title="4.5. 检查点"></a>4.5. 检查点</h3><h3 id="4-6-通过pipe方法调用系统命令操作RDD"><a href="#4-6-通过pipe方法调用系统命令操作RDD" class="headerlink" title="4.6. 通过pipe方法调用系统命令操作RDD"></a>4.6. 通过pipe方法调用系统命令操作RDD</h3>
+<h2 id="3-创建RDD"><a href="#3-创建RDD" class="headerlink" title="3. 创建RDD"></a>3. 创建RDD</h2><h3 id="3-1-在DataFrame、Dataset和RDD之间进行交互操作"><a href="#3-1-在DataFrame、Dataset和RDD之间进行交互操作" class="headerlink" title="3.1. 在DataFrame、Dataset和RDD之间进行交互操作"></a>3.1. 在DataFrame、Dataset和RDD之间进行交互操作</h3><p>创建RDD最简单的方法：将现有的 DataFrame或Dataset转换成RDD，只要调用这些数据类型的rdd方法即可。</p>
+<p>从Dataset[T]转换成rdd，会返回合适的本机类型T（这仅使用于Scala和Java）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// in scala/java： 将 Dataset[Long] 类型转化成 RDD[Long] 类型</span><br><span class="line">spark.range(500).rdd</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因为Python中只有DataFrame，并没有Dataset，所以会得到Row类型的RDD。</p>
+</blockquote>
+<p>要操作这些数据，则需将此Long类型的对象转换为正确的数据类型或从中提取出值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// spark.range(10).toDF().rdd 返回 RDD[Row]类型</span><br><span class="line">spark.range(10).toDF().rdd.map(rowObject =&gt; rowObject.getLong(0))</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/row_to_long.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/row_to_long.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>从RDD创建DF很简单，只需要调用 toDF 方法即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.range(10).rdd.toDF()</span><br></pre></td></tr></table></figure>
+
+<p><strong>RDD API 与 Dataset API 非常相似，RDD 是 Dataset 的低级表示</strong>，但是它们并没有像结构化API那样方便的函数和接口。</p>
+<h3 id="3-2-从本地集合中创建RDD"><a href="#3-2-从本地集合中创建RDD" class="headerlink" title="3.2. 从本地集合中创建RDD"></a>3.2. 从本地集合中创建RDD</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val myCollection = &quot;You can work hard, but if you don&#x27;t work smart. You&#x27;ll work for the rest of your life.&quot;.split(&quot;&quot;)</span><br><span class="line">val words = spark.sparkContext.parallelize(myCollection, 2)</span><br></pre></td></tr></table></figure>
+
+<p>spark.sparkContext.parallelize(集合, 分片数量) 将位于<strong>单个节点</strong>的数据集合转换成一个并行集合，并指定了该并行集合的分片数量。</p>
+<p>我们可以给RDD命名，方便其展示在Spark UI上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">words.setName(&quot;myWords&quot;)</span><br><span class="line">words.name</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/create_rdd_from_collection.png" class="lazyload" data-srcset="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/create_rdd_from_collection.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="3-3-从数据源创建"><a href="#3-3-从数据源创建" class="headerlink" title="3.3. 从数据源创建"></a>3.3. 从数据源创建</h3><p>Data Source API 是读取数据最好的方式，因此可以使用 sparkContext 将数据读取为 RDD，以下示例实现逐行读取一个文本文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.sparkContext.textFile(&quot;/some/path/withTextFiles&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>这将创建一个 RDD，RDD中的<strong>每个记录</strong>都代表该文本文件中的一行。或者按照下面的方法将<strong>每个文本文件</strong>读取成一条记录（这里用例中的每一个文件，可能里面包含了一个大型JSON对象或文档）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.sparkContext.wholeTextFiles(&quot;/some/path/withTextFiles&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>在该 RDD 中，文件的名称是第一个对象，文本文件的内容则是第二个字符串对象。</p>
+<h2 id="4-操作RDD"><a href="#4-操作RDD" class="headerlink" title="4. 操作RDD"></a>4. 操作RDD</h2><h3 id="4-1-转换操作"><a href="#4-1-转换操作" class="headerlink" title="4.1. 转换操作"></a>4.1. 转换操作</h3><h3 id="4-2-动作操作"><a href="#4-2-动作操作" class="headerlink" title="4.2. 动作操作"></a>4.2. 动作操作</h3><h3 id="4-3-保存文件"><a href="#4-3-保存文件" class="headerlink" title="4.3. 保存文件"></a>4.3. 保存文件</h3><h4 id="saveAsTextFile"><a href="#saveAsTextFile" class="headerlink" title="saveAsTextFile"></a>saveAsTextFile</h4><h4 id="SequenceFiles"><a href="#SequenceFiles" class="headerlink" title="SequenceFiles"></a>SequenceFiles</h4><h4 id="Hadoop文件"><a href="#Hadoop文件" class="headerlink" title="Hadoop文件"></a>Hadoop文件</h4><h3 id="4-4-缓存"><a href="#4-4-缓存" class="headerlink" title="4.4. 缓存"></a>4.4. 缓存</h3><h3 id="4-5-检查点"><a href="#4-5-检查点" class="headerlink" title="4.5. 检查点"></a>4.5. 检查点</h3><h3 id="4-6-通过pipe方法调用系统命令操作RDD"><a href="#4-6-通过pipe方法调用系统命令操作RDD" class="headerlink" title="4.6. 通过pipe方法调用系统命令操作RDD"></a>4.6. 通过pipe方法调用系统命令操作RDD</h3>
   
   
     
@@ -646,10 +675,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-17T23:28:23+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-18T11:41:22+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月17日</p>
+    <p>更新于：2021年7月18日</p>
   </a>
 </div>
 
