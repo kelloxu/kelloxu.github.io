@@ -22,7 +22,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>hexo保存源码到git仓库 - 铁人博客</title>
+  <title>Hexo保存源码到Git仓库 - 铁人博客</title>
   
     <meta name="keywords" content="hexo,git">
   
@@ -492,7 +492,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        hexo保存源码到git仓库
+        Hexo保存源码到Git仓库
       </h1>
       <div class='new-meta-box'>
         
@@ -523,7 +523,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年10月4日</p>
+    <p>发布于：2021年2月10日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="hexo保存源码到git仓库" data-path="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/">
+      <div id="lc-pv" data-title="Hexo保存源码到Git仓库" data-path="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -553,57 +553,62 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   <p>hexo是当前火热的静态博客框架，支持Markdown格式文章编辑，并通过简单的命令即可自动生成对应的静态网页，同时支持自定义主题，操作简单，功能强大，是博客创作的利器。</p>
-<p>但是，博主最近遇到了一个坑，差点让我放弃hexo🤣</p>
+<p>但是，博主最近遇到了一个坑，差点让我放弃hexo🤣。</p>
 <p>因为要使用某个插件，安装了好久不仅没搞定，还导致无法创建博客了，所以必须重头开始——github新建仓库、本地初始化hexo等等。心想，反正github上已经有源码了，直接删除本地hexo仓库，然后直接clone git仓库的源码就可以了。</p>
-<p>万万没想到的是，git仓库只保存了hexo发布后的静态html文件，即 public 文件夹下的内容，并没有保存 source 文件夹的内容，所以源码没了！最后只能从已经发布的文章挑些重要的，复制内容，然后重新在本地hexo new文章，粘贴，就这样手动恢复了源码，内心万马奔腾啊😱</p>
+<p>万万没想到的是，git仓库只保存了hexo发布后的静态html文件，即 public 文件夹下的内容，并没有保存 source 文件夹的内容，所以源码没了！最后只能从已经发布的文章挑些重要的，复制内容，然后重新在本地hexo new文章，粘贴，就这样手动恢复了源码，内心万马奔腾啊😱。</p>
 <p>相信使用过hexo的朋友们都遇到过类似的问题，即git远程仓库只会保存hexo发布后的静态文件，你的博客md源文件、图片资源、主题配置等还在本地，一旦计算机磁盘坏了，或者自己误删了源码，源码就永远消失了！</p>
 <p>办法总比困难多，针对此问题，博主总结了两种方法，相信对你会有很大帮助。</p>
-<h2 id="1-方法一——git分支"><a href="#1-方法一——git分支" class="headerlink" title="1. 方法一——git分支"></a>1. 方法一——git分支</h2><p>我们可以借助git分支巧妙地实现用同一个仓库保存静态网页和博客源码。</p>
+<h2 id="1-方法A-Git分支"><a href="#1-方法A-Git分支" class="headerlink" title="1. 方法A-Git分支"></a>1. 方法A-Git分支</h2><p>我们可以借助git分支巧妙地实现用同一个仓库保存静态网页和博客源码。</p>
 <h3 id="1-1-在原有hexo项目的git仓库创建新分支"><a href="#1-1-在原有hexo项目的git仓库创建新分支" class="headerlink" title="1.1. 在原有hexo项目的git仓库创建新分支"></a>1.1. 在原有hexo项目的git仓库创建新分支</h3><p>打开你hexo项目的git仓库，并选择一个空分支（一般为main分支）:</p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p>点击”main”旁边的下三角，在弹出的窗口中的”Find or create branch..”文本区域输入待新建的仓库名source，点击”Cr    eate branch: source from ‘main’”，这样就会从main分支创建新分支soure：</p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github3.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github4.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github1.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点击“main”旁边的下三角，在弹出的窗口中的“Find or create branch..”文本区域输入待新建的仓库名source，点击“Create branch: source from ‘main’”，这样就会从main分支创建新分支soure：</p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github2.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github3.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github4.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h3 id="1-2-将本地hexo目录与远程仓库关联"><a href="#1-2-将本地hexo目录与远程仓库关联" class="headerlink" title="1.2. 将本地hexo目录与远程仓库关联"></a>1.2. 将本地hexo目录与远程仓库关联</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin https://github.com/username/username.github.io.git</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<pre><code>hexo虽然可以通过 ```hexo d``` 将public的内容push到git仓库，但hexo项目目录下并没有.git文件，所以严格来说，该目录并不是git仓库，需要通过执行 ```git init```将hexo项目目录初始化为git仓库，这样才能使用git相关命令。
-</code></pre>
-<h3 id="1-3-推送本地源码到远程仓库source分支"><a href="#1-3-推送本地源码到远程仓库source分支" class="headerlink" title="1.3. 推送本地源码到远程仓库source分支"></a>1.3. 推送本地源码到远程仓库source分支</h3><p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git1.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git2.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>hexo虽然可以通过 <code>hexo d</code> 将public的内容push到git仓库，但hexo项目目录下并没有 .git 文件，所以严格来说，该目录并不是git仓库，需要通过执行 <code>git init</code> 将hexo项目目录初始化为git仓库，这样才能使用git相关命令。</p>
+</blockquote>
+<h3 id="1-3-推送本地源码到远程仓库source分支"><a href="#1-3-推送本地源码到远程仓库source分支" class="headerlink" title="1.3. 推送本地源码到远程仓库source分支"></a>1.3. 推送本地源码到远程仓库source分支</h3><p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo1.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>首先确保.gitignore配置正确，仅将本地的md源文件（source目录下）、站点配置文件等推送到source分支，其他编译出来的文件并不需要。</p>
 <p>增加一行 <code>*.swp</code>：</p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo2.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>然后依次执行如下命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &#x27;source files&#x27;</span><br><span class="line">git push origin master:source  // 将本地分支master的提交推送到远程分支source</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="> </p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git3.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="> </p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>因为网络原因（被强），一直push失败，所以本方法只适用于服务器能够访问外网的情况（可以<a target="_blank" rel="noopener" href="https://nordvpn.com/zh/special/?utm_medium=affiliate&utm_term&utm_content&utm_campaign=off15&utm_source=aff32326">购买linux可用的vpn</a>）。</p>
-<h2 id="2-方法二——新建gitee仓库"><a href="#2-方法二——新建gitee仓库" class="headerlink" title="2. 方法二——新建gitee仓库"></a>2. 方法二——新建gitee仓库</h2><p>使用国产仓库码云(<a target="_blank" rel="noopener" href="https://gitee.com/)%EF%BC%8C%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93%EF%BC%8C%E4%BD%9C%E4%B8%BA%E6%9C%AC%E5%9C%B0git%E4%BB%93%E7%9A%84%E8%BF%9C%E7%A8%8B%E4%BB%93%E3%80%82">https://gitee.com/)，新建仓库，作为本地git仓的远程仓。</a></p>
-<h3 id="2-1-新建仓库"><a href="#2-1-新建仓库" class="headerlink" title="2.1. 新建仓库"></a>2.1. 新建仓库</h3><p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h2 id="2-方法B——新建gitee仓库"><a href="#2-方法B——新建gitee仓库" class="headerlink" title="2. 方法B——新建gitee仓库"></a>2. 方法B——新建gitee仓库</h2><p>在<a target="_blank" rel="noopener" href="https://gitee.com/">国产仓库码云</a>新建仓库，作为本地git仓的远程仓。</p>
+<h3 id="2-1-新建仓库"><a href="#2-1-新建仓库" class="headerlink" title="2.1. 新建仓库"></a>2.1. 新建仓库</h3><p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos1.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos2.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/new_repos2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>新建仓库时，只需填写仓库名，路径会自动填入，<font color="#dd00dd">“初始化仓库”、“设置模板”、“选择分支模型”都不要选，即创建一个空白仓库，没有分支，没有readme文件。</font></p>
 <p>如果创建的不是空白仓库，在 2.4.节 push时，会报错，提示本地有落后于远程仓库的提交，徒增不必要的麻烦。</p>
 <h3 id="2-2-配置公钥"><a href="#2-2-配置公钥" class="headerlink" title="2.2. 配置公钥"></a>2.2. 配置公钥</h3><p>将hexo博客本地仓所在机器上的公钥上传到gitee。</p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/addSSHKey.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/addSSHKey.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/addSSHKey.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/addSSHKey.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h3 id="2-3-关闭本地git仓与原来git远程仓的关联"><a href="#2-3-关闭本地git仓与原来git远程仓的关联" class="headerlink" title="2.3. 关闭本地git仓与原来git远程仓的关联"></a>2.3. 关闭本地git仓与原来git远程仓的关联</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote remove origin</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git_remove.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git_remove.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<pre><code>因为本方法是在方法一之后使用的，所以需要先关闭本地git仓与原来git远程仓的关联，如果直接采用方法二，则执行 ```git init```初始化本地git仓即可。
-</code></pre>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git_remove.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git_remove.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>因为本方法是在方法一之后使用的，所以需要先关闭本地git仓与原来git远程仓的关联，如果直接采用方法二，则执行 <code>git init</code>初始化本地git仓即可。</p>
+</blockquote>
 <h3 id="2-4-将本地git仓与新建的gitee仓关联"><a href="#2-4-将本地git仓与新建的gitee仓关联" class="headerlink" title="2.4. 将本地git仓与新建的gitee仓关联"></a>2.4. 将本地git仓与新建的gitee仓关联</h3><h4 id="HTTPS-方式"><a href="#HTTPS-方式" class="headerlink" title="HTTPS 方式"></a>HTTPS 方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://gitee.com/jefitar/hexoblog.git</span><br></pre></td></tr></table></figure>
-<p>每次push需要输入代码托管平台的用户名和密码，比较麻烦。</p>
-<pre><code>2021/09/01开始，push 代码到 github时，只能输入Personal Access Token，更麻烦，所以推荐使用SSH方式。
-</code></pre>
-<h4 id="SSH方式"><a href="#SSH方式" class="headerlink" title="SSH方式"></a>SSH方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@gitee.com:jefitar/hexoblog.git</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git5_remote_ssh.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git5_remote_ssh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p>实际上，2.2 节配置公钥就是为了使用ssh方式访问仓库、push代码。</p>
-<h2 id="3-push代码到gitee远程仓库"><a href="#3-push代码到gitee远程仓库" class="headerlink" title="3. push代码到gitee远程仓库"></a>3. push代码到gitee远程仓库</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit &quot;first commit&quot;</span><br><span class="line">git push origin master:master</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git6_push_master.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git6_push_master.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git7_gitee.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git7_gitee.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>每次push需要输入代码托管平台的用户名和密码，比较麻烦。</p>
+<blockquote>
+<p>2021/09/01开始，push 代码到 github时，只能输入Personal Access Token，更麻烦，所以推荐使用SSH方式。</p>
+</blockquote>
+<h4 id="SSH方式"><a href="#SSH方式" class="headerlink" title="SSH方式"></a>SSH方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@gitee.com:jefitar/hexoblog.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git5_remote_ssh.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git5_remote_ssh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>实际上，2.2 节配置公钥就是为了使用ssh方式访问仓库、push代码。</p>
+<h3 id="2-5-push代码到gitee远程仓库"><a href="#2-5-push代码到gitee远程仓库" class="headerlink" title="2.5. push代码到gitee远程仓库"></a>2.5. push代码到gitee远程仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit &quot;first commit&quot;</span><br><span class="line">git push origin master:master</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git6_push_master.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git6_push_master.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git7_gitee.png" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git7_gitee.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>至此，hexo的源码及配置文件等完美提交到了gitee仓库中，同时不影响通过 <code>hexo d</code> 发布博客的静态html文件到git仓库中。</p>
-<p>![perfect.jpg]</p>
+<p><img src="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/perfect.jpg" class="lazyload" data-srcset="/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/perfect.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 
   
   
@@ -621,7 +626,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/>https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/>https://kelloxu.github.io/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/</a></p>
               
             
           </blockquote>
@@ -648,7 +653,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-05T15:34:36+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-05T15:58:15+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年10月5日</p>
@@ -673,7 +678,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=hexo保存源码到git仓库 - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=Hexo保存源码到Git仓库 - 铁人博客&summary="
           
           >
           
@@ -685,7 +690,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=hexo保存源码到git仓库 - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=Hexo保存源码到Git仓库 - 铁人博客&summary="
           
           >
           
@@ -697,7 +702,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=hexo保存源码到git仓库 - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=Hexo保存源码到Git仓库 - 铁人博客&summary="
           
           >
           
@@ -727,10 +732,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
+        <a class='prev' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BJava/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark Dataset操作之Java</p>
+          <p class='content'>1. 实战场景实际工作中，我们经常会遇到将 Dataset 转为 Dataset 的情况，甚至有时候这些对象是嵌套的，这就比较复杂了。
+对于这类转换，使用 MapFunctions 或这 Fla...</p>
+        </a>
       
-        <a class='next' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BScala/'>
-          <p class='title'>Spark Dataset操作之Scala<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'></p>
+      
+        <a class='next' href='/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/'>
+          <p class='title'>动态规划实战-爬楼梯<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>1. 题目Climbing Stairs
+You are climbing a staircase. It takes n steps to reach the top.Each time yo...</p>
         </a>
       
     </div>
@@ -773,7 +785,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%B9%E6%B3%95%E4%B8%80%E2%80%94%E2%80%94git%E5%88%86%E6%94%AF"><span class="toc-text">1. 方法一——git分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%9C%A8%E5%8E%9F%E6%9C%89hexo%E9%A1%B9%E7%9B%AE%E7%9A%84git%E4%BB%93%E5%BA%93%E5%88%9B%E5%BB%BA%E6%96%B0%E5%88%86%E6%94%AF"><span class="toc-text">1.1. 在原有hexo项目的git仓库创建新分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%B0%86%E6%9C%AC%E5%9C%B0hexo%E7%9B%AE%E5%BD%95%E4%B8%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94"><span class="toc-text">1.2. 将本地hexo目录与远程仓库关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93source%E5%88%86%E6%94%AF"><span class="toc-text">1.3. 推送本地源码到远程仓库source分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%B9%E6%B3%95%E4%BA%8C%E2%80%94%E2%80%94%E6%96%B0%E5%BB%BAgitee%E4%BB%93%E5%BA%93"><span class="toc-text">2. 方法二——新建gitee仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="toc-text">2.1. 新建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%85%8D%E7%BD%AE%E5%85%AC%E9%92%A5"><span class="toc-text">2.2. 配置公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%85%B3%E9%97%AD%E6%9C%AC%E5%9C%B0git%E4%BB%93%E4%B8%8E%E5%8E%9F%E6%9D%A5git%E8%BF%9C%E7%A8%8B%E4%BB%93%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-text">2.3. 关闭本地git仓与原来git远程仓的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%B0%86%E6%9C%AC%E5%9C%B0git%E4%BB%93%E4%B8%8E%E6%96%B0%E5%BB%BA%E7%9A%84gitee%E4%BB%93%E5%85%B3%E8%81%94"><span class="toc-text">2.4. 将本地git仓与新建的gitee仓关联</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTPS-%E6%96%B9%E5%BC%8F"><span class="toc-text">HTTPS 方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH%E6%96%B9%E5%BC%8F"><span class="toc-text">SSH方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-push%E4%BB%A3%E7%A0%81%E5%88%B0gitee%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-text">3. push代码到gitee远程仓库</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%B9%E6%B3%95A-Git%E5%88%86%E6%94%AF"><span class="toc-text">1. 方法A-Git分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%9C%A8%E5%8E%9F%E6%9C%89hexo%E9%A1%B9%E7%9B%AE%E7%9A%84git%E4%BB%93%E5%BA%93%E5%88%9B%E5%BB%BA%E6%96%B0%E5%88%86%E6%94%AF"><span class="toc-text">1.1. 在原有hexo项目的git仓库创建新分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%B0%86%E6%9C%AC%E5%9C%B0hexo%E7%9B%AE%E5%BD%95%E4%B8%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94"><span class="toc-text">1.2. 将本地hexo目录与远程仓库关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93source%E5%88%86%E6%94%AF"><span class="toc-text">1.3. 推送本地源码到远程仓库source分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%B9%E6%B3%95B%E2%80%94%E2%80%94%E6%96%B0%E5%BB%BAgitee%E4%BB%93%E5%BA%93"><span class="toc-text">2. 方法B——新建gitee仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="toc-text">2.1. 新建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%85%8D%E7%BD%AE%E5%85%AC%E9%92%A5"><span class="toc-text">2.2. 配置公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%85%B3%E9%97%AD%E6%9C%AC%E5%9C%B0git%E4%BB%93%E4%B8%8E%E5%8E%9F%E6%9D%A5git%E8%BF%9C%E7%A8%8B%E4%BB%93%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-text">2.3. 关闭本地git仓与原来git远程仓的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%B0%86%E6%9C%AC%E5%9C%B0git%E4%BB%93%E4%B8%8E%E6%96%B0%E5%BB%BA%E7%9A%84gitee%E4%BB%93%E5%85%B3%E8%81%94"><span class="toc-text">2.4. 将本地git仓与新建的gitee仓关联</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTPS-%E6%96%B9%E5%BC%8F"><span class="toc-text">HTTPS 方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH%E6%96%B9%E5%BC%8F"><span class="toc-text">SSH方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-push%E4%BB%A3%E7%A0%81%E5%88%B0gitee%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-text">2.5. push代码到gitee远程仓库</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -792,7 +804,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="hexo保存源码到git仓库";
+  pdata.postTitle="Hexo保存源码到Git仓库";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
