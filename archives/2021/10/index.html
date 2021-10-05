@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -22,9 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客</title>
-  
-    <meta name="keywords" content="Spark,RDD,DataSet,DataFrame">
+  <title>归档：2021/10 - 铁人博客</title>
   
 
   
@@ -120,7 +120,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -404,7 +404,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper post dock' style="display: none;">
+        <div id="half" class='cover-wrapper  dock' style="display: ;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://img.wenhairu.com/images/2021/06/29/9MAYD.jpg"></div>
           
@@ -482,238 +482,77 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+	
+		
+  <section class="post-list">
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
   
-
-
   
-  <div class="article-meta" id="top">
+  
+  
     
-    
-    
-      <h1 class="title">
+    <h2 class="article-title" >
+      <a href="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/">
         Spark API 三剑客：RDD、DataSet 和 DataFrame
-      </h1>
-      <div class='new-meta-box'>
-        
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png">
-    <p>John Xu</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Spark%E7%90%86%E8%AE%BA/">Spark理论</a>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年2月18日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class="new-meta-item browse leancloud">
-    <a class='notlink'>
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
       
-      <div id="lc-pv" data-title="Spark API 三剑客：RDD、DataSet 和 DataFrame" data-path="/2021/02/18/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/">
-        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-        次浏览
-      </div>
-    </a>
-  </div>
-
-
-          
         
-      </div>
+Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常容易使用的 API，可以方便地通过多种语言如 Scala、Java、Python 等来操作大数据集，直观且富有表现力，能够大大提高工作效率。😎
+在本篇文章中，博主将深入探讨以下 Spark 2.2 及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下选用哪一种以及为什么，并概述它们的性能和...
+      
     
   </div>
-
-
   
-  
-  <pre><code>本文参考[InfoQ文章](https://www.infoq.cn/article/three-apache-spark-apis-rdds-dataframes-and-datasets/)。
-</code></pre>
-<p>最令开发者们高兴的事莫过于有一组 API，可以大大提高开发者们的工作效率，容易使用、非常直观并且富有表现力。Apache Spark 广受开发者们欢迎的一个重要原因也在于它那些非常容易使用的 API，可以方便地通过多种语言，如 Scala、Java、Python 和 R 等来操作大数据集。</p>
-<p>在本文中，我将深入讲讲 Apache Spark 2.2 以及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下你该选用哪一种以及为什么，并概述它们的性能和优化点，列举那些应该使用 DataFrame 和 Dataset 而不是 RDD 的场景。我会更多地关注 DataFrame 和 Dataset，因为在 Apache Spark 2.0 中这两种 API 被整合起来了。</p>
-<p>这次整合背后的动机在于我们希望可以让使用 Spark 变得更简单，方法就是减少你需要掌握的概念的数量，以及提供处理结构化数据的办法。在处理结构化数据时，Spark 可以像针对特定领域的语言所提供的能力一样，提供高级抽象和 API。</p>
-
-  
-  
-    
-    <div class='footer'>
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2021-10-05</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%90%86%E8%AE%BA/">Spark理论</a>
+        
+      </div>
       
-      
-      
-        <div class='copyright'>
-          <blockquote>
-            
-              
-                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-              
-            
-              
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2021/02/18/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/>https://kelloxu.github.io/2021/02/18/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/</a></p>
-              
-            
-          </blockquote>
+        <div>
+          <a class='readmore' href='/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/'>
+            阅读全文
+          </a>
         </div>
       
-      
-        <div class='donate'>
-          <div class='imgs'>
-            
-              <img src='https://img.wenhairu.com/images/2021/07/04/9Pi5H.png'>
-            
-              <img src='https://img.wenhairu.com/images/2021/07/04/9Pdqd.png'>
-            
+    </div>
+  
+
+</div>
+
           </div>
-        </div>
-      
-    </div>
-  
-  
-    
-
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-05T16:24:38+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月5日</p>
-  </a>
-</div>
-
         
       
-        
-          
+    
+  </section>
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/RDD/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>RDD</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DataSet/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>DataSet</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DataFrame/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>DataFrame</p></a></div>
-
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
     
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2021/02/18/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/&title=Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2021/02/18/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/&title=Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2021/02/18/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/&title=Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
-
-
-
-        
-      
-    </div>
-  </div>
-
-
-  
   
 
-  
-    <div class="prev-next">
-      
-        <a class='prev' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BJava/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark Dataset操作之Java</p>
-          <p class='content'>1. 实战场景实际工作中，我们经常会遇到将 Dataset 转为 Dataset 的情况，甚至有时候这些对象是嵌套的，这就比较复杂了。
-对于这类转换，使用 MapFunctions 或这 Fla...</p>
-        </a>
-      
-      
-        <a class='next' href='/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/'>
-          <p class='title'>Hexo保存源码到Git仓库<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>hexo是当前火热的静态博客框架，支持Markdown格式文章编辑，并通过简单的命令即可自动生成对应的静态网页，同时支持自定义主题，操作简单，功能强大，是博客创作的利器。
-但是，博主最近遇到了一...</p>
-        </a>
-      
-    </div>
-  
-</article>
 
-
-  
-
-  <article class="post white-box reveal shadow" id="comments">
-    <p ct><i class='fas fa-comments'></i> 评论</p>
-    
-    <div id="valine_container" class="valine_thread">
-  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-</div>
-
-  </article>
-
-
-
-
-
-
+	
 </div>
 <aside class='l_side'>
   
@@ -721,14 +560,176 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box circle' href='/about/'>
+          <img no-lazy src='https://img.wenhairu.com/images/2021/07/01/9P8Eg.th.png'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">铁人博客</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@xxx.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/volantis-x/"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+  
+
+  <section class="widget category shadow desktop">
+    
+  <header>
+    
+      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+    
+  </header>
 
 
+    <div class='content'>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/categories/Hadoop%E4%B9%8BMapReduce/" href="/categories/Hadoop%E4%B9%8BMapReduce/"
+            id="categoriesHadoopE4B98BMapReduce"
+            ><div class='name'>Hadoop之MapReduce</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/" href="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/"
+            id="categoriesHadoopE4B98BE6938DE4BD9C"
+            ><div class='name'>Hadoop之操作</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+            id="categoriesHadoopE59FBAE7A180E79FA5E8AF86"
+            ><div class='name'>Hadoop基础知识</div><div class='badge'>(5)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" href="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
+            id="categoriesJavaE5A49AE7BABFE7A88B"
+            ><div class='name'>Java多线程</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Spark%E7%90%86%E8%AE%BA/" href="/categories/Spark%E7%90%86%E8%AE%BA/"
+            id="categoriesSparkE79086E8AEBA"
+            ><div class='name'>Spark理论</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/"
+            id="categoriesSparkE7B3BBE58897E4B889"
+            ><div class='name'>Spark系列三</div><div class='badge'>(3)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/"
+            id="categoriesSparkE7B3BBE58897E4BA8C"
+            ><div class='name'>Spark系列二</div><div class='badge'>(8)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
+            id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
+            ><div class='name'>Spark编程实战</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Ubuntu/" href="/categories/Ubuntu/"
+            id="categoriesUbuntu"
+            ><div class='name'>Ubuntu</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
+            id="categoriesE69599E7A88B"
+            ><div class='name'>教程</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
+            id="categoriesE695B0E68DAEE7BB93E69E84E4B88EE7AE97E6B395"
+            ><div class='name'>数据结构与算法</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+  
+
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow desktop mobile">
+    
+  <header>
+    
+      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.67px; color: #8e8e8e">Dataset</a> <a href="/tags/Hadoop/" style="font-size: 14px; color: #999">Hadoop</a> <a href="/tags/Java/" style="font-size: 17.33px; color: #828282">Java</a> <a href="/tags/Mapreduce/" style="font-size: 14px; color: #999">Mapreduce</a> <a href="/tags/RDD/" style="font-size: 15.67px; color: #8e8e8e">RDD</a> <a href="/tags/Spark/" style="font-size: 20.67px; color: #6c6c6c">Spark</a> <a href="/tags/Vmware/" style="font-size: 14px; color: #999">Vmware</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.33px; color: #606060">hadoop</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mapreduce/" style="font-size: 19px; color: #777">mapreduce</a> <a href="/tags/spark/" style="font-size: 20.67px; color: #6c6c6c">spark</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 14px; color: #999">教程</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
+    </div>
+  </section>
+
+
+  
 
   
 
 
 </aside>
-
 
 
 		  
@@ -737,21 +738,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="Spark API 三剑客：RDD、DataSet 和 DataFrame";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.add("show");
+  l_header.classList.remove("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="none";
-    cover_wrapper.style.display="none";
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
     
   
 </script>

@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：RDD - 铁人博客</title>
+  <title>Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客</title>
+  
+    <meta name="keywords" content="Spark,RDD,DataSet,DataFrame">
   
 
   
@@ -404,7 +404,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://img.wenhairu.com/images/2021/06/29/9MAYD.jpg"></div>
           
@@ -481,136 +481,333 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-      
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
     
-    <h2 class="article-title" >
-      <a href="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/">
+      <h1 class="title">
         Spark API 三剑客：RDD、DataSet 和 DataFrame
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常容易使用的 API，可以方便地通过多种语言如 Scala、Java、Python 等来操作大数据集，直观且富有表现力，能够大大提高工作效率。😎
-在本篇文章中，博主将深入探讨以下 Spark 2.2 及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下选用哪一种以及为什么，并概述它们的性能和...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+      </h1>
+      <div class='new-meta-box'>
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png">
+    <p>John Xu</p>
+  </a>
+</div>
+
+          
         
-        <time>2021-10-05</time>
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Spark%E7%90%86%E8%AE%BA/">Spark理论</a>
+    </a>
+  </div>
+
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%90%86%E8%AE%BA/">Spark理论</a>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年10月5日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Spark API 三剑客：RDD、DataSet 和 DataFrame" data-path="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark.jpg" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常容易使用的 API，可以方便地通过多种语言如 Scala、Java、Python 等来操作大数据集，直观且富有表现力，能够大大提高工作效率。😎</p>
+<p>在本篇文章中，博主将深入探讨以下 Spark 2.2 及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下选用哪一种以及为什么，并概述它们的性能和优化点，并列举了那些应该使用 DataFrame 和 Dataset 而不是 RDD 的场景。</p>
+<p>本篇文章会更多地关注 DataSet 和 DataFrame，因为 Spark 2.0 已经将这两种 API 整合起来。这次整合背后的动机在于，Apache 希望 Spark 的使用变得更简单，方法就是减少开发者需要掌握的概念数量，并提供处理结构化数据的办法。在处理结构化数据时，Spark 可以像针对特定领域的语言所提供的能力一样，提供高级抽象和 API。</p>
+<h2 id="1-RDD"><a href="#1-RDD" class="headerlink" title="1. RDD"></a>1. RDD</h2><p>何谓 RDD？</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/question.jpg" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/question.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>RDD 即 Resilient Distributed Dataset，弹性分布式数据集。</p>
+<p>从一开始 RDD 就是 Spark 提供的面向用户的主要 API。<font color="#dd00dd">从根本上来说，一个 RDD 就是你的数据的一个<strong>不可变</strong>的<strong>分布式元素集合</strong>，<strong>在集群中跨节点分布</strong>，可以通过若干提供了转换和处理的底层 API 进行并行处理。</font></p>
+<p>Spark 建立在抽象的 RDD 上，使得它可以用一致的方式处理大数据不同的应用场景，把所有需要处理的数据转换成 RDD，然后对 RDD 进行一系列的算子运算，从而得到结果。</p>
+<p>RDD 是一个容错的、并行的数据结构，可以将数据存储到内存和磁盘中，并能控制数据分区，且提供了丰富的 API 来操作数据。</p>
+<h3 id="1-1-RDD-剖析"><a href="#1-1-RDD-剖析" class="headerlink" title="1.1. RDD 剖析"></a>1.1. RDD 剖析</h3><p><font color="#dd00dd">RDD 是分布式内存的一个抽象概念，是一种高度受限的共享内存模型，即 RDD 是只读的记录分区的集合，能横跨集群所有节点并行计算，是一种基于工作集的应用抽象。</font></p>
+<p>RDD 底层存储原理：每个 RDD 的数据都以 Block 的形式分布存储于集群的多台机器上，每个 Executor 会启动一个 BlockManagerSlave，并管理一部分 Block；而 Block 的元数据由 Driver 节点上的 BlockManagerMaster 保存，BlockManagerSlave 生成 Block 之后向 BlockManagerMaster 注册该 Block， BlockManagerMaster 管理 RDD 与 Block 的关系，当 RDD 不再需要存储的时候，将向 BlockManagerMaster 发送指令删除相应的 Block。</p>
+<p>BlockManager 管理 RDD 的物理分区，<strong>每个 Block 就是节点上对应的一个数据块</strong>，可以存储在内存或磁盘上，而 <strong>RDD 中的 Partition 是一个逻辑数据块，对应相应的物理块 Block</strong>。</p>
+<p><font color="#dd00dd">本质上，一个 RDD 在代码中相当于数据的一个元数据结构，存储着数据分区及其逻辑结构映射关系，存储着 RDD 之前的依赖转换关系。</font></p>
+<p>Spark 通过读取外部数据创建 RDD，或通过其他 RDD 执行确定的 Transformation 操作（如 map、union、groupByKey）而创建，从而构成了线性依赖关系，或者说血统关系（Lineage），在数据分片丢失时可以从依赖关系中恢复自己独立的数据分片，对其他数据分片或计算机没有影响，基本没有检查点开销，时的实现容错的开销很低，失效时只需要重新计算 RDD 分区，就可以在不同节点上并行执行，而不需要 Roll Back 整个应用程序。</p>
+<pre><code>落后任务（即运行很慢的节点）是通过任务备份，重新调用执行进行处理的。
+</code></pre>
+<p>RDD 作为泛型的抽象的数据结构，支持两种操作算子：Transformation 和 Action，且 RDD 的写操作是粗粒度的，读操作既可以是粗粒度的，也可以是细粒度的。</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/brainPain.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/brainPain.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="1-2-RDD-五大特性"><a href="#1-2-RDD-五大特性" class="headerlink" title="1.2. RDD 五大特性"></a>1.2. RDD 五大特性</h3><ul>
+<li>分区列表(a list of partitions)</li>
+<li>每一个分区都有一个计算函数(a fuction for computing each split)</li>
+<li>依赖于其他RDD列表(a list of dependencies on other RDDs)</li>
+<li>key-value数据类型的RDD分区器(-Optionally, a Partitioner for key-value RDDs)</li>
+<li>每个分区都有一个优先位置列表(-Optionally, a list of prefered locations to compute each split on)</li>
+</ul>
+<h3 id="1-3-在什么情况下使用-RDD？"><a href="#1-3-在什么情况下使用-RDD？" class="headerlink" title="1.3.  在什么情况下使用 RDD？"></a>1.3.  在什么情况下使用 RDD？</h3><p>下面是使用 RDD 的场景和常见案例：</p>
+<ul>
+<li>你希望可以对你的数据集进行<strong>最基本的转换、处理和控制</strong>；</li>
+<li>你的数据是<strong>非结构化</strong>的，比如流媒体或者字符流；</li>
+<li>你想通过<strong>函数式编程</strong>而不是特定领域内的表达来处理你的数据；</li>
+<li>你不希望像进行列式处理一样定义一个模式，通过名字或字段来处理或访问数据属性；</li>
+<li>你并不在意通过 DataFrame 和 Dataset 进行结构化和半结构化数据处理所能获得的一些优化和性能上的好处.</li>
+</ul>
+<h2 id="2-DataSet"><a href="#2-DataSet" class="headerlink" title="2. DataSet"></a>2. DataSet</h2><h3 id="2-1-DataSet-剖析"><a href="#2-1-DataSet-剖析" class="headerlink" title="2.1. DataSet 剖析"></a>2.1. DataSet 剖析</h3><p><font color="#dd00dd">DataSet 是可以<strong>并行使用函数或关系操作</strong>转换特定域对象的<strong>强类型</strong>集合。</font></p>
+<p>每个 DataSet 有一个类型化的 DataFrame，DataFrame 是 DataSet[Row] 的别名。</p>
+<p>DataSet 是懒加载的，即只有在行动算子（如 count、show）被触发时，才进行计算操作。</p>
+<p>本质上，<strong>DataSet 表示一个逻辑计划，它描述了生成数据所需的计算，当行动算子被触发时，Spark 查询优化器 Catalyst 将优化逻辑计划，生成一个并行、分布式有效执行的物理计划</strong>。使用 explain 函数可以查看逻辑计划以及优化的物理计划。</p>
+<p>为了有效地支持特定领域的对象，编码器[Encoder]是必须需的，它将业务代码中的特定类型 T 转换为 Spark 的内部类型。例如，给定一个类 Person 有两个属性 name(String) 和 age(int)，编码器将告诉 Spark 在运行生成代码时将 Person 对象序列化成二进制数据，二进制数据通常占用更少的内存以及具有更优化的数据处理效率（如列式存储）。👍</p>
+<p>有两种创建 DataSet 的方法：</p>
+<ul>
+<li>读取外部数据</li>
+</ul>
+<p>最常见的方式就是在 SparkSession 中使用 read 方法读入存储系统中的文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val people = spark.read.parquet(&quot;...&quot;).as[Person]  // scala</span><br><span class="line">Dataset&lt;Person&gt; people = spark.read().parquet(&quot;...&quot;).as(Encoders.bean(Person.class))  // java</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其他 DataSet 转换</li>
+</ul>
+<p>例如，在现有的 DataSet 数据集中使用过滤算子创建一个新的数据集。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val names = people.map(_.name)  // scala</span><br><span class="line">Dataset&lt;String&gt; names = people.map((Person p) -&gt; p.name, Encoders.STRING); // java</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-DataFrame"><a href="#2-2-DataFrame" class="headerlink" title="2.2. DataFrame"></a>2.2. DataFrame</h3><p>与 RDD 相似， DataFrame 也是数据的一个不可变分布式集合。但与 RDD 不同的是，DataFrame 数据都被组织到有名字的列中，就像关系型数据库中的表一样。</p>
+<p>设计 DataFrame 的目的就是要让对大型数据集的处理变得更简单，它让开发者可以为分布式的数据集指定一个模式，进行更高层次的抽象。它提供了特定领域内专用的 API 来处理你的分布式数据，并让更多的人可以更方便地使用 Spark，而不仅限于专业的数据工程师。</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0api" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0api" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>如上图所示，在 Spark 2.0 中，DataFrame 和 Dataset 的 API 融合到了一起，完成跨函数库的数据处理能力的整合。在整合之后，开发者们就不必再去学习或者记忆那么多的概念了，可以通过一套名为 Dataset 的高级并且类型安全的 API 完成工作。</p>
+<p>从概念的角度来看，可以把 <strong>DataFrame</strong> 当作一些通用对象 Dataset[Row] 的集合的一个别名，而<strong>一行就是一个通用的无类型的 JVM 对象</strong>；与之形成对比，<strong>Dataset 就是一些有明确类型定义的 JVM 对象的集合</strong>，通过在 Scala 中定义的 Case Class 或者 Java 中的 Class 来指定。</p>
+<h3 id="2-3-Dataset-API-的优点"><a href="#2-3-Dataset-API-的优点" class="headerlink" title="2.3. Dataset API 的优点"></a>2.3. Dataset API 的优点</h3><p>在 Spark 2.0 里，<font color="#dd00dd">DataFrame 和 Dataset 的统一 API</font> 为 Spark 开发者们带来许多方面的好处。</p>
+<h4 id="2-3-1-静态类型与运行时类型安全"><a href="#2-3-1-静态类型与运行时类型安全" class="headerlink" title="2.3.1. 静态类型与运行时类型安全"></a>2.3.1. 静态类型与运行时类型安全</h4><p>从 SQL 的最小约束到 Dataset 的最严格约束，把静态类型和运行时安全想像成一个图谱。比如，如果你用的是 Spark SQL 的查询语句，要直到运行时你才会发现有语法错误（这样做代价很大），而如果你用的是 DataFrame 和 Dataset，你在编译时就可以捕获错误（这样就节省了开发者的时间和整体代价）。</p>
+<p>也就是说，当你在 DataFrame 中调用了 API 之外的函数时，编译器就可以发现这个错。不过，如果你使用了一个不存在的字段名字，那就要到运行时才能发现错误了。</p>
+<p>图谱的另一端是最严格的 Dataset，因为 Dataset API 都是用 lambda 函数和 JVM 类型对象表示的，所有不匹配的类型参数都可以在编译时发现，而且在使用 Dataset 时，你的分析错误也会在编译时被发现，这样就节省了开发者的时间和代价。</p>
+<p>所有这些最终都被解释成关于类型安全的图谱，内容就是你的 Spark 代码里的语法和分析错误，在图谱中，Dataset 是最严格的一端，但对于开发者来说也是效率最高的。</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0map.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0map.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h4 id="2-3-2-关于结构化和半结构化数据的高级抽象和定制视图"><a href="#2-3-2-关于结构化和半结构化数据的高级抽象和定制视图" class="headerlink" title="2.3.2. 关于结构化和半结构化数据的高级抽象和定制视图"></a>2.3.2. 关于结构化和半结构化数据的高级抽象和定制视图</h4><p>把 DataFrame 当成 Dataset[Row] 的集合，就可以对你的半结构化数据有了一个结构化的定制视图。</p>
+<p>比如，假如你有个非常大量的用 JSON 格式表示的物联网设备事件数据集，因为 JSON 是半结构化的格式，那它就非常适合采用 Dataset 来作为强类型化的 Dataset[DeviceIoTData] 的集合。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;device_id&quot;: 198164, &quot;device_name&quot;: &quot;sensor-pad-198164owomcJZ&quot;, &quot;ip&quot;: &quot;80.55.20.25&quot;, &quot;cca2&quot;: &quot;PL&quot;, &quot;cca3&quot;: &quot;POL&quot;, &quot;cn&quot;: &quot;Poland&quot;, &quot;latitude&quot;: 53.080000, &quot;longitude&quot;: 18.620000, &quot;scale&quot;: &quot;Celsius&quot;, &quot;temp&quot;: 21, &quot;humidity&quot;: 65, &quot;battery_level&quot;: 8, &quot;c02_level&quot;: 1408, &quot;lcd&quot;: &quot;red&quot;, &quot;timestamp&quot; :1458081226051&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以用一个 Scala Case Class 把每条 JSON 记录都表示为一条 DeviceIoTData，一个定制化的对象:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case class DeviceIoTData (battery_level: Long, c02_level: Long, cca2: </span><br><span class="line">String, cca3: String, cn: String, device_id: Long, device_name: String, humidity: </span><br><span class="line">Long, ip: String, latitude: Double, lcd: String, longitude: Double, scale:String, temp: Long, timestamp: Long)</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们就可以从一个 JSON 文件中读入数据:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// read the json file and create the dataset from the </span><br><span class="line">// case class DeviceIoTData</span><br><span class="line">// ds is now a collection of JVM Scala objects DeviceIoTData</span><br><span class="line">val ds = spark.read.json(“/databricks-public-datasets/data/iot/iot_devices.json”).as[DeviceIoTData]</span><br></pre></td></tr></table></figure>
+
+<p>许多和结构化数据打过交道的人都习惯于用列的模式查看和处理数据，或者访问对象中的某个特定属性。<font color="#dd00dd">将 Dataset 作为一个有类型的 Dataset[ElementType] 对象的集合，你就可以非常自然地既能得到编译时安全的特性，又能为强类型的 JVM 对象获得定制的视图。</font>而且你用上面的代码获得的强类型的 Dataset[T] 也可以非常容易地用高级方法展示或处理。😎</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/datasetDisplay.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/datasetDisplay.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h4 id="2-3-3-方便易用的结构化-API"><a href="#2-3-3-方便易用的结构化-API" class="headerlink" title="2.3.3. 方便易用的结构化 API"></a>2.3.3. 方便易用的结构化 API</h4><p>虽然结构化可能会限制你的 Spark 程序对数据的控制，但它却提供了丰富的语义，和方便易用的特定领域内的操作，后者可以被表示为高级结构。</p>
+<p>事实上，用 Dataset 的高级 API 可以完成大多数的计算。比如，它比用 RDD 数据行的数据字段进行 agg、select、sum、avg、map、filter 或 groupBy 等操作简单得多，只需要处理 Dataset 类型的 DeviceIoTData 对象即可。</p>
+<p>用一套特定领域内的 API 来表达你的算法，比用 RDD 来进行关系代数运算简单得多，比如，下面的代码将用 filter() 和 map() 来创建另一个不可变 Dataset：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// Use filter(), map(), groupBy() country, and compute avg() </span><br><span class="line">// for temperatures and humidity. This operation results in </span><br><span class="line">// another immutable Dataset. The query is simpler to read, </span><br><span class="line">// and expressive</span><br><span class="line">val dsAvgTmp = ds.filter(d =&gt; &#123;d.temp &gt; 25&#125;).map(d =&gt; (d.temp, d.humidity, d.cca3)).groupBy($&quot;_3&quot;).avg()</span><br><span class="line">//display the resulting dataset</span><br><span class="line">display(dsAvgTmp)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/displayStatistics.gif" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/displayStatistics.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h4 id="2-3-4-性能与优化"><a href="#2-3-4-性能与优化" class="headerlink" title="2.3.4. 性能与优化"></a>2.3.4. 性能与优化</h4><p>除了上述优点之外，我们还要看到使用 DataFrame 和 Dataset API 带来的空间效率和性能提升，原因有如下两点：</p>
+<ul>
+<li>首先，因为 DataFrame 和 Dataset API 都是基于 Spark SQL 引擎构建的，它使用 Catalyst 来生成优化后的逻辑和物理查询计划，所有 R、Java、Scala 或 Python 的 DataFrame/Dataset API，所有的关系型查询的底层使用的都是相同的代码优化器，因而会获得空间和速度上的效率。尽管有类型的 Dataset[T] API 是对数据处理任务优化过的，<strong>无类型的 Dataset[Row]（别名 DataFrame）却运行得更快，适合交互式分析</strong>。</li>
+</ul>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spaceEfficiency.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spaceEfficiency.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>其次， Spark 作为一个编译器，它可以理解 Dataset 类型的 JVM 对象，它会使用编码器来把特定类型的 JVM 对象映射成 Tungsten 的内部内存表示。结果，<strong>Tungsten 的编码器就可以非常高效地将 JVM 对象序列化或反序列化，同时生成压缩字节码，这样执行效率就非常高了</strong>。</li>
+</ul>
+<h3 id="2-4-什么时候使用-Dataset-或-DataFrame？"><a href="#2-4-什么时候使用-Dataset-或-DataFrame？" class="headerlink" title="2.4. 什么时候使用 Dataset 或 DataFrame？"></a>2.4. 什么时候使用 Dataset 或 DataFrame？</h3><ul>
+<li>如果你需要丰富的语义、高级抽象和特定领域专用的 API，那就使用 DataFrame 或 Dataset；</li>
+<li>如果你的处理需要对半结构化数据进行高级处理，如 filter、map、aggregation、average、sum、SQL 查询、列式访问或使用 lambda 函数，那就使用 DataFrame 或 Dataset；</li>
+<li>如果你想在编译时就有高度的类型安全，想要有类型的 JVM 对象，用上 Catalyst 优化，并得益于 Tungsten 生成的高效代码，那就使用 Dataset；</li>
+<li>如果你想在不同的 Spark 库之间使用一致和简化的 API，那就使用 DataFrame 或 Dataset；</li>
+<li>如果你是 R 语言使用者，就用 DataFrame；</li>
+<li>如果你是 Python 语言使用者，就用 DataFrame，在需要更细致的控制时就退回去使用 RDD；</li>
+</ul>
+<p>只需要简单地调用一下.rdd，就可以无缝地将 DataFrame 或 Dataset 转换成 RDD。😇😇</p>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><p>综上所述，在什么时候该选用RDD、DataFrame 或 Dataset 看起来好像挺明显。<strong>前者可以提供底层的功能和控制，后者支持定制的视图和结构，可以提供高级和特定领域的操作，节约空间并快速运行。</strong></p>
+<p>当 Jules S. Damji（Apache Spark 社区布道者） 回顾从早期版本的 Spark 中获得的经验教训时，思考了如何为开发者简化 Spark？该如何优化它，让它性能更高？</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/thinking.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/thinking.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>它们决定把底层的 RDD API 进行高级抽象，成为 DataFrame 和 Dataset，用它们在 Catalyst 和 Tungsten 之上构建跨库的一致数据抽象。</p>
+<p>DataFrame 和 Dataset，或 RDD API，按你的实际需要和场景选一个来用吧。</p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/bye.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/bye.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>参考文献：<a target="_blank" rel="noopener" href="https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html">A Tale of Three Apache Spark APIs: RDDs vs DataFrames and Datasets</a>;《Spark大数据商业实战三部曲》。</p>
+</blockquote>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/>https://kelloxu.github.io/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+        <div class='donate'>
+          <div class='imgs'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pi5H.png'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pdqd.png'>
+            
+          </div>
         </div>
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-05T22:21:08+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年10月5日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/">
-        Spark系列三——1-弹性分布式数据集
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        Spark系列二中介绍了Spark的结构化API，在绝大多数场景下使用这些结构化API就可以解决业务问题，但当这类高级API无法解决特殊的业务或工程问题时，就需要使用Spark的低级API，特别是弹性分布式数据集（RDD）、SparkContext和分布式共享变量（例如累加器和广播变量）。
-1  什么是低级API有两种低级API：
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/RDD/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>RDD</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DataSet/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>DataSet</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DataFrame/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>DataFrame</p></a></div>
 
-一种用于处理分布式数据（RDD）
-另一种用于分发和处理分布...
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/&title=Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/&title=Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/&title=Spark API 三剑客：RDD、DataSet 和 DataFrame - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-10-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">Spark系列三</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BScala/'>
+          <p class='title'>Spark Dataset操作之Scala<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'></p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -618,176 +815,28 @@ Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常�
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://img.wenhairu.com/images/2021/07/01/9P8Eg.th.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">铁人博客</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E4%B9%8BMapReduce/" href="/categories/Hadoop%E4%B9%8BMapReduce/"
-            id="categoriesHadoopE4B98BMapReduce"
-            ><div class='name'>Hadoop之MapReduce</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/" href="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/"
-            id="categoriesHadoopE4B98BE6938DE4BD9C"
-            ><div class='name'>Hadoop之操作</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
-            id="categoriesHadoopE59FBAE7A180E79FA5E8AF86"
-            ><div class='name'>Hadoop基础知识</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" href="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
-            id="categoriesJavaE5A49AE7BABFE7A88B"
-            ><div class='name'>Java多线程</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%90%86%E8%AE%BA/" href="/categories/Spark%E7%90%86%E8%AE%BA/"
-            id="categoriesSparkE79086E8AEBA"
-            ><div class='name'>Spark理论</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/"
-            id="categoriesSparkE7B3BBE58897E4B889"
-            ><div class='name'>Spark系列三</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/"
-            id="categoriesSparkE7B3BBE58897E4BA8C"
-            ><div class='name'>Spark系列二</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
-            id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
-            ><div class='name'>Spark编程实战</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Ubuntu/" href="/categories/Ubuntu/"
-            id="categoriesUbuntu"
-            ><div class='name'>Ubuntu</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
-            id="categoriesE69599E7A88B"
-            ><div class='name'>教程</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
-            id="categoriesE695B0E68DAEE7BB93E69E84E4B88EE7AE97E6B395"
-            ><div class='name'>数据结构与算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-RDD"><span class="toc-text">1. RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-RDD-%E5%89%96%E6%9E%90"><span class="toc-text">1.1. RDD 剖析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-RDD-%E4%BA%94%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="toc-text">1.2. RDD 五大特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8-RDD%EF%BC%9F"><span class="toc-text">1.3.  在什么情况下使用 RDD？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-DataSet"><span class="toc-text">2. DataSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-DataSet-%E5%89%96%E6%9E%90"><span class="toc-text">2.1. DataSet 剖析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-DataFrame"><span class="toc-text">2.2. DataFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Dataset-API-%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">2.3. Dataset API 的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8"><span class="toc-text">2.3.1. 静态类型与运行时类型安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E5%85%B3%E4%BA%8E%E7%BB%93%E6%9E%84%E5%8C%96%E5%92%8C%E5%8D%8A%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%BD%E8%B1%A1%E5%92%8C%E5%AE%9A%E5%88%B6%E8%A7%86%E5%9B%BE"><span class="toc-text">2.3.2. 关于结构化和半结构化数据的高级抽象和定制视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-%E6%96%B9%E4%BE%BF%E6%98%93%E7%94%A8%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96-API"><span class="toc-text">2.3.3. 方便易用的结构化 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">2.3.4. 性能与优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8-Dataset-%E6%88%96-DataFrame%EF%BC%9F"><span class="toc-text">2.4. 什么时候使用 Dataset 或 DataFrame？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%80%BB%E7%BB%93"><span class="toc-text">3. 总结</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.67px; color: #8e8e8e">Dataset</a> <a href="/tags/Hadoop/" style="font-size: 14px; color: #999">Hadoop</a> <a href="/tags/Java/" style="font-size: 17.33px; color: #828282">Java</a> <a href="/tags/Mapreduce/" style="font-size: 14px; color: #999">Mapreduce</a> <a href="/tags/RDD/" style="font-size: 15.67px; color: #8e8e8e">RDD</a> <a href="/tags/Spark/" style="font-size: 20.67px; color: #6c6c6c">Spark</a> <a href="/tags/Vmware/" style="font-size: 14px; color: #999">Vmware</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.33px; color: #606060">hadoop</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mapreduce/" style="font-size: 19px; color: #777">mapreduce</a> <a href="/tags/spark/" style="font-size: 20.67px; color: #6c6c6c">spark</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 14px; color: #999">教程</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -796,8 +845,8 @@ Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常�
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Spark API 三剑客：RDD、DataSet 和 DataFrame";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
