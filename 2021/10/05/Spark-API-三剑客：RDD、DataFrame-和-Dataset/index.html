@@ -554,7 +554,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark.jpg" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常容易使用的 API，可以方便地通过多种语言如 Scala、Java、Python 等来操作大数据集，直观且富有表现力，能够大大提高工作效率。😎</p>
-<p>在本篇文章中，博主将深入探讨以下 Spark 2.2 及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下选用哪一种以及为什么，并概述它们的性能和优化点，并列举了那些应该使用 DataFrame 和 Dataset 而不是 RDD 的场景。</p>
+<p>在本篇文章中，博主将深入探讨一下 Spark 2.2 及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下选用哪一种以及为什么，并概述它们的性能和优化点，并列举了那些应该使用 DataFrame 和 Dataset 而不是 RDD 的场景。</p>
 <p>本篇文章会更多地关注 DataSet 和 DataFrame，因为 Spark 2.0 已经将这两种 API 整合起来。这次整合背后的动机在于，Apache 希望 Spark 的使用变得更简单，方法就是减少开发者需要掌握的概念数量，并提供处理结构化数据的办法。在处理结构化数据时，Spark 可以像针对特定领域的语言所提供的能力一样，提供高级抽象和 API。</p>
 <h2 id="1-RDD"><a href="#1-RDD" class="headerlink" title="1. RDD"></a>1. RDD</h2><p>何谓 RDD？</p>
 <p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/question.jpg" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/question.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
@@ -606,7 +606,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <h3 id="2-2-DataFrame"><a href="#2-2-DataFrame" class="headerlink" title="2.2. DataFrame"></a>2.2. DataFrame</h3><p>与 RDD 相似， DataFrame 也是数据的一个不可变分布式集合。但与 RDD 不同的是，DataFrame 数据都被组织到有名字的列中，就像关系型数据库中的表一样。</p>
 <p>设计 DataFrame 的目的就是要让对大型数据集的处理变得更简单，它让开发者可以为分布式的数据集指定一个模式，进行更高层次的抽象。它提供了特定领域内专用的 API 来处理你的分布式数据，并让更多的人可以更方便地使用 Spark，而不仅限于专业的数据工程师。</p>
-<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0api" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0api" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0api.png" class="lazyload" data-srcset="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/spark2.0api.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>如上图所示，在 Spark 2.0 中，DataFrame 和 Dataset 的 API 融合到了一起，完成跨函数库的数据处理能力的整合。在整合之后，开发者们就不必再去学习或者记忆那么多的概念了，可以通过一套名为 Dataset 的高级并且类型安全的 API 完成工作。</p>
 <p>从概念的角度来看，可以把 <strong>DataFrame</strong> 当作一些通用对象 Dataset[Row] 的集合的一个别名，而<strong>一行就是一个通用的无类型的 JVM 对象</strong>；与之形成对比，<strong>Dataset 就是一些有明确类型定义的 JVM 对象的集合</strong>，通过在 Scala 中定义的 Case Class 或者 Java 中的 Class 来指定。</p>
 <h3 id="2-3-Dataset-API-的优点"><a href="#2-3-Dataset-API-的优点" class="headerlink" title="2.3. Dataset API 的优点"></a>2.3. Dataset API 的优点</h3><p>在 Spark 2.0 里，<font color="#dd00dd">DataFrame 和 Dataset 的统一 API</font> 为 Spark 开发者们带来许多方面的好处。</p>
@@ -702,7 +702,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-05T22:21:08+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-05T22:26:29+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年10月5日</p>
