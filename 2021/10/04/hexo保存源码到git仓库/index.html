@@ -5,10 +5,6 @@
   <!-- SEO相关 -->
   
     
-      
-        <meta name="robots" content="index,follow">
-      
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -26,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>铁人博客</title>
+  <title>hexo保存源码到git仓库 - 铁人博客</title>
+  
+    <meta name="keywords" content="hexo,git">
   
 
   
@@ -122,7 +120,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -406,7 +404,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://img.wenhairu.com/images/2021/06/29/9MAYD.jpg"></div>
           
@@ -473,7 +471,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   </div>
 </div>
 
-          <div id="scroll-down" style="display: ;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
         </div>
     
   
@@ -484,595 +482,246 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
     
-    <h2 class="article-title" >
-      <a href="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/">
+      <h1 class="title">
         hexo保存源码到git仓库
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        hexo是当前火热的静态博客框架，支持Markdown格式文章编辑，并通过简单的命令即可自动生成对应的静态网页，同时开    支持自定义主题，操作简单，功能强大，是博客创造的利器。
-但是，我最近遇到了一个坑，差点让我放弃hexo。
-因为要使用某个插件，安装了好久不仅没搞定，还导致无法创建博客了，所以必须重头开始——github新建仓库、本地初始    化hexo等等。心想，反正github上...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+      </h1>
+      <div class='new-meta-box'>
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png">
+    <p>John Xu</p>
+  </a>
+</div>
+
+          
         
-        <time>2021-10-04</time>
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+    </a>
+  </div>
+
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年10月4日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="hexo保存源码到git仓库" data-path="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <p>hexo是当前火热的静态博客框架，支持Markdown格式文章编辑，并通过简单的命令即可自动生成对应的静态网页，同时开<br>    支持自定义主题，操作简单，功能强大，是博客创造的利器。</p>
+<p>但是，我最近遇到了一个坑，差点让我放弃hexo。</p>
+<p>因为要使用某个插件，安装了好久不仅没搞定，还导致无法创建博客了，所以必须重头开始——github新建仓库、本地初始<br>    化hexo等等。心想，反正github上已经有源码了，直接删除本地hexo仓库，然后直接clone git仓库的源码就可以了。万&gt;    万没想到的是，git仓库只保存了hexo发布后的静态html文件，即 public 文件夹下的内容，并没有保存 source 文件夹&gt;    的内容，所以源码没了！最后只能从已经发布的文章挑些重要的，复制内容，然后重新在本地hexo new文章，粘贴，就这样手动恢复了源码，内心是崩溃的!</p>
+<p>相信使用过hexo的朋友们都遇到过类似的问题，即git远程仓库只会保存hexo发布后的静态文件，你的博客md源文件、图片、主题配置等还在本地，一旦电脑磁盘坏了或者换了电脑，就无法在之前仓库的基础上继续写博客。针对此问题，我们可以借助git分支来巧妙地实现用同一个仓库保存静态网页和博客源码，下面就能详细介绍一下该方法。</p>
+<h2 id="1-方法一"><a href="#1-方法一" class="headerlink" title="1. 方法一"></a>1. 方法一</h2><h3 id="1-1-在原有hexo项目的git仓库创建新分支"><a href="#1-1-在原有hexo项目的git仓库创建新分支" class="headerlink" title="1.1. 在原有hexo项目的git仓库创建新分支"></a>1.1. 在原有hexo项目的git仓库创建新分支</h3><p>打开你hexo项目的git仓库，并选择一个空分支（一般为main分支）:</p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点击”main”旁边的下三角，在弹出的窗口中的”Find or create branch..”文本区域输入待新建的仓库名source，点击”Cr    eate branch: source from ‘main’”，这样就会从main分支创建新分支soure：</p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github3.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github4.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/github4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="1-2-将本地hexo目录与远程仓库关联"><a href="#1-2-将本地hexo目录与远程仓库关联" class="headerlink" title="1.2. 将本地hexo目录与远程仓库关联"></a>1.2. 将本地hexo目录与远程仓库关联</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin https://github.com/username/username.github.io.git</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="1-3-推送本地源码到远程仓库source分支"><a href="#1-3-推送本地源码到远程仓库source分支" class="headerlink" title="1.3. 推送本地源码到远程仓库source分支"></a>1.3. 推送本地源码到远程仓库source分支</h3><p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo1.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>首先确保.gitignore配置正确，仅将本地的md源文件（source目录下）、站点配置文件等推送到source分支，其他编译出来的文件并不需要。</p>
+<p>使用默认配置就行：</p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo2.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/hexo2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><br>然后依次执行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &#x27;source files&#x27;</span><br><span class="line">git push origin master:source  // 将本地分支master的提交推送到远程分支source</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="> </p>
+<p><img src="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" class="lazyload" data-srcset="/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/git4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>因为网络原因（被强），一直push失败，所以本方法只适用于服务器能够访问外网的情况（可以购买linux可用的vpn: <a target="_blank" rel="noopener" href="https://nordvpn.com/zh/special/?utm_medium=affiliate&amp;utm_term&amp;utm_content&amp;utm_campaign=off15&amp;utm_source=aff32326%EF%BC%89">https://nordvpn.com/zh/special/?utm_medium=affiliate&amp;utm_term&amp;utm_content&amp;utm_campaign=off15&amp;utm_source=aff32326）</a></p>
+<h2 id="2-方法二"><a href="#2-方法二" class="headerlink" title="2. 方法二"></a>2. 方法二</h2><p>使用国产仓库码云。</p>
+<h3 id="2-1-新建仓库"><a href="#2-1-新建仓库" class="headerlink" title="2.1. 新建仓库"></a>2.1. 新建仓库</h3><h3 id="2-2-配置公钥"><a href="#2-2-配置公钥" class="headerlink" title="2.2. 配置公钥"></a>2.2. 配置公钥</h3><h3 id="3-3-将hexo"><a href="#3-3-将hexo" class="headerlink" title="3.3. 将hexo"></a>3.3. 将hexo</h3>
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/>https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+        <div class='donate'>
+          <div class='imgs'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pi5H.png'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pdqd.png'>
+            
+          </div>
         </div>
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
-        
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BScala/">
-        Spark Dataset操作之Scala
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-04T23:17:31+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年10月4日</p>
+  </a>
+</div>
+
+        
+      
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2021-07-08</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BScala/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hexo/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hexo</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/git/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>git</p></a></div>
 
-</div>
 
-          </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BJava/">
-        Spark Dataset操作之Java
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        1. 实战场景实际工作中，我们经常会遇到将 Dataset 转为 Dataset 的情况，甚至有时候这些对象是嵌套的，这就比较复杂了。
-对于这类转换，使用 MapFunctions 或这 FlatMapFunctions 即可解决，但是还要注意对象的序列化问题。
-MapFunctions 用于“一行-&gt;一行”的场景，而 FlatMapFunctions 则用于“一行-&gt;多行”的场...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2021-07-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BJava/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/">
-        动态规划实战-爬楼梯
-      </a>
-    </h2>
-  
-  <div class='md'>
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-        1. 题目Climbing Stairs
-You are climbing a staircase. It takes n steps to reach the top.Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
-Example 1Input:...
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=hexo保存源码到git仓库 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=hexo保存源码到git仓库 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2021/10/04/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/&title=hexo保存源码到git仓库 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2021-01-28</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
 </div>
 
-          </div>
+
+
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/04/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%943-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/">
-        Spark系列三——3-分布式共享变量
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-11-04</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">Spark系列三</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2020/11/04/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%943-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/'>
-            阅读全文
-          </a>
-        </div>
+      
+        <a class='next' href='/2021/07/08/Spark-Dataset%E6%93%8D%E4%BD%9C%E4%B9%8BScala/'>
+          <p class='title'>Spark Dataset操作之Scala<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'></p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/30/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%942-%E9%AB%98%E7%BA%A7RDD/">
-        Spark系列三——2-高级RDD
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-10-30</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">Spark系列三</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/10/30/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%942-%E9%AB%98%E7%BA%A7RDD/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
+  </article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/">
-        Spark系列三——1-弹性分布式数据集
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        Spark系列二中介绍了Spark的结构化API，在绝大多数场景下使用这些结构化API就可以解决业务问题，但当这类高级API无法解决特殊的业务或工程问题时，就需要使用Spark的低级API，特别是弹性分布式数据集（RDD）、SparkContext和分布式共享变量（例如累加器和广播变量）。
-1  什么是低级API有两种低级API：
 
-一种用于处理分布式数据（RDD）
-另一种用于分发和处理分布...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-10-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">Spark系列三</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/10/22/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/">
-        Spark系列二——8-Dataset
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        DataSet: 结构化API的基本类型；DataFrame: Row类型的DataSet。
-DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一起使用。
-你可以定义DataSet中每一行所包含的对象，在Scala中就是一个case类对象，它实质上定义了一种模式schema；而在java中就是Java Bean。
-
-经验丰富的程序猿经常将DataSet称为Sp...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-10-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/14/7-Spark-Sql/">
-        7 Spark Sql
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        使用Spark SQL，我们可以对存储到数据库中的视图或表进行SQL查询，还可以使用系统函数或用户定义函数来分析查询计划以优化其工作负载。
-SQL（结构化查询语言，Structured Query Language）是一种表示数据关系操作的特定领域语言，其广泛应用在关系型数据库中。
-许多“NoSQL”数据库也支持类SQL语言。
-
-在Spark流行之前，Apache Hive 是支持SQL的主...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-10-14</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/10/14/7-Spark-Sql/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/10/6-%E6%95%B0%E6%8D%AE%E6%BA%90/">
-        6 数据源
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2020-10-10</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/10/10/6-%E6%95%B0%E6%8D%AE%E6%BA%90/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-        <p class="current">
-          1 / 3
-        </p>
-        
-          <a class="next" rel="next" href="/page/2/">
-            <section class="post next white-box shadow">
-              &nbsp;下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </section>
-          </a>
-        
-      </div>
-    
-  
 
 
 </div>
@@ -1082,166 +731,22 @@ SQL（结构化查询语言，Structured Query Language）是一种表示数据�
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://img.wenhairu.com/images/2021/07/01/9P8Eg.th.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">铁人博客</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E4%B9%8BMapReduce/" href="/categories/Hadoop%E4%B9%8BMapReduce/"
-            id="categoriesHadoopE4B98BMapReduce"
-            ><div class='name'>Hadoop之MapReduce</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/" href="/categories/Hadoop%E4%B9%8B%E6%93%8D%E4%BD%9C/"
-            id="categoriesHadoopE4B98BE6938DE4BD9C"
-            ><div class='name'>Hadoop之操作</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
-            id="categoriesHadoopE59FBAE7A180E79FA5E8AF86"
-            ><div class='name'>Hadoop基础知识</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" href="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
-            id="categoriesJavaE5A49AE7BABFE7A88B"
-            ><div class='name'>Java多线程</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/"
-            id="categoriesSparkE7B3BBE58897E4B889"
-            ><div class='name'>Spark系列三</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/"
-            id="categoriesSparkE7B3BBE58897E4BA8C"
-            ><div class='name'>Spark系列二</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
-            id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
-            ><div class='name'>Spark编程实战</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Ubuntu/" href="/categories/Ubuntu/"
-            id="categoriesUbuntu"
-            ><div class='name'>Ubuntu</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
-            id="categoriesE69599E7A88B"
-            ><div class='name'>教程</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
-            id="categoriesE695B0E68DAEE7BB93E69E84E4B88EE7AE97E6B395"
-            ><div class='name'>数据结构与算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-text">1. 方法一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%9C%A8%E5%8E%9F%E6%9C%89hexo%E9%A1%B9%E7%9B%AE%E7%9A%84git%E4%BB%93%E5%BA%93%E5%88%9B%E5%BB%BA%E6%96%B0%E5%88%86%E6%94%AF"><span class="toc-text">1.1. 在原有hexo项目的git仓库创建新分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%B0%86%E6%9C%AC%E5%9C%B0hexo%E7%9B%AE%E5%BD%95%E4%B8%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94"><span class="toc-text">1.2. 将本地hexo目录与远程仓库关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93source%E5%88%86%E6%94%AF"><span class="toc-text">1.3. 推送本地源码到远程仓库source分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-text">2. 方法二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="toc-text">2.1. 新建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%85%8D%E7%BD%AE%E5%85%AC%E9%92%A5"><span class="toc-text">2.2. 配置公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%B0%86hexo"><span class="toc-text">3.3. 将hexo</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Dataset/" style="font-size: 15.67px; color: #8e8e8e">Dataset</a> <a href="/tags/Hadoop/" style="font-size: 14px; color: #999">Hadoop</a> <a href="/tags/Java/" style="font-size: 17.33px; color: #828282">Java</a> <a href="/tags/Mapreduce/" style="font-size: 14px; color: #999">Mapreduce</a> <a href="/tags/RDD/" style="font-size: 14px; color: #999">RDD</a> <a href="/tags/Spark/" style="font-size: 19px; color: #777">Spark</a> <a href="/tags/Vmware/" style="font-size: 14px; color: #999">Vmware</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.33px; color: #606060">hadoop</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mapreduce/" style="font-size: 19px; color: #777">mapreduce</a> <a href="/tags/spark/" style="font-size: 20.67px; color: #6c6c6c">spark</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 14px; color: #999">教程</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
-    </div>
-  </section>
-
-
-  
 
   
 
@@ -1256,21 +761,21 @@ SQL（结构化查询语言，Structured Query Language）是一种表示数据�
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="hexo保存源码到git仓库";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="full";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
