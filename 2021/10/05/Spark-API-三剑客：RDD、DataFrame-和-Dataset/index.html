@@ -602,6 +602,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>DataSet 是懒加载的，即只有在行动算子（如 count、show）被触发时，才进行计算操作。</p>
 <p>本质上，<strong>DataSet 表示一个逻辑计划，它描述了生成数据所需的计算，当行动算子被触发时，Spark 查询优化器 Catalyst 将优化逻辑计划，生成一个并行、分布式有效执行的物理计划</strong>。使用 explain 函数可以查看逻辑计划以及优化的物理计划。</p>
 <p>为了有效地支持特定领域的对象，编码器[Encoder]是必须需的，它将业务代码中的特定类型 T 转换为 Spark 的内部类型。例如，给定一个类 Person 有两个属性 name(String) 和 age(int)，编码器将告诉 Spark 在运行生成代码时将 Person 对象序列化成二进制数据，二进制数据通常占用更少的内存以及具有更优化的数据处理效率（如列式存储）。👍</p>
+<blockquote>
+<p>关于 Spark 内部数据类型，请阅读 <a href="https://kelloxu.github.io/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/">Spark系列二——1-结构化API概述</a> 2.2 节。</p>
+</blockquote>
 <p>有两种创建 DataSet 的方法：</p>
 <ul>
 <li>读取外部数据</li>
@@ -713,7 +716,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-06T11:11:49+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-06T13:15:07+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年10月6日</p>

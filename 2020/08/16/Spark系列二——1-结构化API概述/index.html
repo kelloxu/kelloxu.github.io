@@ -22,9 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>2 基本的结构化操作 - 铁人博客</title>
+  <title>Spark系列二——1-结构化API概述 - 铁人博客</title>
   
-    <meta name="keywords" content="大数据,Spark">
+    <meta name="keywords" content="大数据,Spark,结构化API">
   
 
   
@@ -492,7 +492,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        2 基本的结构化操作
+        Spark系列二——1-结构化API概述
       </h1>
       <div class='new-meta-box'>
         
@@ -523,7 +523,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年8月30日</p>
+    <p>发布于：2020年8月16日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="2 基本的结构化操作" data-path="/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/">
+      <div id="lc-pv" data-title="Spark系列二——1-结构化API概述" data-path="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -552,181 +552,261 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。</p>
-<h2 id="1-模式"><a href="#1-模式" class="headerlink" title="1. 模式"></a>1. 模式</h2><p>模式定义了DataFrame的列名和列的数据类型，可以用如下方法查询DataFrame的模式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.printSchema()</span><br></pre></td></tr></table></figure>
-
-<p>可以由数据源来定义模式（称为读时模式，schema-on-read），也可以由我们自己显示地来定义。根据实际应用场景决定定义Schema的方式。</p>
+  <p>结构化API指以下三种核心分布式集合类型的API：</p>
 <ul>
-<li><p>当应用于即席分析时，使用读时模式即可（尽管在处理如CSV和JSON等传文本文件时速度较慢），但是，也可能导致数据精度损失问题，例如将long型错误地解析为整数。</p>
-</li>
-<li><p>当使用Spark实现生产级别ETL（Extract提取、Tranform转换操作、Load加载）的时候，最好采取显示定义Schema的方式，尤其时在处理诸如CSV和JSON之类的无类型数据源时更是如此。</p>
-</li>
+<li>DataSet类型</li>
+<li>DataFrame类型</li>
+<li>SQL表和视图</li>
 </ul>
-<p>以下示例演示了如何为一个DataFrame创建并指定模式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.types.&#123;StructField, StructType, StringType, LongType&#125;</span><br><span class="line">import org.apache.spark.sql.types.Metadata</span><br><span class="line"></span><br><span class="line">val myManualSchema = StructType(Array()</span><br><span class="line">    StructField(&quot;DST_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;ORIGIN_COUNTRY_NAME&quot;, StringType, true),</span><br><span class="line">    StructField(&quot;count&quot;, LongType, false, MetaData.fromJson(&quot;&#123;\&quot;hello\&quot;:\&quot;world\&quot;&#125;&quot;))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>一个模式是由许多字段构成的StructType，这些字段即为StructField，具有名称、类型、布尔标志（指定该列是否可以包含缺省值或空值），并且用户可以指定与该列关联的元数据（metadata，存储着有关此列的信息，Spark在其机器学习库中使用此功能）。</p>
-<h2 id="2-列和表达式"><a href="#2-列和表达式" class="headerlink" title="2. 列和表达式"></a>2. 列和表达式</h2><p>Spark可以对DataFrame中的列进行选择、转换操作和删除，并将这些操作表示为表达式。</p>
-<p>对于Spark而言，列是逻辑结构，它只是表示根据表达式为每个记录计算出的值，这意味着要为一列创建一个真值，我们需要有一行，而要有一行则需要有一个DataFrame，因此不能在DataFrame范围外操作一个列，必须对DataFrame使用Spark的转换操作来修改列的内容。</p>
-<h3 id="2-1-列"><a href="#2-1-列" class="headerlink" title="2.1. 列"></a>2.1. 列</h3><p>可以通过col()或者column()两个函数来构造和引用列。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.(col, column)</span><br><span class="line"></span><br><span class="line">col(&quot;someColumnName&quot;)</span><br><span class="line">column(&quot;someColumnName&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>DataFrame可能不包含某列，所以该列要将列名与catalog中维护的列名相比较后才会确定该列是否会被解析，列和数据表的解析在分析其阶段发生。</p>
-<p>Scala中有一些特殊的语言支持，可以使用更简短的方式来引用列。下面的表达式同col()或column()，即创建或引用列，但并不能改善性能：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&quot;myColumn&quot;</span><br><span class="line">&#x27;myColumn</span><br></pre></td></tr></table></figure>
-
-<p>符号$将字符串指定为表达式，而符号’指定一个symbol，是scala引用标识符的特殊结构。</p>
-<p>显示列引用</p>
-<p>如果需要引用某个DataFrame的某一列，则可以在这个DataFrame上使用col方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.col(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>当执行连接操作时，如果两个连接的DataFrame存在一个同名列，该方法会非常有用。</p>
-<p>显示引用列的另一个好处是Spark不用自己解析该列（在分析阶段）。</p>
-<h3 id="2-2-表达式"><a href="#2-2-表达式" class="headerlink" title="2.2. 表达式"></a>2.2. 表达式</h3><p>表达式（expression）是对一个DataFrame中某一个记录的一个或多个列的一组转换操作。<br>把表达式想象成一个函数，它将一个或多个列名作为输入，解析它们，然后针对数据集中的每条记录应用表达式来得到一个单值（实际上可以是一个复杂的类型，如Map或Array）。</p>
-<p>在最简单的情况下，通过expr函数创建的表达式，仅仅是一个DataFrame列的引用，也就是说，expr(“someCol”)等同于col(“someCol”)。<br>列作为表达式</p>
-<p>列提供了表达式功能的一个子集。如果使用col()，并想对该列执行转换操作，则必须对该列的引用执行这些转换操作；当使用表达式时，expr函数实际上可以将字符串解析成转换操作和引用，也可以在之后将其传递到下一步的转换操作。</p>
-<p>例如，expr(“someCol - 5”) 与执行 col(“someCol”) - 5，甚至是 expr(“someCol”) - 5，都是相同的转换操作，Spark将它们编译为表示操作顺序的逻辑树。</p>
-<p>请记住下面两点：</p>
-<ul>
-<li>列只是表达式</li>
-<li>列与对这些列的转换操作被编译后生成的逻辑计划，与解析后的表达式的逻辑计划是一样的。</li>
-</ul>
-<p>以一个例子来说明</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(((col(&quot;someCol&quot;) + 5) * 200) - 6) &lt; col(&quot;otherCol&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>下图描述了上述代码的逻辑树结构：</p>
-<p><img src="/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/spark.jpg" class="lazyload" data-srcset="/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/spark.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p>逻辑树是一种有向无环图，该图等同于以下代码；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.expr</span><br><span class="line">expr(&quot;(((someCol + 5) * 200) - 6) &lt; otherCol&quot;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-记录和行"><a href="#3-记录和行" class="headerlink" title="3. 记录和行"></a>3. 记录和行</h2><p>Spark中，DataFrame的每一行都是一个记录，而记录是Row类型的对象，Spark使用列表达式操纵Row类型对象。</p>
-<p>Row对象内部其实是字节数组，但是Spark没有提供访问这些数组的接口，因此只能使用列表达式去操纵。</p>
-<p>示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.first() // 查看第一行</span><br></pre></td></tr></table></figure>
-
-<p>可以基于已知的每列数值去手动实例化一个Row对象来创建行，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Row</span><br><span class="line"></span><br><span class="line">val myRow = Row(&quot;Hello&quot;, null, 1, false)</span><br></pre></td></tr></table></figure>
-
-<p>访问行的数据：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// in Scala</span><br><span class="line">myRow(0)  // 任意类型</span><br><span class="line">myRow(0).asInstanceOf[String] // 字符串</span><br><span class="line">myRow.getString(0) // 字符串</span><br><span class="line">myRow.getInt(2) // 整型</span><br></pre></td></tr></table></figure>
-
-<p>使用Scala或Java时，你必须使用辅助方法或显示地指定值类型；而使用Python或R时，该值将被自动转化为正确的类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myRow[0]</span><br><span class="line">myRow[3]</span><br></pre></td></tr></table></figure>
-
-<p>还可以使用DataSet的API通过相应的Java虚拟机对象中显示返回一组Data数据（将在Spark系列十一中介绍）。</p>
-<h2 id="4-DataFrame转换操作"><a href="#4-DataFrame转换操作" class="headerlink" title="4. DataFrame转换操作"></a>4. DataFrame转换操作</h2><p>几个核心操作：</p>
-<ul>
-<li>添加行或列</li>
-<li>删除行或列</li>
-<li>将一行转换操作为一列（或者将一列转换操作为一行）</li>
-<li>根据列中的值更改行的顺序</li>
-</ul>
-<h3 id="创建DataFrame"><a href="#创建DataFrame" class="headerlink" title="创建DataFrame"></a>创建DataFrame</h3><ul>
-<li>从原始数据源中创建DataFrame</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val df = spark.read.format(&quot;json&quot;)</span><br><span class="line">    .load(&quot;/flight-data/json/2015-summary.json&quot;)</span><br><span class="line">df.createOrReplaceTempView(&quot;dfTable&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>以上示例，将DataFrame注册为临时视图，以便在后面的示例中可以用SQL访问并展示一些SQL中的基本转换操作。</p>
-<ul>
-<li>通过获取一组行并将它们转换操作为一个DataFrame来即时创建DataFrame</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Row</span><br><span class="line">import org.apache.spark.sql.types.&#123;StructField, StructType, StringType, LongType&#125;</span><br><span class="line"></span><br><span class="line">val schema = new StructType(Array(</span><br><span class="line">    new StructField(&quot;some&quot;, StringType, true),</span><br><span class="line">    new StructField(&quot;col&quot;, StringType, true),</span><br><span class="line">    new StructField(&quot;names&quot;, LongType, false)))</span><br><span class="line"></span><br><span class="line">val myRows = Seq(Row(&quot;Hello&quot;, null, 1L))</span><br><span class="line">val myRDD = spark.sparkContext.parallelize(myRows)</span><br><span class="line">val myDf = spark.createDataFrame(myRDD, schema)</span><br><span class="line">myDf.show(false)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/spark2.jpg" class="lazyload" data-srcset="/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/spark2.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<h3 id="select-和selectExpr"><a href="#select-和selectExpr" class="headerlink" title="select()和selectExpr()"></a>select()和selectExpr()</h3><p>select()和selectExpr()支持在DataFrame上执行类似数据库表的SQL查询:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># SQL</span><br><span class="line">select colName * 10, otherCol, someOtherCol as c from df</span><br></pre></td></tr></table></figure>
-
-<p>可以通过多种不同的方式引用列，而且这些方式可以等家互换：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.&#123;expr, col, column&#125;</span><br><span class="line"></span><br><span class="line">df.select(</span><br><span class="line">    df.col(&quot;colName&quot;),</span><br><span class="line">    col(&quot;colName&quot;),</span><br><span class="line">    column(&quot;colName&quot;),</span><br><span class="line">    &#x27;colName,</span><br><span class="line">    $&quot;colName&quot;,</span><br><span class="line">    expr(&quot;colName&quot;))</span><br><span class="line">  .show(2)</span><br></pre></td></tr></table></figure>
-
-<p>expr是目前最灵活的引用方式，它能够引用一列，也可以引用对列进行操纵的字符串表达式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 将列名改为destination</span><br><span class="line">df.select(expr(&quot;DEST_COUNTRY_NAME AS destination&quot;)).show(2)</span><br><span class="line">// 将列名改回原来的名称</span><br><span class="line">df.select(expr(&quot;DEST_COUNTRY_NAME AS destination&quot;)).alias(&quot;DEST_COUNTRY_NAME&quot;).show(2)</span><br></pre></td></tr></table></figure>
-
-<p>因为select后面跟着一系列expr是非常常见的写法，所以Spark有一个有效地描述此操作序列的接口：selectExpr，这是Spark最强大的地方，我们可以利用selectExpr构建复杂表达式来创建DataFrame。</p>
-<p>实际上，我们可以添加不包含任何聚合操作的有效SQL语句，并且只要列可以解析，它就是有效的！下面是最简单的例子，在DataFrame中增加一个新列withinCountry，该列描述了destination和origin是否相同：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df.selectExpr(</span><br><span class="line">    &quot;*&quot;,</span><br><span class="line">    &quot;(DEST_COUNTRY_NAME = ORIGIN_COUNTRY_NAME) as withinCountry&quot;)</span><br><span class="line">  .show(2)</span><br></pre></td></tr></table></figure>
-
-<p>使用selectExpr，还可以利用系统预定义好的聚合函数来指定在整个DataFrame上的聚合操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.selectExpr(&quot;avg(count)&quot;, &quot;count(distinct(DEST_COUNTRY_NAME))&quot;).show(2)</span><br></pre></td></tr></table></figure>
-
-<h3 id="转换操作成Spark类型（字面量）"><a href="#转换操作成Spark类型（字面量）" class="headerlink" title="转换操作成Spark类型（字面量）"></a>转换操作成Spark类型（字面量）</h3><p>有时候需要给Spark传递显示的值，它们只是一个值而非新列。我们的方式是通过字面量（literal）传递，就是将给定的编程语言的字面上的值转换操作为Spark可以理解的值。<br>字面量就是表达式，可以用操作表达式的方式来使用它们：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.lit</span><br><span class="line"></span><br><span class="line">df.select(expr(&quot;*&quot;), lit(1).as(&quot;one&quot;)).show(2)</span><br></pre></td></tr></table></figure>
-
-<h3 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(&quot;numberOne&quot;, lit(1)).show(2)</span><br><span class="line">df.withColumn(&quot;withinCountry&quot;, expr(&quot;ORIGIN_COUNTRY_NAME == DEST_COUNTRY_NAME&quot;))</span><br></pre></td></tr></table></figure>
-
-<p>我们也可以使用withColumn对某一列重命名：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(&quot;dest&quot;, expr(&quot;DEST_COUNTRY_NAME&quot;))</span><br></pre></td></tr></table></figure>
-
-<h3 id="重命名列"><a href="#重命名列" class="headerlink" title="重命名列"></a>重命名列</h3><p>我们不仅可以使用withColumn对列重命名，还可以使用withColumnRenamed：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumnRenamed(&quot;DEST_COUNTRY_NAME&quot;, &quot;dest&quot;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="保留字与关键字"><a href="#保留字与关键字" class="headerlink" title="保留字与关键字"></a>保留字与关键字</h3><p>列名中可能会包含空格或者连字符等保留字符，要处理这些保留字符需要适当地对列名进行转义，在Spark中，使用反引号`来实现。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.functions.expr</span><br><span class="line"></span><br><span class="line">// 创建一个包含空格或连字符的列，不需要转义</span><br><span class="line">val dfNew = df.withColumn(</span><br><span class="line">    &quot;This Long Column-Name&quot;,</span><br><span class="line">    expr(&quot;ORIGIN_COUNTRY_NAME&quot;))</span><br><span class="line"></span><br><span class="line">// 表达式中引用了包含空格或连字符的列，需要使用反引号来转义</span><br><span class="line">dfNew.selectExpr(</span><br><span class="line">    &quot;`This Long Column-Name`&quot;,</span><br><span class="line">    &quot;`This Long Column-Name` as `new col`&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>如果显示地使用字符串（这个字符串会被解释成字面值，而不是表达式）来引用列，则不需要转义（我们只需转义使用保留字符或关键字的表达式）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dfNew.select(col(&quot;This Long Column-Name&quot;)).show(2)</span><br></pre></td></tr></table></figure>
-<h3 id="区分大小写"><a href="#区分大小写" class="headerlink" title="区分大小写"></a>区分大小写</h3><p>Spark默认不区分大小写，可以通过如下配置使Spark区分大小写：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- in SQL</span><br><span class="line">set spark.sql.caseSensitive true</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.drop(&quot;col_to_drop&quot;).columns()</span><br><span class="line">df.drop(&quot;col1&quot;, &quot;col2</span><br></pre></td></tr></table></figure>
-<h3 id="更改列的类型（强制类型转换）"><a href="#更改列的类型（强制类型转换）" class="headerlink" title="更改列的类型（强制类型转换）"></a>更改列的类型（强制类型转换）</h3><p>将count列从integer整型转为Long长整型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(&quot;count2&quot;, col(&quot;count&quot;).cast(long))</span><br></pre></td></tr></table></figure>
-
-<h3 id="过滤行"><a href="#过滤行" class="headerlink" title="过滤行"></a>过滤行</h3><p>有两种过滤方式：where和filter，以下过滤器是等效：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.filter(col(&quot;count&quot;) &lt; 2).show(2)</span><br><span class="line">df.where(&quot;count &lt; 2&quot;).show(2)</span><br></pre></td></tr></table></figure>
-
-<p>我们可能本能地想把多个过滤条件放到一个表达式中，尽管这种方式可行，但并不总是有效的。因为Spark不管过滤条件的先后顺序，会同时执行所有过滤操作，因此当你乡指定多个AND过滤操作时，只要按照先后顺序以链式的方式把这些过滤条件串联起来即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.where(col(&quot;count&quot;) &lt; 2).where(col(&quot;ORIGIN_COUNTRY_NAME&quot;) =!= &quot;Croatia&quot;).show(2)</span><br></pre></td></tr></table></figure>
-
-<h3 id="获得去重后的行"><a href="#获得去重后的行" class="headerlink" title="获得去重后的行"></a>获得去重后的行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.select(&quot;ORIGIN_COUNTRY_NAME&quot;, &quot;DEST_COUNTRY_NAME&quot;).distinct().count</span><br><span class="line">df.dropDuplicates(&quot;ORIGIN_COUNTRY_NAME&quot;, &quot;DEST_COUNTRY_NAME&quot;).count</span><br></pre></td></tr></table></figure>
-
-<p>以上代码结果相同。</p>
-<h3 id="随即抽样"><a href="#随即抽样" class="headerlink" title="随即抽样"></a>随即抽样</h3><p>使用sample()按照一定比例从DataFrame中随即抽取一部分行，可以通过withReplacement参数指定是否放回抽样，true为有放回，false为无放回。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val seed = 5</span><br><span class="line">val withReplacement = false</span><br><span class="line">val fraction = 0.5</span><br><span class="line">df.sample(withReplacement, fraction, seed).count</span><br></pre></td></tr></table></figure>
-
-<h3 id="随机分割"><a href="#随机分割" class="headerlink" title="随机分割"></a>随机分割</h3><p>应用场景：将原始DataFrame随机分割成多个分片。这通常用于机器学习算法中，用于分割数据集来创建训练集、验证集和测试集。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val dataFrames = df.randomSplit(Array(0.25, 0.75), seed)</span><br><span class="line">dataFrames(0).count() &gt; dataFrames(1).count()  // 结果为false</span><br></pre></td></tr></table></figure>
-
-<p>如果DataFrame的分割比例的和不为1，则比例参数会被自动归一化。</p>
-<h3 id="连接和追加行（联合操作）"><a href="#连接和追加行（联合操作）" class="headerlink" title="连接和追加行（联合操作）"></a>连接和追加行（联合操作）</h3><p>union两个DataFrame的条件：它们具有相同的模式(schema)和列数。</p>
-<p>目前，union操作时基于位置而不是基于数据模式schema执行，它并不会自动根据列名匹配对齐后在进行union，所以两个待uion的DataFrame必须具有完全相同的模式和列数。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.Row</span><br><span class="line"></span><br><span class="line">val schema = df.schema</span><br><span class="line">val newRows = Seq(</span><br><span class="line">    Row(&quot;New Country&quot;, &quot;Other Country&quot;, 5L),</span><br><span class="line">    Row(&quot;New Country 2&quot;, &quot;Other Country 3&quot;, 1L)</span><br><span class="line">)</span><br><span class="line">val rdd = spark.sparkContext.parallelize(newRows)</span><br><span class="line">val newDF = spark.createDataFrame(rdd, schema)</span><br><span class="line">df.union(newDf)</span><br><span class="line">  .where(&quot;count = 1&quot;)</span><br><span class="line">  .where($&quot;ORIGIN_COUNTRY_NAME&quot; =!= &quot;China&quot;)</span><br><span class="line">  .show()</span><br></pre></td></tr></table></figure>
-
-<p>在Scala中，你需要使用 =!= 运算符，这是因为它不仅能比较字符串，也能够比较表达式。</p>
-<h3 id="行排序"><a href="#行排序" class="headerlink" title="行排序"></a>行排序</h3><p>sort 和 orderBy 方法是相互等价的操作，执行的方式也是一样，他们均接收列表达式和字符串，以及多个列。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df.sort(&quot;count&quot;).show(5)</span><br><span class="line">df.orderBy(&quot;count&quot;, &quot;DEST_COUNTRY_NAME&quot;).show(5)</span><br><span class="line">df.orderBy(col(&quot;count&quot;), col(&quot;DEST_COUNTRY_NAME&quot;)).show(5)</span><br><span class="line"></span><br><span class="line">df.orderBy(expr(&quot;count desc&quot;)).show(2)</span><br><span class="line">df.orderBy(desc(&quot;count&quot;), asc(&quot;DEST_COUNTRY_NAME&quot;)).show(2)</span><br></pre></td></tr></table></figure>
-
+<p>Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成一个指令的<strong>有向无环图</strong>。</p>
+<p>指令的图的执行过程作为一个作业由一个动作操作触发，在执行过程中一个作业被分解成多个**阶段(stage)和任务(task)**在集群上执行。</p>
+<p><strong>转换操作和动作操作操纵的逻辑结构是 DataFrame 和 DataSet，创建一个新的 DataFrame 或 DataSet 需要调用一个转换操作</strong>。</p>
+<p>如果要启动计算，或者将 DataFrame 或 DataSet 转换为本地语言的类型，则需要调用一个动作操作。</p>
+<h2 id="1-DataFrame类型-和-Dataset类型"><a href="#1-DataFrame类型-和-Dataset类型" class="headerlink" title="1. DataFrame类型 和 Dataset类型"></a>1. DataFrame类型 和 Dataset类型</h2><p>DataFrame 和 Dataset 是具有行和列的类似于（<strong>分布式</strong>）数据表的集合类型。所有列的行数相同（可以使用null来指定缺省值），每一列的所有行都必须保持一致的数据类型。</p>
+<p>Spark中的 DataFrame 和 Dataset 是不可变的数据集合，可以通过它指定对特定位置数据的操作，该操作将以惰性评估方式执行。</p>
+<p>当对 DataFrame 执行动作操作时，将触发 Spark 执行具体转换操作并返回结果，这些代表了如何操纵行和列来计算出用户期望结果的执行计划。</p>
+<p><strong>表和视图与 DataFrame基本相同</strong>，所以通常在 DataFrame 上执行SQL操作。</p>
 <blockquote>
-<p>【高级技巧】可以指定空值在排序列表中的位置：使用 asc_nulls_first 指示空值安排在升序排列的前面，使用 desc_nulls_first 指示空值安排在降序排列的前面，asc_nulls_last和 desc_nulls_first 同理。</p>
+<p>将在“系列十”中专门介绍 Spark SQL 的相关内容。</p>
 </blockquote>
-<p>出于性能优化的目的，最好是在进行别的转换之前，先对每个分区进行内部排序，可以使用 sortWithinPartitions 方法实现这一操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spark.read.format(&quot;json&quot;).load(&quot;/data/flight-data/json/*-summary.json&quot;)</span><br><span class="line">    .sortWithinPartitions(&quot;count&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><pre><code>Schema数据模式定义了该分布式集合中存储的数据类型。
+</code></pre>
+<p>Schema 定义了 DataFrame 的列名和类型，可以手动定义或者从数据源读取（通常定义为模式读取），相当于 MySQL 的元数据。</p>
+<p>Schema数据模式需要指定数据类型，这意味着你需要指定在什么地方放置什么类型的数据。</p>
+<h2 id="2-结构化-Spark-类型概述"><a href="#2-结构化-Spark-类型概述" class="headerlink" title="2. 结构化 Spark 类型概述"></a>2. 结构化 Spark 类型概述</h2><p>Spark 有自己的编程语言，Spark 内部使用一个名为 Catalyst 的引擎，<font color="#dd00dd">在计划制定和执行作业的过程中使用 Catalyst 来维护它自己的类型信息</font>，这样就会带来很大的优化空间，这些优化可以显著提高性能。</p>
+<p>Spark 类型直接映射到不同语言API，并且针对Scala、Java、Python、SQL和R语言，都有一个对应的API查找表。</p>
+<p>需要注意的是，即使通过Python或者R语言来使用Spark结构化API，大多数情况下也是操作Spark类型而非Python类型，例如，以下代码不会在Scala或Python中执行加法，而实际上完全是在Spark中执行的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// in Scala</span><br><span class="line">val df = spark.range(500).toDF(&quot;number&quot;)</span><br><span class="line">df.select(df.col(&quot;number&quot;) + 10)</span><br><span class="line"></span><br><span class="line">// in Python</span><br><span class="line">df = spark.range(500).toDF(&quot;number&quot;)</span><br><span class="line">df.select(df[&quot;number&quot;] + 10)</span><br></pre></td></tr></table></figure>
 
-<p>Spark性能调优的内容将在“Spark系列三”中讨论。</p>
-<h3 id="重划分和合并"><a href="#重划分和合并" class="headerlink" title="重划分和合并"></a>重划分和合并</h3><p>另一个重要的优化是根据一些经常过滤的列（如datetime）对数据进行分区，控制跨群集数据的物理布局，包括分区方案和分区数。<br>不管是否有必要，重新分区都会导致数据的全面洗牌，如果将来的分区数大于当前的分区数，或者当你想还要基于某一组特定列进行分区时，通常只能重新分区：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.rdd.getNumPartitions  // 未分区时，返回1</span><br><span class="line">df.repartition(5)</span><br></pre></td></tr></table></figure>
+<p><strong>Spark会将“用输入语言编写的表达式”转换为代表相同功能的Spark内部Catalyst表示</strong>。</p>
+<h3 id="2-1-DataFrame与Dataset的比较"><a href="#2-1-DataFrame与Dataset的比较" class="headerlink" title="2.1. DataFrame与Dataset的比较"></a>2.1. DataFrame与Dataset的比较</h3><p>实质上，结构化API包含两类API，即<em><strong>非类型化的DataFrame</strong></em>和<em><strong>类型化的Dataset</strong></em>。</p>
+<p>说<strong>DataFrame</strong>是无类型的可能不太准确，因为它们其实是有类型的，只是<strong>Spark</strong>完全负责维护它们的类型，<strong>仅在在运行时检查这些类型是否与scheme中指定的类型一致</strong>。</p>
+<p>与之相对应的，<font color="#dd00dd">Dataset在编译时就会检查类型是否符合规范，仅适用于基于Java虚拟机（JVM）的语言（如Scala和Java）,并通过case类或Java beans指定类型</font>。</p>
+<p>大多数情况下，我们会使用DataFrame，在Scala版本的Spark中，<strong>DataFrame就是一些Row类型的Dataset的集合</strong>。</p>
+<p>“Row”类型是Spark用于支持内存计算而优化的数据格式，这种格式有利于高效计算，因为它避免使用JVM类型（会带来昂贵垃圾回收开销和对象实例化开销），而是基于自己的内部格式运行。</p>
+<p>Python版本和R语言版本的Spark并不支持DataSet，所有东西都是DataFrame，这样我们就可以使用这种优化的数据格式进行计算处理。</p>
+<h4 id="列"><a href="#列" class="headerlink" title="列"></a>列</h4><p>列表示一个简单类型（例如，Int或String）,或者一个复杂类型（例如，Array或Map），或者空值null。Spark记录所有这些类型的信息并提供多种转换方法。</p>
+<h4 id="行"><a href="#行" class="headerlink" title="行"></a>行</h4><p>一行对应一个数据记录，DataFrame中的每条记录都必须是Row类型，我们可以通过SQL手动创建、或者从弹性分布式数据集（RDD）提取、或从数据源手动创建这些行。</p>
+<p>下面的示例使用范围函数range()来创建一个Row对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// in scala</span><br><span class="line">spark.range(2).toDF().collect()</span><br><span class="line"></span><br><span class="line">// in python</span><br><span class="line">spark.range(2).collect()</span><br></pre></td></tr></table></figure>
+<p>执行以上代码，会产生一个 Row 对象的数组。</p>
+<h3 id="2-2-Spark类型"><a href="#2-2-Spark类型" class="headerlink" title="2.2. Spark类型"></a>2.2. Spark类型</h3><p>首先，我们要指导如何实例化一个列为特定类型，或如何声明一个列为特定类型。</p>
+<p>通过以下方法可以使用正确的<strong>Scala类型</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.types._</span><br><span class="line">val b = ByteType</span><br></pre></td></tr></table></figure>
 
-<p>如果你经常按照某一列执行过滤操作，则根据该列进行重新分区是很有必要的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.repartition(col(&quot;DEST_COUNTRY_NAME&quot;))</span><br></pre></td></tr></table></figure>
+<p>通过如下的工厂方法可以使用正确的<strong>Java类型</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.sql.types.DataTypes</span><br><span class="line">ByteType x = DataTypes.ByteType</span><br></pre></td></tr></table></figure>
 
-<p>还可以指定分区数量：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.repartition(5, col&quot;DEST_COUNTRY_NAME&quot;)</span><br></pre></td></tr></table></figure>
+<p>通过以下方法使用正确的<strong>Python类型</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from pyspark.sql.types import *</span><br><span class="line">b = ByteType()</span><br></pre></td></tr></table></figure>
 
-<p>另一方面，合并操作（coalesce）不会导致数据的全面洗牌，但会尝试合并分区，看如下示例代码，基于EST_COUNTRY_NAME列将数据重新划划分成5个分区，然后再合并它们（没有导致数据全面洗牌）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.repartition(5, col(&quot;DEST_COUNTRY_NAME&quot;)).coalesce(2)</span><br></pre></td></tr></table></figure>
-
-<h3 id="驱动器获取行"><a href="#驱动器获取行" class="headerlink" title="驱动器获取行"></a>驱动器获取行</h3><p>Spark的驱动器维护着集群状态，有时候你需要让驱动器（driver）收集一些数据到本地，这样可以在本地机器上（spark-shell）处理它们。<br>下面的代码示例使用collect函数从整个DataFrame中获取所有数据，使用take函数选择前N行，并使用show()打印一些行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val limitDF = df.limit(10)</span><br><span class="line">limitDF.take(5)</span><br><span class="line">limitDF.top(3)</span><br><span class="line">limitDF.show()</span><br><span class="line">limitDF.collect()</span><br></pre></td></tr></table></figure>
-
+<p>Scala类型参考表：</p>
+<table>
+<thead>
+<tr>
+<th>Spark数据类型</th>
+<th>Scala中的值类型</th>
+<th>获取或创建数据类型的API</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ByteType</td>
+<td>Byte</td>
+<td>ByteType</td>
+</tr>
+<tr>
+<td>ShortType</td>
+<td>Short</td>
+<td>ShortType</td>
+</tr>
+<tr>
+<td>IntegerType</td>
+<td>Int</td>
+<td>IntegerType</td>
+</tr>
+<tr>
+<td>LongType</td>
+<td>Long</td>
+<td>LongType</td>
+</tr>
+<tr>
+<td>FloatType</td>
+<td>Float</td>
+<td>FloatType</td>
+</tr>
+<tr>
+<td>DoubleType</td>
+<td>Double</td>
+<td>DoubleType</td>
+</tr>
+<tr>
+<td>DecimalType</td>
+<td>java.math.BigDecimal</td>
+<td>DecimalType</td>
+</tr>
+<tr>
+<td>StringType</td>
+<td>String</td>
+<td>StringType</td>
+</tr>
+<tr>
+<td>BinaryType</td>
+<td>Array[Type]</td>
+<td>BinaryType</td>
+</tr>
+<tr>
+<td>BooleanType</td>
+<td>Boolean</td>
+<td>BooleanType</td>
+</tr>
+<tr>
+<td>TimestampType</td>
+<td>java.sql.TimeStamp</td>
+<td>TimestampType</td>
+</tr>
+<tr>
+<td>DateType</td>
+<td>java.sql.Date</td>
+<td>DateType</td>
+</tr>
+<tr>
+<td>ArrayType</td>
+<td>scala.collection.Seq</td>
+<td>ArrayType(elementType, [containsNull])</td>
+</tr>
+<tr>
+<td>MapType</td>
+<td>scala.collection.Map</td>
+<td>MapType(keyType, valueType, [valueContainsNull])</td>
+</tr>
+<tr>
+<td>StrcutType</td>
+<td>org.apache.spark.sql.Row</td>
+<td>StrcutType(fields)</td>
+</tr>
+<tr>
+<td>StrcutField</td>
+<td>该字段对应的Scala数据类型（例如，int是IntegerType的StrcutField）</td>
+<td>StrcutField(name, dataType, [nullable])</td>
+</tr>
+</tbody></table>
+<p>Java类型参考表：</p>
+<table>
+<thead>
+<tr>
+<th>Spark数据类型</th>
+<th>Java中的值类型</th>
+<th>获取或创建数据类型的API</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ByteType</td>
+<td>byte或Byte</td>
+<td>DataTypes.ByteType</td>
+</tr>
+<tr>
+<td>ShortType</td>
+<td>short或Short</td>
+<td>DataTypes.ShortType</td>
+</tr>
+<tr>
+<td>IntegerType</td>
+<td>int或Integer</td>
+<td>DataTypes.IntegerType</td>
+</tr>
+<tr>
+<td>LongType</td>
+<td>long或Long</td>
+<td>DataTypes.LongType</td>
+</tr>
+<tr>
+<td>FloatType</td>
+<td>float或Float</td>
+<td>DataTypes.FloatType</td>
+</tr>
+<tr>
+<td>DoubleType</td>
+<td>double或Double</td>
+<td>DataTypes.DoubleType</td>
+</tr>
+<tr>
+<td>DecimalType</td>
+<td>java.math.BigDecimal</td>
+<td>DataTypes.createDecimalType(precision, scale)</td>
+</tr>
+<tr>
+<td>StringType</td>
+<td>String</td>
+<td>DataTypes.StringType</td>
+</tr>
+<tr>
+<td>BinaryType</td>
+<td>byte[]</td>
+<td>DataTypes.BinaryType</td>
+</tr>
+<tr>
+<td>BooleanType</td>
+<td>boolean或Boolean</td>
+<td>DataTypes.BooleanType</td>
+</tr>
+<tr>
+<td>TimestampType</td>
+<td>java.sql.Timestamp</td>
+<td>DataTypes.TimestampType</td>
+</tr>
+<tr>
+<td>DateType</td>
+<td>java.sql.Date</td>
+<td>DataTypes.DateType</td>
+</tr>
+<tr>
+<td>ArrayType</td>
+<td>java.util.List</td>
+<td>DataTypes.CreateArrayType(elementType, containsNull)</td>
+</tr>
+<tr>
+<td>MapType</td>
+<td>java.util.Map</td>
+<td>DataTypes.createMapType(keyType, valueType, valueContainsNull)</td>
+</tr>
+<tr>
+<td>StructType</td>
+<td>org.apache.spark.sql.Row</td>
+<td>DataTypes.createStrcutType(fields)</td>
+</tr>
+<tr>
+<td>StructField</td>
+<td>该字段对应的Scala数据类型（例如，int是IntegerType的StructField）</td>
+<td>DataTypes.createStrcutField(name, dataType, nullable)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：containsNull、valueContainsNull、nullable的默认值均为true。</p>
+</blockquote>
+<h2 id="3-结构化API执行概述"><a href="#3-结构化API执行概述" class="headerlink" title="3. 结构化API执行概述"></a>3. 结构化API执行概述</h2><p>本节讲演示用户代码是如何在集群上执行的。</p>
+<p>针对一个结构化API查询任务，我们逐步分析<strong>用户代码</strong>到<strong>执行代码</strong>的过程，如下：</p>
 <ul>
-<li>take(num: Int) 获取RDD中从0到num-1下标的元素（不排序）</li>
-<li>top(num: Int) 按照默认排序或者指定的排序规则返回前N个元素</li>
+<li>编写DataFrame/DataSet/SQL代码</li>
+<li>如果代码能有效执行，Spark将其转换为一个<strong>逻辑执行计划</strong>（Logical Plan）</li>
+<li>Spark将此逻辑计划转化为一个物理执行计划（Physical Plan），检查可行的优化策略，并在此过程中优化</li>
+<li>Spark在集群上执行该Physical Plan（RDD操作）</li>
 </ul>
-<p>为了遍历数据集，还有一种让驱动器获取行的方法，即toLocalIterator()，该函数是一个迭代器，<strong>将每个分区的数据返回给驱动器</strong>，并且允许你以串行的方式一个个分区地迭代整个数据集：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limitDF.toLocalIterator()</span><br></pre></td></tr></table></figure>
-
-<p>将数据集合传递给驱动器的代价很高。当数据集很大时调用collect()函数可能会导致驱动器崩溃。如果使用toLocalIterator()，并且分区很大，则容易使驱动器节点崩溃并丢失应用程序的状态，代价也是很大的，因此我们可以一个一个分区进行操作，而不是并行运行。</p>
+<p>我们编写的代码通过控制台提交给Spark，或者一个Spark作业的形式提交；然后代码由 Catalyst 优化其决定如何执行，并制定一个执行计划；最后代码被运行，得到的结果返回给用户。下图展示了整个过程。</p>
+<p><img src="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/Catalyst.png" class="lazyload" data-srcset="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/Catalyst.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="3-1-逻辑计划"><a href="#3-1-逻辑计划" class="headerlink" title="3.1. 逻辑计划"></a>3.1. 逻辑计划</h3><p>执行的第一阶段值在获取用户代码并将其转换为逻辑计划，下图展示了该过程：</p>
+<p><img src="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/logic_plan.png" class="lazyload" data-srcset="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/logic_plan.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>这个逻辑计划仅代表一组抽象转换，并不涉及执行器或驱动器，它只是将用户的表达式集合转换为最优的版本。</p>
+<p><font color="#dd00dd">Spark 使用 catalog （所有表和 DataFrame 信息的存储库）在分析器中解析列和表格，</font>如果目录中不存在所需的表或列，分析器可能会拒绝未解析的逻辑计划；如果分析器可以解析它，结果将由 Catalyst 优化器尝试通过<strong>谓词下推</strong>或<strong>选择操作</strong>来优化逻辑计划。</p>
+<pre><code>用户可以扩展 Catalyst 优化器来支持自己的特定领域优化策略。
+</code></pre>
+<h3 id="3-2-物理计划"><a href="#3-2-物理计划" class="headerlink" title="3.2. 物理计划"></a>3.2. 物理计划</h3><p>在成功创建优化的逻辑计划后，Spark 开始执行物理计划流程。</p>
+<p>物理计划通过生成不同的物理执行策略，并通过<strong>代价模型</strong>进行比较分析，从而指定如何在集群上执行逻辑计划，具体流程如下图所示。</p>
+<p><img src="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/physical_plan.png" class="lazyload" data-srcset="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/physical_plan.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>例如，执行一个 join 操作就会涉及代价比较，它通过分析数据表的物理属性（表的大小或分区的大小），对不同的物理执行策略进行代价比较，选择合适的物理执行计划。</p>
+<p>物理执行计划产生一系列的 RDD 和转化操作，这就是 Spark 被称为编译器的原因，因为它将对 DataFrame、Dataset 和 SQL 中的查询操作为你编译一系列 RDD 的转换操作。</p>
+<h3 id="3-3-执行"><a href="#3-3-执行" class="headerlink" title="3.3. 执行"></a>3.3. 执行</h3><p>在选择一个物理计划时，Spark将所有代码运行在<font color="#dd00dd">Spark底层编程接口RDD上</font>。</p>
+<p>Spark在运行时，执行进一步优化，生成可以在执行期间优化任务（task）或阶段（stage）的本地Java字节码，最终将结果返回给用户。</p>
+<p><img src="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/bye.png" class="lazyload" data-srcset="/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/bye.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 
   
   
@@ -744,7 +824,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/>https://kelloxu.github.io/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/>https://kelloxu.github.io/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/</a></p>
               
             
           </blockquote>
@@ -771,10 +851,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T11:34:17+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-06T13:12:59+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月4日</p>
+    <p>更新于：2021年10月6日</p>
   </a>
 </div>
 
@@ -783,7 +863,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spark</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>结构化API</p></a></div>
 
 
         
@@ -796,7 +876,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/&title=2 基本的结构化操作 - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/&title=Spark系列二——1-结构化API概述 - 铁人博客&summary="
           
           >
           
@@ -808,7 +888,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/&title=2 基本的结构化操作 - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/&title=Spark系列二——1-结构化API概述 - 铁人博客&summary="
           
           >
           
@@ -820,7 +900,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/08/30/2%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/&title=2 基本的结构化操作 - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/&title=Spark系列二——1-结构化API概述 - 铁人博客&summary="
           
           >
           
@@ -850,31 +930,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2020/09/18/3%20%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>3 处理不同的数据类型</p>
-          <p class='content'>本篇博客将介绍对不同数据类型的处理，主要包括以下内容：
-
-布尔型
-数字型
-字符串型
-日期和时间戳类型
-空值处理
-复杂类型
-用户自定义的函数
-
-1. 在哪里查找APIDataFrame(DataS...</p>
+        <a class='prev' href='/2020/08/30/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%942-%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark系列二——2-基本的结构化操作</p>
+          <p class='content'>本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。
+1. 模式模式定义了...</p>
         </a>
       
       
-        <a class='next' href='/2020/08/16/1%20%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/'>
-          <p class='title'>1 结构化API概述<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>结构化API指以下三种核心分布式集合类型的API：
-
-DataSet类型
-DataFrame类型
-SQL表和视图
-
-Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成...</p>
+        <a class='next' href='/2020/07/08/2-%E7%AE%A1%E7%90%86Hadoop/'>
+          <p class='title'>2 管理Hadoop<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'></p>
         </a>
       
     </div>
@@ -917,7 +982,7 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A8%A1%E5%BC%8F"><span class="toc-text">1. 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%97%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">2. 列和表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%97"><span class="toc-text">2.1. 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">2.2. 表达式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%B0%E5%BD%95%E5%92%8C%E8%A1%8C"><span class="toc-text">3. 记录和行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-DataFrame%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. DataFrame转换操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BADataFrame"><span class="toc-text">创建DataFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select-%E5%92%8CselectExpr"><span class="toc-text">select()和selectExpr()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C%E6%88%90Spark%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89"><span class="toc-text">转换操作成Spark类型（字面量）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%97"><span class="toc-text">添加列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%97"><span class="toc-text">重命名列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E7%95%99%E5%AD%97%E4%B8%8E%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">保留字与关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="toc-text">区分大小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%88%97"><span class="toc-text">删除列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E5%88%97%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%89"><span class="toc-text">更改列的类型（强制类型转换）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E8%A1%8C"><span class="toc-text">过滤行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%BE%97%E5%8E%BB%E9%87%8D%E5%90%8E%E7%9A%84%E8%A1%8C"><span class="toc-text">获得去重后的行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E5%8D%B3%E6%8A%BD%E6%A0%B7"><span class="toc-text">随即抽样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%88%86%E5%89%B2"><span class="toc-text">随机分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%92%8C%E8%BF%BD%E5%8A%A0%E8%A1%8C%EF%BC%88%E8%81%94%E5%90%88%E6%93%8D%E4%BD%9C%EF%BC%89"><span class="toc-text">连接和追加行（联合操作）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E6%8E%92%E5%BA%8F"><span class="toc-text">行排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%88%92%E5%88%86%E5%92%8C%E5%90%88%E5%B9%B6"><span class="toc-text">重划分和合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E5%99%A8%E8%8E%B7%E5%8F%96%E8%A1%8C"><span class="toc-text">驱动器获取行</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-DataFrame%E7%B1%BB%E5%9E%8B-%E5%92%8C-Dataset%E7%B1%BB%E5%9E%8B"><span class="toc-text">1. DataFrame类型 和 Dataset类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Schema"><span class="toc-text">Schema</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BB%93%E6%9E%84%E5%8C%96-Spark-%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%BF%B0"><span class="toc-text">2. 结构化 Spark 类型概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-DataFrame%E4%B8%8EDataset%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">2.1. DataFrame与Dataset的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97"><span class="toc-text">列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C"><span class="toc-text">行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Spark%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.2. Spark类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%89%A7%E8%A1%8C%E6%A6%82%E8%BF%B0"><span class="toc-text">3. 结构化API执行概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%80%BB%E8%BE%91%E8%AE%A1%E5%88%92"><span class="toc-text">3.1. 逻辑计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%89%A9%E7%90%86%E8%AE%A1%E5%88%92"><span class="toc-text">3.2. 物理计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%89%A7%E8%A1%8C"><span class="toc-text">3.3. 执行</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -936,7 +1001,7 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="2 基本的结构化操作";
+  pdata.postTitle="Spark系列二——1-结构化API概述";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
