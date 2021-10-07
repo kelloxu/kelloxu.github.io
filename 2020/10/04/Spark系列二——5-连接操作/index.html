@@ -24,7 +24,7 @@
   
   <title>5 连接操作 - 铁人博客</title>
   
-    <meta name="keywords" content="大数据,spark">
+    <meta name="keywords" content="大数据,spark,join">
   
 
   
@@ -552,7 +552,105 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  
+  <p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/spark-join.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/spark-join.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>连接操作 join 几乎是所有 Spark 作业的比不可少的部分，本文不仅介绍 Spark 中的连接操作及使用方法，还包括 Spark 在集群中执行连接操作的具体过程，了解这些知识可以帮助你避免 OOM 并解决其他一些难题。</p>
+<p>最常见的连接表达式是 equi-join，它用于比较左侧数据集一行和右侧数据集一行中的指定键是否匹配，匹配则组合左侧和右侧数据集的对应行，不匹配则丢弃。</p>
+<h2 id="1-连接类型"><a href="#1-连接类型" class="headerlink" title="1. 连接类型"></a>1. 连接类型</h2><p>连接表达式决定两行是否应该连接，而连接类型决定了如何连接，Spark 提供了各种不同的连接类型：</p>
+<ul>
+<li><strong>inner join</strong></li>
+</ul>
+<p>内连接，保留左、右数据集内某个键都存在的行。</p>
+<ul>
+<li>outer join</li>
+</ul>
+<p>外连接，保留左侧或右侧数据集中具有某个键的行，不具有的则填充null。</p>
+<ul>
+<li><strong>left outer join</strong></li>
+</ul>
+<p>左外连接，保留左侧数据集中具有某个键的行。</p>
+<ul>
+<li>right outer join</li>
+</ul>
+<p>右外连接，保留右侧数据集中具有某个键的行。</p>
+<ul>
+<li><strong>left semi join</strong></li>
+</ul>
+<p>左半连接，如果某键在右侧数据行中出现，则保留且仅保留左侧数据行。</p>
+<ul>
+<li>left anti join</li>
+</ul>
+<p>左反连接，如果某键在右侧数据行中没出现，则保留且仅保留左侧数据行。</p>
+<ul>
+<li>natural join</li>
+</ul>
+<p>自然连接，通过隐式匹配两个数据集之间具有相同名称的列来执行连接。</p>
+<ul>
+<li><strong>cross join（笛卡尔连接 Cartesian join）</strong></li>
+</ul>
+<p>交叉连接，将左侧数据集中的每一行与右侧数据集中的每一行匹配。</p>
+<p>为了实践一下各种连接方式，我们先创建一些简单的数据集：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">val dfPerson = Seq(</span><br><span class="line">    (0, &quot;John&quot;, 0, Seq(100)),</span><br><span class="line">    (1, &quot;Alice&quot;, 1, Seq(500, 250, 100)),</span><br><span class="line">    (2, &quot;Tom&quot;, 1, Seq(250, 100)))</span><br><span class="line">    .toDF(&quot;id&quot;, &quot;name&quot;, &quot;graduate_program&quot;, &quot;spark_status&quot;)</span><br><span class="line"></span><br><span class="line">val dfGraduateProgram = Seq(</span><br><span class="line">    (0, &quot;Masters&quot;, &quot;School of Information&quot;, &quot;UC Berkeley&quot;),</span><br><span class="line">    (2, &quot;Masters&quot;, &quot;EECS&quot;, &quot;UC Berkeley&quot;),</span><br><span class="line">    (1, &quot;Ph.D.&quot;, &quot;EECS&quot;, &quot;UC Berkeley&quot;))</span><br><span class="line">    .toDF(&quot;id&quot;, &quot;degree&quot;, &quot;department&quot;, &quot;school&quot;)</span><br><span class="line"></span><br><span class="line">val dfSparkStatus = Seq(</span><br><span class="line">    (500, &quot;Vice President&quot;),</span><br><span class="line">    (250, &quot;PMVC Member&quot;),</span><br><span class="line">    (100, &quot;Contributor&quot;))</span><br><span class="line">    .toDF(&quot;id&quot;, &quot;status&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-内连接-inner-join"><a href="#1-1-内连接-inner-join" class="headerlink" title="1.1. 内连接 inner join"></a>1.1. 内连接 inner join</h3><p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-inner.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-inner.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>没有同时出现在两个 DataFrame 中的键将不会出现在结果 DataFrame 中，例如：</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-inner-bad.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-inner-bad.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>使用连接表达式比较麻烦，可以将待连接的键重命名为相同值，直接连接：</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-inner-easy.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-inner-easy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<pre><code>内连接是默认的连接操作，因此可以不指定连接方式。
+</code></pre>
+<blockquote>
+<p>内连接有点类似于取交集，但注意不要混淆。两个数据集具有相同的列时，才可做交集操作。</p>
+</blockquote>
+<h3 id="1-2-外连接-outer-join"><a href="#1-2-外连接-outer-join" class="headerlink" title="1.2. 外连接 outer join"></a>1.2. 外连接 outer join</h3><p>外连接指两个 DataFrame 或表中的两行的指定键是否相等，如果相等，则将两行连接在一起；如果不相等，将左侧或右侧 DataFrame 或表中没有匹配的行的各列用 null 替换，再与左侧或右侧 DataFrame 或表中已有的行连接在一起返回。</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-outer.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-outer.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="1-3-左外连接-left-outer-join"><a href="#1-3-左外连接-left-outer-join" class="headerlink" title="1.3. 左外连接 left_outer join"></a>1.3. 左外连接 left_outer join</h3><p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-left-outer.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-left-outer.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="1-4-右外连接-right-outer-join"><a href="#1-4-右外连接-right-outer-join" class="headerlink" title="1.4. 右外连接 right_outer join"></a>1.4. 右外连接 right_outer join</h3><p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-right-outer-1.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-right-outer-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-right-outer-2.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-right-outer-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>（A 左外连接 B） = （B 右外连接 A）</p>
+</blockquote>
+<h3 id="1-5-左半连接-left-semi-join"><a href="#1-5-左半连接-left-semi-join" class="headerlink" title="1.5. 左半连接 left_semi join"></a>1.5. 左半连接 left_semi join</h3><p>与其他连接操作有点区别，它实际上并不包括右侧 DataFram 中的任何值，它只是查看左侧 DataFrame 的值是否存在于右侧 DataFrame 中，<font color="#dd00dd">如果存在，则在连接中保留结果</font>，<strong>即使左侧存在重复键，对应行也将保留在结果中</strong>。</p>
+<pre><code>可以将左半连接看作 DataFrame 上的过滤器，而不是常规的连接函数。
+</code></pre>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-left-semi.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-left-semi.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="1-6-左反连接-left-anti-join"><a href="#1-6-左反连接-left-anti-join" class="headerlink" title="1.6. 左反连接 left_anti join"></a>1.6. 左反连接 left_anti join</h3><p>与左半连接类似，它实际上并不包括右侧 DataFram 中的任何值，但是，只查看左侧 DataFrame 的值是否存在于右侧 DataFrame 中，<font color="#dd00dd">如果不存在，则在连接中保留结果</font>。</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-left-anti.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-left-anti.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<pre><code>左半连接的结果和左反连接的结果互为补集。
+</code></pre>
+<h3 id="1-7-自然连接-natural-join"><a href="#1-7-自然连接-natural-join" class="headerlink" title="1.7. 自然连接 natural join"></a>1.7. 自然连接 natural join</h3><p>自然连接不必指定连接条件，它对你连接操作中可能要基于的列进行猜测（往往是根据相同的列名），找出匹配列并返回连接结果，目前自然连接支持左链接、又连接、外连接。</p>
+<blockquote>
+<p>隐式的操作始终是危险的，应该始终谨慎地使用自然连接。</p>
+</blockquote>
+<p>下面的操作给出了不正确的结果，也没有实际意义，因为两个 DataFrame 虽然都存在一个列名为 id 的列，但它们具有不同的含义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- in SQL</span><br><span class="line">SELECT * FROM dfGraduateProgram NATURAL JOIN dfPerson</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-8-交叉-笛卡尔连接-cartesian-join"><a href="#1-8-交叉-笛卡尔连接-cartesian-join" class="headerlink" title="1.8. 交叉/笛卡尔连接 cartesian join"></a>1.8. 交叉/笛卡尔连接 cartesian join</h3><p>简单来说，交叉连接是不指定谓词的内部连接，将导致结果中包含的行数非常多（m x n）。</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-cross.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-cross.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-cross-join.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-cross-join.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h2 id="2-连接操作常见问题及解决方案"><a href="#2-连接操作常见问题及解决方案" class="headerlink" title="2. 连接操作常见问题及解决方案"></a>2. 连接操作常见问题及解决方案</h2><h3 id="2-1-复杂类型的连接操作"><a href="#2-1-复杂类型的连接操作" class="headerlink" title="2.1. 复杂类型的连接操作"></a>2.1. 复杂类型的连接操作</h3><p><font color="#dd00dd">任何返回布尔值的表达式都是有效的连接表达式</font>。</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-complex.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-complex.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="2-2-处理重复列名"><a href="#2-2-处理重复列名" class="headerlink" title="2.2. 处理重复列名"></a>2.2. 处理重复列名</h3><p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-same-col.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-same-col.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>上图所示，两个 DataFrame 具有相同的列名，采用以下两种方式，可以杜绝在连接结果中有两列相同的列名（后续引用这个列名时会报 ambigous 错误）：</p>
+<ul>
+<li>将连接表达式由布尔表达式改为字符串或序列(Seq)</li>
+</ul>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-same-col-1.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-same-col-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li>连接后删除某个 DataFrame 中的相同列</li>
+</ul>
+<h2 id="3-Spark-如何执行连接"><a href="#3-Spark-如何执行连接" class="headerlink" title="3. Spark 如何执行连接"></a>3. Spark 如何执行连接</h2><p>要连接 Spark 如何执行连接操作，需要了解两个起作用的核心模块：点对点通信模式（node-to-node communication strategy）和逐点计算模式（per node computation strategy）。</p>
+<p>在连接过程中，Spark 要么执行会导致 all-to-all 通信的 <strong>shuffle join</strong>，要么采用 <strong>broadcast join</strong>。</p>
+<h3 id="3-1-大表与大表连接"><a href="#3-1-大表与大表连接" class="headerlink" title="3.1. 大表与大表连接"></a>3.1. 大表与大表连接</h3><p>大表 join 大表，最终就是 shuffle join。</p>
+<p>执行 shuffle join 时，每个节点都与其他节点通信，并根据哪个节点具有（你正在用于连接的）某个键或一组键来共享数据。由于网络会因通信量而阻塞，所以这种方式很耗时，特别是数据没有合理分区的情况下</p>
+<h3 id="3-2-大表与小表的连接"><a href="#3-2-大表与小表的连接" class="headerlink" title="3.2. 大表与小表的连接"></a>3.2. 大表与小表的连接</h3><p>当表的大小足够小以便能够放入单个节点内存中且还有空闲空间的时候，我们就可以优化连接 —— 使用 <strong>broadcast join</strong>，我们可以把数据量较小的 DataFrame 复制到集群中的所有工作节点上。</p>
+<p>广播连接在开始时会有一次大的通信，在这之后，每个工作节点独立执行作业，无需等待其他工作节点，而且节点之间不再有其他的通信，可以避免在整个连接过程中不断执行 all-to-all 通信。</p>
+<p>对于我们当前的数据集，通过查看 Spark 执行计划，可以看到 Spark 自动将连接设置为基于广播通信模式的连接操作：</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-broadcast.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-broadcast.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>通过 DataFrame API 可以显式地告知优化器，<font color="#dd00dd">使用 broadcast 函数作用于较小的 DataFrame 上</font>，并执行广播通信模式的连接操作：</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-broadcast-1.png" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/Spark%E7%B3%BB%E5%88%97%E4%BA%8C-5-join-broadcast-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h3 id="3-3-小表与小表的连接"><a href="#3-3-小表与小表的连接" class="headerlink" title="3.3. 小表与小表的连接"></a>3.3. 小表与小表的连接</h3><p>当执行小表的连接时，通常最好让 Spark 决定如何连接。</p>
+<p>如果你注意到奇怪的行为，你可以随时强制执行广播连接。</p>
+<p><img src="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/perfect-man.jpg" class="lazyload" data-srcset="/2020/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/perfect-man.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+
   
   
     
@@ -596,10 +694,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T11:59:48+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-07T15:20:05+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月4日</p>
+    <p>更新于：2021年10月7日</p>
   </a>
 </div>
 
@@ -608,7 +706,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/join/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>join</p></a></div>
 
 
         
@@ -715,6 +813,20 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
 
 
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%BF%9E%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="toc-text">1. 连接类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%86%85%E8%BF%9E%E6%8E%A5-inner-join"><span class="toc-text">1.1. 内连接 inner join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%A4%96%E8%BF%9E%E6%8E%A5-outer-join"><span class="toc-text">1.2. 外连接 outer join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5-left-outer-join"><span class="toc-text">1.3. 左外连接 left_outer join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5-right-outer-join"><span class="toc-text">1.4. 右外连接 right_outer join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E5%B7%A6%E5%8D%8A%E8%BF%9E%E6%8E%A5-left-semi-join"><span class="toc-text">1.5. 左半连接 left_semi join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-%E5%B7%A6%E5%8F%8D%E8%BF%9E%E6%8E%A5-left-anti-join"><span class="toc-text">1.6. 左反连接 left_anti join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5-natural-join"><span class="toc-text">1.7. 自然连接 natural join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-%E4%BA%A4%E5%8F%89-%E7%AC%9B%E5%8D%A1%E5%B0%94%E8%BF%9E%E6%8E%A5-cartesian-join"><span class="toc-text">1.8. 交叉&#x2F;笛卡尔连接 cartesian join</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">2. 连接操作常见问题及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C"><span class="toc-text">2.1. 复杂类型的连接操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%A4%84%E7%90%86%E9%87%8D%E5%A4%8D%E5%88%97%E5%90%8D"><span class="toc-text">2.2. 处理重复列名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Spark-%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E8%BF%9E%E6%8E%A5"><span class="toc-text">3. Spark 如何执行连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%A4%A7%E8%A1%A8%E4%B8%8E%E5%A4%A7%E8%A1%A8%E8%BF%9E%E6%8E%A5"><span class="toc-text">3.1. 大表与大表连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%A4%A7%E8%A1%A8%E4%B8%8E%E5%B0%8F%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="toc-text">3.2. 大表与小表的连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%B0%8F%E8%A1%A8%E4%B8%8E%E5%B0%8F%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="toc-text">3.3. 小表与小表的连接</span></a></li></ol></li></ol>
+    </div>
+  </section>
 
 
   
