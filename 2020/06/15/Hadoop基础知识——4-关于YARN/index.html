@@ -22,9 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>1 初识Hadoop - 铁人博客</title>
+  <title>4 关于YARN - 铁人博客</title>
   
-    <meta name="keywords" content="大数据,Hadoop">
+    <meta name="keywords" content="大数据,hadoop,yarn">
   
 
   
@@ -492,7 +492,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        1 初识Hadoop
+        4 关于YARN
       </h1>
       <div class='new-meta-box'>
         
@@ -523,7 +523,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年6月2日</p>
+    <p>发布于：2020年6月15日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="1 初识Hadoop" data-path="/2020/06/02/1%20%E5%88%9D%E8%AF%86Hadoop/">
+      <div id="lc-pv" data-title="4 关于YARN" data-path="/2020/06/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -552,116 +552,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <h3 id="1-数据"><a href="#1-数据" class="headerlink" title="1. 数据"></a>1. 数据</h3><p>国际数据公司（IDC）曾经发布报告称，2013年数字世界（digital universe）项目统计得出全球数据总量为 4.4ZB（zettabyte），并预测在2020年将达到 44ZB。</p>
-<blockquote>
-<p>1ZB = 10^3^EB(exabytes) = 10^6^PB(petabytes) = 10^9^TB(terrabytes)</p>
-</blockquote>
-<p>数据“洪流”有很多来源，例如：</p>
-<ul>
-<li>纽约证交所每天所产生的交易数据大约在4TB至5TB之间；</li>
-<li>Facebook存储的照片超过2400亿张，并以每月至少7PB的速度增长；</li>
-<li>瑞士日内瓦附近的大型强子对撞机每年产生的数据约为30PB。</li>
-</ul>
-<p>同时，个人产生的数据正在快速增长。微软研究院 MyLifeBits 项目显示，在不久的将来，个人信息档案将日益普及。<br>但更重要的是，作为物联网一部分的及其设备产生的数据可能远远超过我们个人所产生的数据。机器日志、RFID读卡器、传感器网络、车载GPS和零售交易数据等，所有这些都将产生巨量的数据。</p>
-<p>在网上公开发布的数据也在逐年增加中，这方面的先锋有 Amazon Web Services 和 Infochimps.org，它们所发布的共享数据集正在促进信息共享，供所有人自由下载和分析（或者只需要一个合理的价格）。</p>
-<p>有句话说的好：“大数据胜于好算法。”意思是，对于某些应用（譬如根据以往的偏好来推荐电影和音乐），不论算法有多牛，基于小数据的推荐效果往往都不如基于大量可用数据的一般算法的推荐效果。</p>
-<h3 id="2-数据的存储和分析"><a href="#2-数据的存储和分析" class="headerlink" title="2. 数据的存储和分析"></a>2. 数据的存储和分析</h3><p>当前的问题：多年来，硬盘存储容量不断提升，但是访问速度（硬盘数据读取速度）却没有与时俱进。<br>Hadoop 为我们提供了一个可靠且可扩展的存储和分析平台。此外，由于 Hadoop 运行在商用硬件上且是开源的，因而可以说 Hadoop 的使用成本是在可承受范围内的。</p>
-<h3 id="3-查询所有数据"><a href="#3-查询所有数据" class="headerlink" title="3. 查询所有数据"></a>3. 查询所有数据</h3><p>MapReduce 是一个批量查询处理器，能够在合理的时间范围内处理针对整个数据集的动态查询。<br>MapReduce 改变了我们对数据的传统看法，解放了以前只是保存在磁带和硬盘上的数据。</p>
-<h3 id="4-不仅仅是处理"><a href="#4-不仅仅是处理" class="headerlink" title="4. 不仅仅是处理"></a>4. 不仅仅是处理</h3><p>从 MapReduce 的所有长处来看，它基本上是一个批处理系统，并不适合交互式分析，你不可能执行一条查询并在几秒内或在更短的时间内得到结果。因此， MapReduce 更适合那种没有用户在现场等待查询结果的离线使用场景。<br>然而，从最初的原型出现以来， Hadoop 的发展已经超越了批处理本身。</p>
-<p>实际上，名词 “Hadoop” 有时被用于指代一个更大的、多个项目组成的生态系统。Hadoop2 中 YARN(Yet Another Resource Negotiator)的出现意味着 Hadoop 有了新的处理模型。</p>
-<p>YARN 是一个集群资源管理系统，允许任何一个分布式程序（不仅仅是 MapReduce）基于Hadoop 集群的数据而运行。在过去的几年中，出现了许多不同的、能与 Hadoop 协同工作的处理模式，如：</p>
-<ul>
-<li>交互式SQL（Interactive SQL）</li>
-</ul>
-<p>利用 MapReduce 进行分发并使用一个分布式查询引擎，使得在 Hadoop 上获得 SQL 查询低延迟响应的同时还能保持对大数据集规模的可扩展性。这个引擎使用指定的“总是开启（always on）”守护进程（如同 impala）或容器重用（如同 Tez 上的 Hive）。</p>
-<ul>
-<li>迭代处理（Iterative processing）</li>
-</ul>
-<p>许多算法，例如机器学习算法，自身具有迭代性，因此和那种每次迭代都从硬盘加载的方式相比，这种在内存中保存每次中间结果集的方式更加高效。MapReduce 的架构不允许这样，但如果使用 Spark 就会比较直接，它在使用数据集方面展现了一种高度探究的风格。</p>
-<ul>
-<li>流处理（Stream processing）</li>
-</ul>
-<p>流系统，例如 Storm， Spark Streaming，或 Samza 使得在无边界数据流上运行实时、分布式的计算，并向 Hadoop 存储系统或外部系统发布结果成为可能。</p>
-<ul>
-<li>搜索（Search）</li>
-</ul>
-<p>Solr 搜索平台能够在 Hadoop 集群上运行，当文档加入 HDFS 后就可以对其进行索引，且根据 HDFS 中存储的索引为搜索查询提供服务。<br>无论 Hadoop 上出现了多少不同的处理框架，就批处理而言，MapReduce仍然有着一席之地。MapReduce 提出的一些概念更具有通用性（例如，输入格式、数据集分片等），因此最好是能够了解 MapReduce 的工作机制。</p>
-<h3 id="5-相较于其他系统的优势"><a href="#5-相较于其他系统的优势" class="headerlink" title="5. 相较于其他系统的优势"></a>5. 相较于其他系统的优势</h3><h4 id="5-1-关系型数据库管理系统"><a href="#5-1-关系型数据库管理系统" class="headerlink" title="5.1. 关系型数据库管理系统"></a>5.1. 关系型数据库管理系统</h4><p>为什么不能用配有大量硬盘的数据库来进行大规模数据分析？为什么需要 Hadoop？</p>
-<p>这两个问题的答案来自于计算机硬盘的另一个发展趋势：<strong>寻址时间的提升远远不敌于传输速率的提升</strong>。</p>
-<p>寻址是将磁头移动到特定硬盘位置进行读/写操作的过程，它是导致硬盘操作延迟的主要原因，而传输速率取决于硬盘的带宽。</p>
-<p>如果数据访问模式中包含大量的硬盘寻址，那么读取大量数据集就必然会花更长的时间；另一方面，如果数据库系统只更新一小部分记录，那么传统的 B树（关系型数据库中使用的一种数据结构，受限于寻址的速率）就更有优势，但数据库系统如果有大量数据更新时，B树的速率就明显落后于 MapReduce，因为需要使用“排序/合并”（sort/merge）来重建数据库。</p>
-<p>MapReduce 比较适合解决需要以批处理方式分析整个数据集的问题，尤其是一些特定目的的分析。</p>
-<p>RDBMS 适用于索引后数据集的点查询（point query）和更新，建立索引的数据库系统能够提供对小数据规模的低延迟数据检索和快速更新。</p>
-<p>MapReduce 适合<strong>一次写入、多次读取</strong>数据的应用，关系型数据库则更适合持续更新的数据集。</p>
-<p>MapReduce 和 关系型数据库管理系统的差异如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>差异点</th>
-<th>传统关系型数据库</th>
-<th>MapReduce</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>数据大小</td>
-<td>GB</td>
-<td>PB</td>
-</tr>
-<tr>
-<td>数据存取</td>
-<td>交互式和批处理</td>
-<td>批处理</td>
-</tr>
-<tr>
-<td>更新</td>
-<td>多次读/写</td>
-<td>一次写入，多次读取</td>
-</tr>
-<tr>
-<td>事务</td>
-<td>ACID</td>
-<td>无</td>
-</tr>
-<tr>
-<td>结构</td>
-<td>写时模式</td>
-<td>读时模式</td>
-</tr>
-<tr>
-<td>完整性</td>
-<td>高</td>
-<td>低</td>
-</tr>
-<tr>
-<td>横向扩展</td>
-<td>非线性的</td>
-<td>线性的</td>
-</tr>
-</tbody></table>
-<p>然而，关系型数据库和 Hadoop系统之间的区别是模糊的。</p>
-<p>一方面，关系型数据库已经开始吸收 Hadoop 的一些思想；另一方面，诸如 Hive 这样的 Hadoop 系统不仅变得更具交互性（通过从 MapReduce 中脱离出来），而且增加了索引和事务这样的特性，使其看上去更像传统的关系型数据库。</p>
-<p>Hadoop 和关系型数据库的另一个区别在于它们所操作的数据集的结构化程度。</p>
-<p>结构化数据（structured data）是具有即定格式的实体化数据，如XML文档或满足特定预定义格式的数据库表，这是 RDBMS 包括的内容。另一方面，半结构化数据（semi-structured data）比较松散，虽然可能有格式，但经常被忽略，例如电子表格，它在结构上是由单元格组成的网格，但是每个单元格内可以保存任何形式的数据。非结构化数据（unstructured data）没有什么特别的内部结构，例如传文本或图像数据。</p>
-<p>Hadoop 对非结构化或半结构化数据非常有效，因为它是在处理数据时才对数据进行解释（即所谓的“读时模式”）。</p>
-<p>关系型数据库往往是规范的（normalized），以保持其数据的完整性且不含冗余。Web服务器日志是典型的非规范化数据记录，这也是 Hadoop 非常适用于分析各种日志文件的原因之一。</p>
-<p>MapReduce 以及 Hadoop 中其他的处理模型时可以随着数据规模线性伸缩的。对数据分区后，函数原语（如 map 和 reduce）能够在各个分区上并行工作，这意味着，如果输入的数据量是原来的两倍，那么作业的运行时间也需两倍，但如果集群规模扩展为原来的两倍，那么作业的运行速度却仍然与原来的一样快。SQL查询一般不具备该特性。</p>
-<h4 id="5-2-网格计算"><a href="#5-2-网格计算" class="headerlink" title="5.2. 网格计算"></a>5.2. 网格计算</h4><p>高性能计算（High Performance Computing，HPC）和网格计算（Grid Computing）组织多年以来一直在研究大规模数据处理，主要使用类似于消息传递接口（Message Passing Interface，MPI）的API。</p>
-<p>从广义上讲，高性能计算采用的方法时将作业分散到集群的各台机器上，这些机器访问存储区域网络（Storage Area Networt，SAN）所组成的共享文件系统，这比较适用于计算密集型作业，但如果节点需要访问的数据量更庞大（高达几百GB），很多计算节点就会因为网络带宽的瓶颈问题而不得不闲下来等数据。</p>
-<p>Hadoop 尽量在计算节点上存储数据，以实现数据的本地快速访问。</p>
-<p>数据本地化（data locality）特性是 Hadoop 数据处理的核心，并因此而获得良好的性能。意识到网络带宽是数据中心环境最珍贵的资源（到处复制数据很容易耗尽网络贷款）之后，Hadoop 通过显式网络拓扑结构来保留网络带宽。值得一提的是，这种排列方式并没有降低 Hadoop 对计算密集型数据进行分析的能力。</p>
-<p>虽然 MPI 赋予程序员很大的控制权，但需要程序员显式地处理数据流机制，包括用 C 语言构造地层的功能模块（例如套接字）和高层的数据分析算法。</p>
-<p>而 Hadoop 则在更高层次上执行任务，即程序员仅从数据模型（如 MapReduce 的键-值对）的角度考虑任务的执行，与此同时，数据流仍然是隐性的。</p>
-<p>在大规模分布式计算环境下，协调各个进程的进行是一个很大的挑战，最困难的是合理处理系统的部分失效问题（在不知道一个远程进程是否挂了的问题）同时还需要继续完成整个计算。</p>
-<p>有了 MapReduce 这样的分布式处理框架，程序员不必操作系统失效的问题，因为框架能检测到失败的任务并重新在正常的机器上执行。正因为采用无共享框架， MapReduce 才能够呈现出这种热性，这意味着各个任务之间是彼此独立的。因此，从程序员的角度，任务执行的顺序无关紧要。</p>
-<h3 id="6-Apache-Hadoop-发展简史"><a href="#6-Apache-Hadoop-发展简史" class="headerlink" title="6. Apache Hadoop 发展简史"></a>6. Apache Hadoop 发展简史</h3><p>Hadoop 是 Apache Lucene 创始人道格·卡丁（Doug Cutting）创建的（Lucene 是一个应用广泛的文本搜索系统库），Hadooop 起源于开源网络搜索引擎 Apache Nutch，Nutch本身也是 Lucene 项目的一部分。</p>
-<p>Netch 项目开始于2002年，一个可以运行的网页爬取工具和搜索引擎系统很快面世。</p>
-<p>2004 年，谷歌发表论文向全世界介绍他们的 MapReduce 系统。2005年初，Nutch 的开发人员在 Nutch 上实现了一个 MapReduce 系统，到年中， Nutch 的所有主要算法均完成移植，用 MapReduce 和 NDFS 来运行。</p>
-<p>2005年2月，开发人员将 NDFS 和 MapReduce 移除 Nutch 形成 Lucene 的一个子项目，命名为 Hadoop。大约在同一时间，Doug Cutting 加入雅虎，雅虎为此组织了专门的团队和资源，将 Hadoop 发展成能够以 web 网络规模运行的系统。</p>
-<p>2008年1月，Hadoop已成为 Apache 的顶级项目，证明了它的成功、多样化和生命力。</p>
-<p>2008年2月，雅虎宣布，雅虎搜索引擎使用的索引是在一个拥有1万个内核的 Hadoop 集群上构建的。</p>
-<p>2008年4月，Hadoop 打破世界记录，成为最快的TB级数据排序系统。</p>
-<p>目前，在工业界，Hadoop 已经是公认的大数据通用存储和分析平台。</p>
-
+  
   
   
     
@@ -678,7 +569,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/06/02/1%20%E5%88%9D%E8%AF%86Hadoop/>https://kelloxu.github.io/2020/06/02/1%20%E5%88%9D%E8%AF%86Hadoop/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/06/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/>https://kelloxu.github.io/2020/06/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/</a></p>
               
             
           </blockquote>
@@ -705,7 +596,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T11:46:34+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-04T12:12:32+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月4日</p>
@@ -717,7 +608,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Hadoop/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Hadoop</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hadoop/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hadoop</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/yarn/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>yarn</p></a></div>
 
 
         
@@ -730,7 +621,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/06/02/1%20%E5%88%9D%E8%AF%86Hadoop/&title=1 初识Hadoop - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/06/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/&title=4 关于YARN - 铁人博客&summary="
           
           >
           
@@ -742,7 +633,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/06/02/1%20%E5%88%9D%E8%AF%86Hadoop/&title=1 初识Hadoop - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/06/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/&title=4 关于YARN - 铁人博客&summary="
           
           >
           
@@ -754,7 +645,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/06/02/1%20%E5%88%9D%E8%AF%86Hadoop/&title=1 初识Hadoop - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/06/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/&title=4 关于YARN - 铁人博客&summary="
           
           >
           
@@ -784,18 +675,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2020/06/06/2%20%E5%85%B3%E4%BA%8EMapReduce/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2 关于MapReduce</p>
+        <a class='prev' href='/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>5 Hadoop的I/O操作</p>
           <p class='content'></p>
         </a>
       
       
-        <a class='next' href='/2020/05/30/Vmware%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E5%AE%89%E8%A3%85CentOS7/'>
-          <p class='title'>Vmware创建虚拟机并安装CentOS7<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>
-特别提示：请卸载鲁大师。
-
-1.下载CentOS7系统镜像打开 CentOS7 官方下载页面：http://isoredirect.centos.org/centos/7/isos/x86_6...</p>
+        <a class='next' href='/2020/06/10/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/'>
+          <p class='title'>3 HDFS<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'></p>
         </a>
       
     </div>
@@ -828,20 +716,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
 
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
-    
-  <header>
-    
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
-    
-  </header>
-
-
-    <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE"><span class="toc-text">1. 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E5%88%86%E6%9E%90"><span class="toc-text">2. 数据的存储和分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE"><span class="toc-text">3. 查询所有数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%A4%84%E7%90%86"><span class="toc-text">4. 不仅仅是处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%9B%B8%E8%BE%83%E4%BA%8E%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">5. 相较于其他系统的优势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="toc-text">5.1. 关系型数据库管理系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-%E7%BD%91%E6%A0%BC%E8%AE%A1%E7%AE%97"><span class="toc-text">5.2. 网格计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Apache-Hadoop-%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2"><span class="toc-text">6. Apache Hadoop 发展简史</span></a></li></ol>
-    </div>
-  </section>
-
 
   
 
@@ -857,7 +731,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="1 初识Hadoop";
+  pdata.postTitle="4 关于YARN";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
