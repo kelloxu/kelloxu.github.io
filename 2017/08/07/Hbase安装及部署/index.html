@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：hadoop - 铁人博客</title>
+  <title>Hbase安装及部署 - 铁人博客</title>
+  
+    <meta name="keywords" content="大数据,hbase,安装,部署">
   
 
   
@@ -404,7 +404,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://img.wenhairu.com/images/2021/06/29/9MAYD.jpg"></div>
           
@@ -481,414 +481,330 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        Hbase安装及部署
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/07/08/2-%E7%AE%A1%E7%90%86Hadoop/">
-        2 管理Hadoop
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png">
+    <p>John Xu</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2017年8月7日</p>
+  </a>
+</div>
+
+          
         
-        <time>2017-07-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop/">Hadoop</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Hbase安装及部署" data-path="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="0-配置文件（Configuration-Files）"><a href="#0-配置文件（Configuration-Files）" class="headerlink" title="0. 配置文件（Configuration Files）"></a>0. 配置文件（Configuration Files）</h2><p>Apache HBase uses the same configuration system as Apache Hadoop. All configuration files are located in the <code>conf/</code> directory, which needs to be kept in sync for each node on your cluster.</p>
+<ul>
+<li><p><em><strong>backup-masters</strong></em><br>Not present by default. A plain-text file which lists hosts on which the Master should start a backup Master process, one host per line.</p>
+</li>
+<li><p><em><strong>hadoop-metrics2-hbase.properties</strong></em><br>Used to connect HBase Hadoop’s Metrics2 framework. See the Hadoop Wiki entry for more information on Metrics2. Contains only commented-out examples by default.</p>
+</li>
+<li><p><em><strong>hbase-env.cmd and hbase-env.sh</strong></em><br>Script for Windows and Linux/Unix environments to set up the working environment for HBase, including the location of Java, Java options, and other environment variables. The file contains many commented-out examples to provide guidance.</p>
+</li>
+<li><p><em><strong>hbase-policy.xml</strong></em><br>The default policy configuration file used by RPC servers to make authorization decisions on client requests. Only used if HBase security is enabled.</p>
+</li>
+<li><p><em><strong>hbase-site.xml</strong></em><br>The main HBase configuration file. This file specifies configuration options which override HBase’s default configuration. You can view (but do not edit) the default configuration file at docs/hbase-default.xml. You can also view the entire effective configuration for your cluster (defaults and overrides) in the HBase Configuration tab of the HBase Web UI.</p>
+</li>
+<li><p><em><strong>log4j.properties</strong></em><br>Configuration file for HBase logging via log4j.</p>
+</li>
+<li><p><em><strong>regionservers</strong></em><br>A plain-text file containing a list of hosts which should run a RegionServer in your HBase cluster. By default, this file contains the single entry localhost. It should contain a list of hostnames or IP addresses, one per line, and should only contain localhost if each node in your cluster will run a RegionServer on its localhost interface.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Checking XML Validity.</strong> When you edit XML, it is a good idea to use an XML-aware editor to be sure that your syntax is correct and your XML is well-formed. You can also use the <code>xmllint</code> utility to check that your XML is well-formed. By default,xmllintre-flows and prints the XML to standard output. To check for well-formedness and only print output if errors exist, use the command <code>xmllint -noout filename.xml</code>.</p>
+</blockquote>
+<h2 id="1-Basic-Prerequisites-基本先决条件"><a href="#1-Basic-Prerequisites-基本先决条件" class="headerlink" title="1. Basic Prerequisites 基本先决条件"></a>1. Basic Prerequisites 基本先决条件</h2><pre><code>本节内容参考：http://hbase.apache.org/book.html#basic.prerequisites
+</code></pre>
+<p>This section lists required services and some required system configuration.</p>
+<h3 id="1-1-Java"><a href="#1-1-Java" class="headerlink" title="1.1. Java"></a>1.1. Java</h3><h3 id="1-2-Operating-System-Utilities"><a href="#1-2-Operating-System-Utilities" class="headerlink" title="1.2.  Operating System Utilities"></a>1.2.  Operating System Utilities</h3><h4 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h4><h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><h4 id="NTP"><a href="#NTP" class="headerlink" title="NTP"></a>NTP</h4><h4 id="Limits-on-Number-of-Files-and-Processes-ulimit"><a href="#Limits-on-Number-of-Files-and-Processes-ulimit" class="headerlink" title="Limits on Number of Files and Processes (ulimit)"></a>Limits on Number of Files and Processes (ulimit)</h4><h4 id="Linux-Shell"><a href="#Linux-Shell" class="headerlink" title="Linux Shell"></a>Linux Shell</h4><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><h3 id="1-3-Hadoop"><a href="#1-3-Hadoop" class="headerlink" title="1.3. Hadoop"></a>1.3. Hadoop</h3><h4 id="dfs-datanode-max-transfer-threads"><a href="#dfs-datanode-max-transfer-threads" class="headerlink" title="dfs.datanode.max.transfer.threads"></a>dfs.datanode.max.transfer.threads</h4><h4 id="ZooKeeper-Requirements"><a href="#ZooKeeper-Requirements" class="headerlink" title="ZooKeeper Requirements"></a>ZooKeeper Requirements</h4><h2 id="2-HBase-运行模式：单机模式和（伪、完全）分布式模式"><a href="#2-HBase-运行模式：单机模式和（伪、完全）分布式模式" class="headerlink" title="2. HBase 运行模式：单机模式和（伪、完全）分布式模式"></a>2. HBase 运行模式：单机模式和（伪、完全）分布式模式</h2><h3 id="2-1-Standalone-HBase"><a href="#2-1-Standalone-HBase" class="headerlink" title="2.1. Standalone HBase"></a>2.1. Standalone HBase</h3><h4 id="2-1-1-标准单机模式"><a href="#2-1-1-标准单机模式" class="headerlink" title="2.1.1. 标准单机模式"></a>2.1.1. 标准单机模式</h4><blockquote>
+<p>一个独立实例拥有所有的HBase守护进程——Master、regionserver和ZooKeeper——运行在一个单一的JVM中，持久化到本地文件系统。</p>
+</blockquote>
+<h5 id="2-1-1-1-JDK-Version-Requirements"><a href="#2-1-1-1-JDK-Version-Requirements" class="headerlink" title="2.1.1.1 JDK Version Requirements"></a>2.1.1.1 JDK Version Requirements</h5><h5 id="2-1-1-2-Get-Started-with-HBase"><a href="#2-1-1-2-Get-Started-with-HBase" class="headerlink" title="2.1.1.2. Get Started with HBase"></a>2.1.1.2. Get Started with HBase</h5><p><em><strong>Procedure: Download, Configure, and Start HBase in Standalone Mode</strong></em></p>
+<ul>
+<li><p>Download</p>
+</li>
+<li><p>Extract</p>
+</li>
+<li><p>Configure environment variables</p>
+</li>
+<li><p>Start HBase</p>
+</li>
+</ul>
+<h5 id="2-1-1-3-使用HBase"><a href="#2-1-1-3-使用HBase" class="headerlink" title="2.1.1.3 使用HBase"></a>2.1.1.3 使用HBase</h5><ul>
+<li><p>Connect to HBase</p>
+</li>
+<li><p>Display HBase Shell Help Text.</p>
+</li>
+<li><p>Create a table</p>
+</li>
+<li><p>List Information About your Table</p>
+</li>
+<li><p>Put data into your table</p>
+</li>
+<li><p>Scan the table for all data at once</p>
+</li>
+<li><p>Get a single row of data</p>
+</li>
+<li><p>Disable a table</p>
+</li>
+<li><p>Drop the table</p>
+</li>
+<li><p>Exit the HBase Shell</p>
+</li>
+<li><p>查看存储的数据</p>
+</li>
+</ul>
+<h5 id="2-1-1-4-Stop-Hbase"><a href="#2-1-1-4-Stop-Hbase" class="headerlink" title="2.1.1.4. Stop Hbase"></a>2.1.1.4. Stop Hbase</h5><h4 id="2-1-2-Standalone-HBase-over-HDFS（单机模式变种）"><a href="#2-1-2-Standalone-HBase-over-HDFS（单机模式变种）" class="headerlink" title="2.1.2. Standalone HBase over HDFS（单机模式变种）"></a>2.1.2. Standalone HBase over HDFS（单机模式变种）</h4><h3 id="2-2-Distributed"><a href="#2-2-Distributed" class="headerlink" title="2.2. Distributed"></a>2.2. Distributed</h3><p>Distributed mode <strong>can be subdivided（细分） into</strong> distributed but all daemons run on a single node——a.k.a. <em><strong>pseudo-distributed（伪分布式）</strong></em>——and <em><strong>fully-distributed</strong></em> where the daemons are spread across all nodes in the cluster. The pseudo-distributed vs. fully-distributed nomenclature（术语） comes from Hadoop.</p>
+<pre><code>a.k.a. 亦称 as known as
+</code></pre>
+<p>Pseudo-distributed mode can run against the local filesystem or it can run against an instance of the Hadoop Distributed File System (HDFS). Fully-distributed mode can ONLY run on HDFS. See the Hadoop documentation for how to set up HDFS. A good walk-through for setting up HDFS on Hadoop 2 can be found at <a target="_blank" rel="noopener" href="http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide">http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide</a>.</p>
+<blockquote>
+<p>本节hadoop版本为2.8.5。</p>
+</blockquote>
+<h4 id="2-2-1-Pseudo-distributed-for-Local-Testing"><a href="#2-2-1-Pseudo-distributed-for-Local-Testing" class="headerlink" title="2.2.1. Pseudo-distributed for Local Testing"></a>2.2.1. Pseudo-distributed for Local Testing</h4><blockquote>
+<p>HBase还是运行在一台机器上，但是每个Hbase守护进程是分离的，运行在单独的JVM中。</p>
+</blockquote>
+<p>Pseudo-distributed mode means that HBase still runs completely on a single host, but each HBase daemon (HMaster, HRegionServer, and ZooKeeper) runs as a separate process: in standalone mode all daemons ran in one jvm process/instance.</p>
+<p><em><strong>A pseudo-distributed mode is simply a fully-distributed mode run on a single host</strong></em>. Use this HBase configuration for testing and prototyping purposes only. Do not use this configuration for production or for performance evaluation.</p>
+<ul>
+<li><p>Stop HBase if it is runnin</p>
+</li>
+<li><p>Configure HBase</p>
+</li>
+<li><p>Start HBase</p>
+</li>
+<li><p>Check the HBase directory in HDFS.</p>
+</li>
+<li><p>Create a table and populate it with data</p>
+</li>
+<li><p>Start and stop a backup HBase Master (HMaster) server</p>
+</li>
+<li><p>Start and stop additional RegionServers</p>
+</li>
+<li><p>Stop HBase</p>
+</li>
+</ul>
+<h4 id="2-2-2-Fully-distributed-for-Production"><a href="#2-2-2-Fully-distributed-for-Production" class="headerlink" title="2.2.2. Fully-distributed for Production"></a>2.2.2. Fully-distributed for Production</h4><p>In reality, you need a fully-distributed configuration to fully test HBase and to use it in real-world scenarios. In a distributed configuration, the cluster contains multiple nodes, each of which runs one or more HBase daemon. These include primary and backup Master instances, multiple ZooKeeper nodes, and multiple RegionServer nodes.</p>
+<h5 id="2-2-2-1-配置master"><a href="#2-2-2-1-配置master" class="headerlink" title="2.2.2.1. 配置master"></a>2.2.2.1. 配置master</h5><h5 id="2-2-2-2-配置其他节点"><a href="#2-2-2-2-配置其他节点" class="headerlink" title="2.2.2.2. 配置其他节点"></a>2.2.2.2. 配置其他节点</h5><h5 id="2-2-2-3-Start-and-Test-Your-Cluster"><a href="#2-2-2-3-Start-and-Test-Your-Cluster" class="headerlink" title="2.2.2.3. Start and Test Your Cluster"></a>2.2.2.3. Start and Test Your Cluster</h5>
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2017/07/08/2-%E7%AE%A1%E7%90%86Hadoop/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/>https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+        <div class='donate'>
+          <div class='imgs'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pi5H.png'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pdqd.png'>
+            
+          </div>
         </div>
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
-        
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/06/20/1-%E6%9E%84%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/">
-        1 构建Hadoop集群
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-07T21:49:29+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年10月7日</p>
+  </a>
+</div>
+
+        
+      
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-06-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop/">Hadoop</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2017/06/20/1-%E6%9E%84%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hbase/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hbase</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%AE%89%E8%A3%85/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>安装</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%83%A8%E7%BD%B2/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>部署</p></a></div>
 
-</div>
 
-          </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/04/20/1-MapReduce%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/">
-        1 MapReduce应用开发
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-04-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/MapReduce/">MapReduce</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2017/04/20/1-MapReduce%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-    <h2 class="article-title" >
-      <a href="/2017/03/21/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/">
-        Hadoop基础知识——5-Hadoop的I/O操作
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-03-21</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Hadoop基础知识</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2017/03/21/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/03/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/">
-        Hadoop基础知识——4-关于YARN
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-03-15</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Hadoop基础知识</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2017/03/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/">
-        Hadoop基础知识——3-HDFS
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
+          >
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-02-23</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Hadoop基础知识</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/02/10/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%942-%E5%85%B3%E4%BA%8EMapreduce/">
-        Hadoop基础知识——2-关于MapReduce
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-02-10</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Hadoop基础知识</a>
-        
-      </div>
+        </a>
       
-        <div>
-          <a class='readmore' href='/2017/02/10/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%942-%E5%85%B3%E4%BA%8EMapreduce/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/01/26/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%941-%E5%88%9D%E5%A7%8BHadoop/">
-        Hadoop基础知识——1-初识Hadoop
-      </a>
-    </h2>
-  
-  <div class='md'>
     
       
-        1. 数据国际数据公司（IDC）曾经发布报告称，2013年数字世界（digital universe）项目统计得出全球数据总量为 4.4ZB（zettabyte），并预测在2020年将达到 44ZB。
-
-1ZB = 10^3^EB(exabytes) = 10^6^PB(petabytes) = 10^9^TB(terrabytes)
-
-数据“洪流”有很多来源，例如：
-
-纽约证交所每天所产生...
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-01-26</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Hadoop基础知识</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2017/01/26/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%941-%E5%88%9D%E5%A7%8BHadoop/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark系列二——1-结构化API概述</p>
+          <p class='content'>结构化API指以下三种核心分布式集合类型的API：
+
+DataSet类型
+DataFrame类型
+SQL表和视图
+
+Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成...</p>
+        </a>
+      
+      
+        <a class='next' href='/2017/07/08/2-%E7%AE%A1%E7%90%86Hadoop/'>
+          <p class='title'>2 管理Hadoop<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'></p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -896,171 +812,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://img.wenhairu.com/images/2021/07/01/9P8Eg.th.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">铁人博客</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop/" href="/categories/Hadoop/"
-            id="categoriesHadoop"
-            ><div class='name'>Hadoop</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
-            id="categoriesHadoopE59FBAE7A180E79FA5E8AF86"
-            ><div class='name'>Hadoop基础知识</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" href="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
-            id="categoriesJavaE5A49AE7BABFE7A88B"
-            ><div class='name'>Java多线程</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/MapReduce/" href="/categories/MapReduce/"
-            id="categoriesMapReduce"
-            ><div class='name'>MapReduce</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%90%86%E8%AE%BA/" href="/categories/Spark%E7%90%86%E8%AE%BA/"
-            id="categoriesSparkE79086E8AEBA"
-            ><div class='name'>Spark理论</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/"
-            id="categoriesSparkE7B3BBE58897E4B889"
-            ><div class='name'>Spark系列三</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/"
-            id="categoriesSparkE7B3BBE58897E4BA8C"
-            ><div class='name'>Spark系列二</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
-            id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
-            ><div class='name'>Spark编程实战</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
-            id="categoriesE69599E7A88B"
-            ><div class='name'>教程</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
-            id="categoriesE695B0E68DAEE7BB93E69E84E4B88EE7AE97E6B395"
-            ><div class='name'>数据结构与算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88Configuration-Files%EF%BC%89"><span class="toc-text">0. 配置文件（Configuration Files）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Basic-Prerequisites-%E5%9F%BA%E6%9C%AC%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="toc-text">1. Basic Prerequisites 基本先决条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Java"><span class="toc-text">1.1. Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Operating-System-Utilities"><span class="toc-text">1.2.  Operating System Utilities</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ssh"><span class="toc-text">ssh</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NTP"><span class="toc-text">NTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Limits-on-Number-of-Files-and-Processes-ulimit"><span class="toc-text">Limits on Number of Files and Processes (ulimit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-Shell"><span class="toc-text">Linux Shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-text">Windows</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Hadoop"><span class="toc-text">1.3. Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dfs-datanode-max-transfer-threads"><span class="toc-text">dfs.datanode.max.transfer.threads</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZooKeeper-Requirements"><span class="toc-text">ZooKeeper Requirements</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-HBase-%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%92%8C%EF%BC%88%E4%BC%AA%E3%80%81%E5%AE%8C%E5%85%A8%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="toc-text">2. HBase 运行模式：单机模式和（伪、完全）分布式模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Standalone-HBase"><span class="toc-text">2.1. Standalone HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E6%A0%87%E5%87%86%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.1.1. 标准单机模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-1-JDK-Version-Requirements"><span class="toc-text">2.1.1.1 JDK Version Requirements</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-2-Get-Started-with-HBase"><span class="toc-text">2.1.1.2. Get Started with HBase</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-3-%E4%BD%BF%E7%94%A8HBase"><span class="toc-text">2.1.1.3 使用HBase</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-4-Stop-Hbase"><span class="toc-text">2.1.1.4. Stop Hbase</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Standalone-HBase-over-HDFS%EF%BC%88%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%8F%98%E7%A7%8D%EF%BC%89"><span class="toc-text">2.1.2. Standalone HBase over HDFS（单机模式变种）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Distributed"><span class="toc-text">2.2. Distributed</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Pseudo-distributed-for-Local-Testing"><span class="toc-text">2.2.1. Pseudo-distributed for Local Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-Fully-distributed-for-Production"><span class="toc-text">2.2.2. Fully-distributed for Production</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-1-%E9%85%8D%E7%BD%AEmaster"><span class="toc-text">2.2.2.1. 配置master</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-2-%E9%85%8D%E7%BD%AE%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="toc-text">2.2.2.2. 配置其他节点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-3-Start-and-Test-Your-Cluster"><span class="toc-text">2.2.2.3. Start and Test Your Cluster</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.67px; color: #8e8e8e">Dataset</a> <a href="/tags/Java/" style="font-size: 17.33px; color: #828282">Java</a> <a href="/tags/RDD/" style="font-size: 15.67px; color: #8e8e8e">RDD</a> <a href="/tags/Spark/" style="font-size: 19px; color: #777">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.33px; color: #606060">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 20.67px; color: #6c6c6c">mapreduce</a> <a href="/tags/spark/" style="font-size: 20.67px; color: #6c6c6c">spark</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -1069,8 +842,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Hbase安装及部署";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
