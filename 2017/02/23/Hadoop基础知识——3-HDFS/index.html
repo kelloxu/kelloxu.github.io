@@ -22,9 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Hadoop基础知识——5-Hadoop的I/O操作 - 铁人博客</title>
+  <title>Hadoop基础知识——3-HDFS - 铁人博客</title>
   
-    <meta name="keywords" content="大数据,hadoop">
+    <meta name="keywords" content="大数据,hadoop,hdfs">
   
 
   
@@ -492,7 +492,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        Hadoop基础知识——5-Hadoop的I/O操作
+        Hadoop基础知识——3-HDFS
       </h1>
       <div class='new-meta-box'>
         
@@ -523,7 +523,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年6月18日</p>
+    <p>发布于：2017年2月23日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="Hadoop基础知识——5-Hadoop的I/O操作" data-path="/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/">
+      <div id="lc-pv" data-title="Hadoop基础知识——3-HDFS" data-path="/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -569,7 +569,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/>https://kelloxu.github.io/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/>https://kelloxu.github.io/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/</a></p>
               
             
           </blockquote>
@@ -596,7 +596,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-07T16:06:35+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-07T16:47:55+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年10月7日</p>
@@ -608,7 +608,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hadoop/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hadoop</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hadoop/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hadoop</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hdfs/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hdfs</p></a></div>
 
 
         
@@ -621,7 +621,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/&title=Hadoop基础知识——5-Hadoop的I/O操作 - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/&title=Hadoop基础知识——3-HDFS - 铁人博客&summary="
           
           >
           
@@ -633,7 +633,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/&title=Hadoop基础知识——5-Hadoop的I/O操作 - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/&title=Hadoop基础知识——3-HDFS - 铁人博客&summary="
           
           >
           
@@ -645,7 +645,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2020/06/18/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%945-Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/&title=Hadoop基础知识——5-Hadoop的I/O操作 - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2017/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/&title=Hadoop基础知识——3-HDFS - 铁人博客&summary="
           
           >
           
@@ -675,20 +675,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2020/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark系列二——1-结构化API概述</p>
-          <p class='content'>结构化API指以下三种核心分布式集合类型的API：
-
-DataSet类型
-DataFrame类型
-SQL表和视图
-
-Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成...</p>
+        <a class='prev' href='/2017/03/15/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%944-%E5%85%B3%E4%BA%8EYARN/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Hadoop基础知识——4-关于YARN</p>
+          <p class='content'></p>
         </a>
       
       
-        <a class='next' href='/2020/02/23/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%943-HDFS/'>
-          <p class='title'>Hadoop基础知识——3-HDFS<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+        <a class='next' href='/2017/02/10/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%94%E2%80%942-%E5%85%B3%E4%BA%8EMapreduce/'>
+          <p class='title'>Hadoop基础知识——2-关于MapReduce<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'></p>
         </a>
       
@@ -737,7 +731,7 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="Hadoop基础知识——5-Hadoop的I/O操作";
+  pdata.postTitle="Hadoop基础知识——3-HDFS";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
