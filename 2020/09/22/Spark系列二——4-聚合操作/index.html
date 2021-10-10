@@ -552,7 +552,30 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  
+  <p>一般情况下，用户使用聚合操作对数据分组后的各组内的数值型数据进行汇总，这个汇总运算可能是求和、累乘、或者是简单的计数。</p>
+<p><font color="#dd00dd">Spark 可以将任何类型的值聚合成为 array 数组、list列表或 map 映射。</font></p>
+<p>除了处理任意类型的值之外，Spark 还允许创建以下分组类型：</p>
+<ul>
+<li>group by</li>
+</ul>
+<p>指定一个或多个key，也可以指定一个或多个聚合函数，来对包含 value 的列执行转换操作。</p>
+<ul>
+<li>window</li>
+</ul>
+<p>指定一个或多个key，也可以指定一个或多个聚合函数，来对包含 value 的列执行转换操作，但是输入到当前函数的行与当前行有某种联系。</p>
+<ul>
+<li>gpoup setting</li>
+</ul>
+<p>用于在多个不同场景进行聚合。grouping set 是 SQL 中的一个保留字，而在 DataFrame 中需要使用 rollback 和 cube。</p>
+<ul>
+<li>rollu</li>
+</ul>
+<p>指定一个或多个key，也可以指定一个或多个聚合函数，来对包含 value 的列执行转换操作，并针对指定的多个 key 进行分级分组汇总。</p>
+<ul>
+<li>cube</li>
+</ul>
+<p>指定一个或多个key，也可以指定一个或多个聚合函数，来对包含 value 的列执行转换操作，来对包含 value 的列执行转换操作，并针对指定的多个 key 进行<strong>分组汇总</strong>。</p>
+
   
   
     
@@ -596,10 +619,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-07T16:23:30+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-10T11:58:52+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月7日</p>
+    <p>更新于：2021年10月10日</p>
   </a>
 </div>
 
