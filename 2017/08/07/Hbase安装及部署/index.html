@@ -814,7 +814,129 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop-hbase.sh</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-2-2-Fully-distributed-for-Production"><a href="#2-2-2-Fully-distributed-for-Production" class="headerlink" title="2.2.2. Fully-distributed for Production"></a>2.2.2. Fully-distributed for Production</h4><p>In reality, you need a fully-distributed configuration to fully test HBase and to use it in real-world scenarios. In a distributed configuration, the cluster contains multiple nodes, each of which runs one or more HBase daemon. These include primary and backup Master instances, multiple ZooKeeper nodes, and multiple RegionServer nodes.</p>
-<h5 id="2-2-2-1-配置master"><a href="#2-2-2-1-配置master" class="headerlink" title="2.2.2.1. 配置master"></a>2.2.2.1. 配置master</h5><h5 id="2-2-2-2-配置其他节点"><a href="#2-2-2-2-配置其他节点" class="headerlink" title="2.2.2.2. 配置其他节点"></a>2.2.2.2. 配置其他节点</h5><h5 id="2-2-2-3-Start-and-Test-Your-Cluster"><a href="#2-2-2-3-Start-and-Test-Your-Cluster" class="headerlink" title="2.2.2.3. Start and Test Your Cluster"></a>2.2.2.3. Start and Test Your Cluster</h5>
+<p>This advanced quickstart adds four more nodes to your cluster. The architecture will be as follows:</p>
+<table>
+<thead>
+<tr>
+<th>NodeName</th>
+<th align="center">HMaster</th>
+<th align="center">ZooKeeper</th>
+<th align="center">RegionServer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td>slave1</td>
+<td align="center">backup</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td>slave2</td>
+<td align="center">no</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td>slave3</td>
+<td align="center">no</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td>slave4</td>
+<td align="center">no</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+</tbody></table>
+<p>在配置了节点互信的基础上，进行如下配置。</p>
+<ul>
+<li><strong>HBase管理自己的zookeeper实例</strong></li>
+</ul>
+<h5 id="2-2-2-1-配置master"><a href="#2-2-2-1-配置master" class="headerlink" title="2.2.2.1. 配置master"></a>2.2.2.1. 配置master</h5><p>node-a will run your primary master and ZooKeeper processes, but no RegionServers. Stop the RegionServer from starting on node-a.</p>
+<ol>
+<li>Edit <code>conf/regionservers</code> and remove the line which contains localhost. Add lines with the hostnames or IP addresses for node-b and node-c. Even if you did want to run a RegionServer on node-a, you should refer to it by the hostname the other servers would use to communicate with it. This enables you to distribute the configuration to each node of your cluster any hostname conflicts. Save the file.</li>
+</ol>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-regionservers.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-regionservers.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>  These nodes need HBase installed and they need to use the same contents of the <code>conf/</code> directory as the Master server.</p>
+<ol start="2">
+<li>Configure HBase to use <code>slave1</code> as a backup master. Create a new file in <code>conf/</code> called <code>backup-masters</code>, and add a new line to it with the hostname for <code>slave1</code>.</li>
+</ol>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-backup-masters.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-backup-masters.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>  The backup Master instances（可以配置多个） will sit idle unless the main Master becomes unavailable.</p>
+<ol start="3">
+<li>Configure <code>hbase-env.sh</code>. Tell HBase should manage it’s own instance of ZooKeeper.</li>
+</ol>
+<p>A distributed Apache HBase installation depends on a running ZooKeeper cluster. All participating nodes and clients need to be able to access the running ZooKeeper ensemble. Apache HBase by default manages a ZooKeeper “cluster” for you. It will start and stop the ZooKeeper ensemble as part of the HBase start/stop process. You can also manage the ZooKeeper ensemble independent of HBase and just point HBase at the cluster it should use. To toggle HBase management of ZooKeeper, use the <code>HBASE_MANAGES_ZK</code> variable in <code>conf/hbase-env.sh</code>. This variable, which defaults to true, tells HBase whether to start/stop the ZooKeeper ensemble servers as part of HBase start/stop.</p>
+<p><strong>When HBase manages the ZooKeeper ensemble, you can specify ZooKeeper configuration directly in <code>conf/hbase-site.xml</code></strong>. A ZooKeeper configuration option can be set as a property in the HBase hbase-site.xml file by prefacing the ZooKeeper option name with <code>hbase.zookeeper.property</code>. For example, the clientPort setting in ZooKeeper can be changed by setting the hbase.zookeeper.property.clientPort property. For all default values used by HBase, including ZooKeeper configuration, see hbase default configurations. Look for the hbase.zookeeper.property prefix. For the full list of ZooKeeper configurations, see ZooKeeper’s zoo.cfg. HBase does not ship with a <code>zoo.cfg</code> so you will need to browse the conf directory in an appropriate ZooKeeper download.</p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ol start="4">
+<li>Configure ZooKeeper. In reality, you should carefully consider your ZooKeeper configuration. You can find out more about configuring ZooKeeper in zookeeper section. This configuration will direct HBase to start and manage a ZooKeeper instance on each node of the cluster. Edit <code>conf/hbase-site.xml</code> and add the following properties.</li>
+</ol>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site-zookeeper.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site-zookeeper.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>zookeeper有这样一个特性：集群中只要有过半的机器是正常工作的，那么整个集群对外就是可用的。也就是说如果有2个zookeeper，那么只要有1个死了zookeeper就不能用了，因为1没有过半，所以2个zookeeper的死亡容忍度为0；同理，要是有3个zookeeper，一个死了，还剩下2个正常的，过半了，所以3个zookeeper的容忍度为1；同理你多列举几个：2-&gt;0;3-&gt;1;4-&gt;1;5-&gt;2;6-&gt;2会发现一个规律，2n和2n-1的容忍度是一样的，都是n-1，所以为了更加高效，何必增加那一个不必要的zookeeper呢。</p>
+</blockquote>
+<blockquote>
+<p>You must at least list the ensemble servers in hbase-site.xml using the hbase.zookeeper.quorum property. This property defaults to a single ensemble member at localhost which is not suitable for a fully distributed HBase. (It binds to the local machine only and remote clients will not be able to connect).</p>
+</blockquote>
+<h5 id="2-2-2-2-配置其他节点"><a href="#2-2-2-2-配置其他节点" class="headerlink" title="2.2.2.2. 配置其他节点"></a>2.2.2.2. 配置其他节点</h5><p>将master上的hbase拷贝到其他节点。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp -r hbase-2.2.6 root@slave1:/usr/local/src/</span><br><span class="line">scp -r hbase-2.2.6 root@slave2:/usr/local/src/</span><br><span class="line">scp -r hbase-2.2.6 root@slave3:/usr/local/src/</span><br><span class="line">scp -r hbase-2.2.6 root@slave4:/usr/local/src/</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-2-3-Start-and-Test-Your-Cluster"><a href="#2-2-2-3-Start-and-Test-Your-Cluster" class="headerlink" title="2.2.2.3. Start and Test Your Cluster"></a>2.2.2.3. Start and Test Your Cluster</h5><ol>
+<li><strong>Be sure HBase is not running on any node</strong></li>
+</ol>
+<p>If you forgot to stop HBase from previous testing, you will have errors. Check to see whether HBase is running on any of your nodes by using the jps command. Look for the processes <code>HMaster</code>, <code>HRegionServer</code>, and <code>HQuorumPeer</code>. If they exist, kill them.</p>
+<ol start="2">
+<li><strong>Start the cluster</strong></li>
+</ol>
+<p>On <code>master</code>, issue the <code>start-hbase.sh</code> command. Your output will be similar to that below.</p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>ZooKeeper starts first, followed by the master, then the RegionServers, and finally the backup masters.</p>
+</blockquote>
+<ol start="3">
+<li><strong>Verify that the processes are running</strong></li>
+</ol>
+<p>On each node of the cluster, run the jps command and verify that the correct processes are running on each server.</p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-verify.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-verify.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>ZooKeeper Process Name. The <strong>HQuorumPeer</strong> process is a ZooKeeper instance which is controlled and started by HBase. If you use ZooKeeper this way, it is limited to one instance per cluster node and is appropriate for testing only. If ZooKeeper is run outside of HBase, the process is called <strong>QuorumPeer</strong>. For more about ZooKeeper configuration, including using an external ZooKeeper instance with HBase, see zookeeper section.</p>
+</blockquote>
+<ol start="4">
+<li><strong>Browse to the Web UI</strong></li>
+</ol>
+<blockquote>
+<p>Web UI Port Changes. In HBase newer than 0.98.x, the HTTP ports used by the HBase Web UI changed from 60010 for the Master and 60030 for each RegionServer to <strong>16010 for the Master and 16030 for the RegionServer</strong>.</p>
+</blockquote>
+<p>If everything is set up correctly, you should be able to connect to the UI for the Master <a target="_blank" rel="noopener" href="http://master:16010/">http://master:16010/</a> or the secondary master at <a target="_blank" rel="noopener" href="http://slave1.com:16010/">http://slave1.com:16010/</a> using a web browser.</p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-master.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-master.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<blockquote>
+<p>HBase puts up a UI listing vital attributes. By default it’s deployed on the Master host at port 16010 (HBase RegionServers listen on port 16020 by default and put up an informational HTTP server at port 16030). If the Master is running on a host named master.example.org on the default port, point your browser at <a target="_blank" rel="noopener" href="http://master.example.org:16010/">http://master.example.org:16010</a> to see the web interface.</p>
+</blockquote>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-slave.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-slave.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>If you can connect via localhost but not from another host, check your firewall rules.</p>
+<p>You can see the web UI for each of the RegionServers at port 16030 of their IP addresses, or by clicking their links in the web UI for the Master.</p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-regionserver.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-regionserver.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li><strong>HBase使用独立的zookeeper集群</strong></li>
+</ul>
+<p>To point HBase at an existing ZooKeeper cluster, one that is not managed by HBase, set <code>HBASE_MANAGES_ZK</code> in <code>conf/hbase-env.sh</code> to false.</p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper-false.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper-false.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>When HBase manages ZooKeeper, it will start/stop the ZooKeeper servers as a part of the regular start/stop scripts. If you would like to run ZooKeeper yourself, independent of HBase start/stop, you would do the following:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;HBASE_HOME&#125;/bin/hbase-daemons.sh &#123;start,stop&#125; zookeeper</span><br></pre></td></tr></table></figure>
+
+<h4 id="先起zookeeper"><a href="#先起zookeeper" class="headerlink" title="先起zookeeper"></a>先起zookeeper</h4><p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-2.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h4 id="再起-hbase"><a href="#再起-hbase" class="headerlink" title="再起 hbase"></a>再起 hbase</h4><p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-2.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+
   
   
     
@@ -858,10 +980,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-08T22:50:41+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-10T11:41:35+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月8日</p>
+    <p>更新于：2021年10月10日</p>
   </a>
 </div>
 
@@ -994,7 +1116,7 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88Configuration-Files%EF%BC%89"><span class="toc-text">0. 配置文件（Configuration Files）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Basic-Prerequisites-%E5%9F%BA%E6%9C%AC%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="toc-text">1. Basic Prerequisites 基本先决条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Java"><span class="toc-text">1.1. Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Operating-System-Utilities"><span class="toc-text">1.2.  Operating System Utilities</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ssh"><span class="toc-text">ssh</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NTP"><span class="toc-text">NTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Limits-on-Number-of-Files-and-Processes-ulimit"><span class="toc-text">Limits on Number of Files and Processes (ulimit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-Shell"><span class="toc-text">Linux Shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-text">Windows</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Hadoop"><span class="toc-text">1.3. Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-dfs-datanode-max-transfer-threads"><span class="toc-text">1.3.1. dfs.datanode.max.transfer.threads</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-ZooKeeper-Requirements"><span class="toc-text">1.3.2 ZooKeeper Requirements</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-HBase-%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%92%8C%EF%BC%88%E4%BC%AA%E3%80%81%E5%AE%8C%E5%85%A8%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="toc-text">2. HBase 运行模式：单机模式和（伪、完全）分布式模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Standalone-HBase"><span class="toc-text">2.1. Standalone HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E6%A0%87%E5%87%86%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.1.1. 标准单机模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-1-JDK-Version-Requirements"><span class="toc-text">2.1.1.1 JDK Version Requirements</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-2-Get-Started-with-HBase"><span class="toc-text">2.1.1.2. Get Started with HBase</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-3-%E4%BD%BF%E7%94%A8HBase"><span class="toc-text">2.1.1.3 使用HBase</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-4-Stop-Hbase"><span class="toc-text">2.1.1.4. Stop Hbase</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Standalone-HBase-over-HDFS%EF%BC%88%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%8F%98%E7%A7%8D%EF%BC%89"><span class="toc-text">2.1.2. Standalone HBase over HDFS（单机模式变种）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Distributed"><span class="toc-text">2.2. Distributed</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Pseudo-distributed-for-Local-Testing"><span class="toc-text">2.2.1. Pseudo-distributed for Local Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-Fully-distributed-for-Production"><span class="toc-text">2.2.2. Fully-distributed for Production</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-1-%E9%85%8D%E7%BD%AEmaster"><span class="toc-text">2.2.2.1. 配置master</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-2-%E9%85%8D%E7%BD%AE%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="toc-text">2.2.2.2. 配置其他节点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-3-Start-and-Test-Your-Cluster"><span class="toc-text">2.2.2.3. Start and Test Your Cluster</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88Configuration-Files%EF%BC%89"><span class="toc-text">0. 配置文件（Configuration Files）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Basic-Prerequisites-%E5%9F%BA%E6%9C%AC%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="toc-text">1. Basic Prerequisites 基本先决条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Java"><span class="toc-text">1.1. Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Operating-System-Utilities"><span class="toc-text">1.2.  Operating System Utilities</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ssh"><span class="toc-text">ssh</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NTP"><span class="toc-text">NTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Limits-on-Number-of-Files-and-Processes-ulimit"><span class="toc-text">Limits on Number of Files and Processes (ulimit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-Shell"><span class="toc-text">Linux Shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-text">Windows</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Hadoop"><span class="toc-text">1.3. Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-dfs-datanode-max-transfer-threads"><span class="toc-text">1.3.1. dfs.datanode.max.transfer.threads</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-ZooKeeper-Requirements"><span class="toc-text">1.3.2 ZooKeeper Requirements</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-HBase-%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%92%8C%EF%BC%88%E4%BC%AA%E3%80%81%E5%AE%8C%E5%85%A8%EF%BC%89%E5%88%86%E5%B8%83%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="toc-text">2. HBase 运行模式：单机模式和（伪、完全）分布式模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Standalone-HBase"><span class="toc-text">2.1. Standalone HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E6%A0%87%E5%87%86%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.1.1. 标准单机模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-1-JDK-Version-Requirements"><span class="toc-text">2.1.1.1 JDK Version Requirements</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-2-Get-Started-with-HBase"><span class="toc-text">2.1.1.2. Get Started with HBase</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-3-%E4%BD%BF%E7%94%A8HBase"><span class="toc-text">2.1.1.3 使用HBase</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-4-Stop-Hbase"><span class="toc-text">2.1.1.4. Stop Hbase</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Standalone-HBase-over-HDFS%EF%BC%88%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%8F%98%E7%A7%8D%EF%BC%89"><span class="toc-text">2.1.2. Standalone HBase over HDFS（单机模式变种）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Distributed"><span class="toc-text">2.2. Distributed</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Pseudo-distributed-for-Local-Testing"><span class="toc-text">2.2.1. Pseudo-distributed for Local Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-Fully-distributed-for-Production"><span class="toc-text">2.2.2. Fully-distributed for Production</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-1-%E9%85%8D%E7%BD%AEmaster"><span class="toc-text">2.2.2.1. 配置master</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-2-%E9%85%8D%E7%BD%AE%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="toc-text">2.2.2.2. 配置其他节点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-3-Start-and-Test-Your-Cluster"><span class="toc-text">2.2.2.3. Start and Test Your Cluster</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E8%B5%B7zookeeper"><span class="toc-text">先起zookeeper</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%8D%E8%B5%B7-hbase"><span class="toc-text">再起 hbase</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
