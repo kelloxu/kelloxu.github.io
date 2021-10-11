@@ -512,6 +512,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <div class='md'>
     
+      
+        
+除了 RDD 之外，Spark 的第二种低级 API 是“分布式共享变量”，它包括两种类型：广播变量（broadcast variable）和累加器（accumulator），这些变量可以在用户定义函数中使用（例如，在 RDD 或 DataFrame 上的 map 函数中），它们在集群上运行时具有特殊性质。
+
+累加器：将所有任务中的数据累加到一个共享结果中（例如，实现一个计数器，以便可以查...
+      
+    
   </div>
   
     <div class='meta-v3' line_style='solid'>
