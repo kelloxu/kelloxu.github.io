@@ -823,6 +823,55 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
   
     
     <h2 class="article-title" >
+      <a href="/2018/01/12/Spark-%E5%B0%8F%E8%AF%95%E7%89%9B%E5%88%80%E2%80%94%E2%80%94Word-Count/">
+        Spark 小试牛刀——Word Count
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        1. Word Count12345val rddWords = sc.textFile(&quot;/datasets/badou/The_Man_of_Property_big.txt&quot;)val wordList = rddWords.flatMap(_.split(&quot; &quot;))val mapResult = wordList.map((_, 1))val g...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2018-01-12</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E5%AE%9E%E6%88%98/">Spark实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/01/12/Spark-%E5%B0%8F%E8%AF%95%E7%89%9B%E5%88%80%E2%80%94%E2%80%94Word-Count/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/">
         Hbase安装及部署
       </a>
@@ -942,51 +991,6 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
       
         <div>
           <a class='readmore' href='/2017/06/20/1-%E6%9E%84%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2017/06/02/4-MapReduce%E7%9A%84%E7%89%B9%E6%80%A7/">
-        4 MapReduce的特性
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2017-06-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/MapReduce/">MapReduce</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2017/06/02/4-MapReduce%E7%9A%84%E7%89%B9%E6%80%A7/'>
             阅读全文
           </a>
         </div>
@@ -1137,6 +1141,11 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
             ><div class='name'>MapReduce</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/Spark%E5%AE%9E%E6%88%98/" href="/categories/Spark%E5%AE%9E%E6%88%98/"
+            id="categoriesSparkE5AE9EE68898"
+            ><div class='name'>Spark实战</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/Spark%E7%90%86%E8%AE%BA/" href="/categories/Spark%E7%90%86%E8%AE%BA/"
             id="categoriesSparkE79086E8AEBA"
             ><div class='name'>Spark理论</div><div class='badge'>(1)</div></a></li>
@@ -1188,7 +1197,7 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 
 
     <div class='content'>
-      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.67px; color: #8e8e8e">Dataset</a> <a href="/tags/Java/" style="font-size: 17.33px; color: #828282">Java</a> <a href="/tags/RDD/" style="font-size: 15.67px; color: #8e8e8e">RDD</a> <a href="/tags/Spark/" style="font-size: 19px; color: #777">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.33px; color: #606060">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 20.67px; color: #6c6c6c">mapreduce</a> <a href="/tags/spark/" style="font-size: 20.67px; color: #6c6c6c">spark</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
+      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.43px; color: #8f8f8f">Dataset</a> <a href="/tags/Java/" style="font-size: 16.86px; color: #868686">Java</a> <a href="/tags/RDD/" style="font-size: 15.43px; color: #8f8f8f">RDD</a> <a href="/tags/Spark/" style="font-size: 18.29px; color: #7c7c7c">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.57px; color: #5f5f5f">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 19.71px; color: #727272">mapreduce</a> <a href="/tags/spark/" style="font-size: 21.14px; color: #686868">spark</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/word-count/" style="font-size: 14px; color: #999">word count</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.43px; color: #8f8f8f">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
     </div>
   </section>
 
