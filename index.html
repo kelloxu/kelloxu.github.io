@@ -568,6 +568,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
+          
+        
+          
+        
       
     
     
@@ -776,6 +782,57 @@ MapFunctions 用于“一行-&gt;一行”的场景，而 FlatMapFunctions 则�
   
     
     <h2 class="article-title" >
+      <a href="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        Spark 创建 RDD 的几种方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        1case class CaseOrder(price: Float, number: Int, discount: Float)
+
+123456789101112public class Order &#123;    private float price;    private int number;    private float discount;    public UserO...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2021-02-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/">
         动态规划实战-爬楼梯
       </a>
@@ -806,6 +863,108 @@ Example 1Input:...
       
         <div>
           <a class='readmore' href='/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        Spark 创建 DataFrame 的几种方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        1. 由本地集合创建1case class Human(name: String, age: Int, sex: String)
+
+1.1. scala123val rdd: RDD[Human] = spark.sparkContext.parallelize(      Seq(Human(&quot;John&quot;, 30, &quot;male&quot;), Human(&q...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2019-03-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/02/26/Spark-%E7%94%9F%E6%88%90-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        Spark 生成 Dataset 的几种方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        实际工作中，由于项目代码历史原因或员工个人技术栈等原因，同样是 Spark 项目，可能有的是 scala 语言写的，有的是 java 语言写的，甚至同一个项目中 java 和 scala 代码都有，你必须同时掌握这两中语言，才能在 spark 开发中如鱼得水，同时更能体会 scala 的优势，因此本文的代码都会使用 java 和 scala 两种语言来演示。
+
+由于 Dataset 是强类型...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2019-02-26</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/02/26/Spark-%E7%94%9F%E6%88%90-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
             阅读全文
           </a>
         </div>
@@ -908,157 +1067,6 @@ Example 1Input:...
       
         <div>
           <a class='readmore' href='/2018/12/20/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%943-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/11/18/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%942-%E9%AB%98%E7%BA%A7RDD/">
-        Spark系列三——2-高级RDD
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-11-18</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">Spark系列三</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/11/18/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%942-%E9%AB%98%E7%BA%A7RDD/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/11/01/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/">
-        Spark系列三——1-弹性分布式数据集
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        Spark系列二中介绍了Spark的结构化API，在绝大多数场景下使用这些结构化API就可以解决业务问题，但当这类高级API无法解决特殊的业务或工程问题时，就需要使用Spark的低级API，特别是弹性分布式数据集（RDD）、SparkContext和分布式共享变量（例如累加器和广播变量）。
-1  什么是低级API有两种低级API：
-
-一种用于处理分布式数据（RDD）
-另一种用于分发和处理分布...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-11-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/">Spark系列三</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/11/01/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%941-%E5%BC%B9%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E9%9B%86/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/">
-        Spark系列二——8-Dataset
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        DataSet: 结构化API的基本类型；DataFrame: Row类型的DataSet。
-DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一起使用。
-你可以定义DataSet中每一行所包含的对象，在Scala中就是一个case类对象，它实质上定义了一种模式schema；而在java中就是Java Bean。
-
-经验丰富的程序猿经常将DataSet称为Sp...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-10-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/'>
             阅读全文
           </a>
         </div>
@@ -1225,7 +1233,7 @@ DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一
           <li><a class="flat-box"
             title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
             id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
-            ><div class='name'>Spark编程实战</div><div class='badge'>(2)</div></a></li>
+            ><div class='name'>Spark编程实战</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
@@ -1259,7 +1267,7 @@ DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一
 
 
     <div class='content'>
-      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.43px; color: #8f8f8f">Dataset</a> <a href="/tags/Java/" style="font-size: 16.86px; color: #868686">Java</a> <a href="/tags/RDD/" style="font-size: 15.43px; color: #8f8f8f">RDD</a> <a href="/tags/Spark/" style="font-size: 18.29px; color: #7c7c7c">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 22.57px; color: #5f5f5f">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 19.71px; color: #727272">mapreduce</a> <a href="/tags/spark/" style="font-size: 21.14px; color: #686868">spark</a> <a href="/tags/spark-sql/" style="font-size: 14px; color: #999">spark sql</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/udf/" style="font-size: 14px; color: #999">udf</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/word-count/" style="font-size: 14px; color: #999">word count</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.43px; color: #8f8f8f">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
+      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.43px; color: #8f8f8f">Dataset</a> <a href="/tags/Java/" style="font-size: 16.86px; color: #868686">Java</a> <a href="/tags/RDD/" style="font-size: 15.43px; color: #8f8f8f">RDD</a> <a href="/tags/Spark/" style="font-size: 18.29px; color: #7c7c7c">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/dataframe/" style="font-size: 14px; color: #999">dataframe</a> <a href="/tags/dataset/" style="font-size: 14px; color: #999">dataset</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 21.14px; color: #686868">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/java/" style="font-size: 16.86px; color: #868686">java</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 19.71px; color: #727272">mapreduce</a> <a href="/tags/rdd/" style="font-size: 14px; color: #999">rdd</a> <a href="/tags/scala/" style="font-size: 16.86px; color: #868686">scala</a> <a href="/tags/spark/" style="font-size: 22.57px; color: #5f5f5f">spark</a> <a href="/tags/spark-sql/" style="font-size: 14px; color: #999">spark sql</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/udf/" style="font-size: 14px; color: #999">udf</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/word-count/" style="font-size: 14px; color: #999">word count</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.43px; color: #8f8f8f">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
     </div>
   </section>
 
