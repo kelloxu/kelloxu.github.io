@@ -523,7 +523,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年2月2日</p>
+    <p>发布于：2019年2月2日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="Spark 创建 RDD 的几种方法" data-path="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+      <div id="lc-pv" data-title="Spark 创建 RDD 的几种方法" data-path="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -558,14 +558,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <h2 id="1-从集合中创建"><a href="#1-从集合中创建" class="headerlink" title="1. 从集合中创建"></a>1. 从集合中创建</h2><h3 id="1-1-parallelize"><a href="#1-1-parallelize" class="headerlink" title="1.1. parallelize"></a>1.1. parallelize</h3><h4 id="scala"><a href="#scala" class="headerlink" title="scala"></a>scala</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val rdd: RDD[CaseOrder] = spark.sparkContext.parallelize(Seq(CaseOrder(100.5f, 1, 9.5f), CaseOrder(58.0f, 2, 9.0f), CaseOrder(71.5f, 3, 8.0f)))</span><br><span class="line"></span><br><span class="line">rdd.foreach(order =&gt; println(order.price, order.number, order.discount))</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-scala.png" class="lazyload" data-srcset="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-scala.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-scala.png" class="lazyload" data-srcset="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-scala.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-scala.png" class="lazyload" data-srcset="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-scala.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-scala.png" class="lazyload" data-srcset="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-scala.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h4 id="java"><a href="#java" class="headerlink" title="java"></a>java</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import scala.collection.JavaConverters;</span><br><span class="line">import scala.reflect.ClassManifestFactory;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RDD&lt;Order&gt; rdd = spark.sparkContext().parallelize(</span><br><span class="line">                JavaConverters.asScalaBuffer(Arrays.asList(</span><br><span class="line">                        new Order(100.5f, 1, 9.5f),</span><br><span class="line">                        new Order(58.0f, 2, 9.0f),</span><br><span class="line">                        new Order(71.5f, 3, 8.0f))),</span><br><span class="line">                1,</span><br><span class="line">                ClassManifestFactory.classType(Order.class));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">rdd.foreach(order -&gt; &#123;</span><br><span class="line">            System.out.println(order.getPrice() + &quot;, &quot; + order.getNumber() + &quot;, &quot; + order.getDiscount());</span><br><span class="line">            return null;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java.png" class="lazyload" data-srcset="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-result.png" class="lazyload" data-srcset="/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-result.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java.png" class="lazyload" data-srcset="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-result.png" class="lazyload" data-srcset="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/create-rdd-local-java-result.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h3 id="1-2-makeRDD"><a href="#1-2-makeRDD" class="headerlink" title="1.2. makeRDD"></a>1.2. makeRDD</h3><p>使用方法和 parallelize 一模一样，将 parallelize 替换成 makeRDD 即可。</p>
 <blockquote>
 <p>makeRDD()内部就是调用的 parallelize():</p>
@@ -589,7 +589,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/>https://kelloxu.github.io/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/>https://kelloxu.github.io/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</a></p>
               
             
           </blockquote>
@@ -616,7 +616,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-16T23:15:24+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-16T23:20:00+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年10月16日</p>
@@ -641,7 +641,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/&title=Spark 创建 RDD 的几种方法 - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/&title=Spark 创建 RDD 的几种方法 - 铁人博客&summary="
           
           >
           
@@ -653,7 +653,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/&title=Spark 创建 RDD 的几种方法 - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/&title=Spark 创建 RDD 的几种方法 - 铁人博客&summary="
           
           >
           
@@ -665,7 +665,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2021/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/&title=Spark 创建 RDD 的几种方法 - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/&title=Spark 创建 RDD 的几种方法 - 铁人博客&summary="
           
           >
           
@@ -695,17 +695,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2021/02/10/hexo%E4%BF%9D%E5%AD%98%E6%BA%90%E7%A0%81%E5%88%B0git%E4%BB%93%E5%BA%93/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Hexo保存源码到Git仓库</p>
-          <p class='content'>hexo是当前火热的静态博客框架，支持Markdown格式文章编辑，并通过简单的命令即可自动生成对应的静态网页，同时支持自定义主题，操作简单，功能强大，是博客创作的利器。
-但是，博主最近遇到了一...</p>
+        <a class='prev' href='/2019/02/26/Spark-%E7%94%9F%E6%88%90-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark 生成 Dataset 的几种方法</p>
+          <p class='content'>实际工作中，由于项目代码历史原因或员工个人技术栈等原因，同样是 Spark 项目，可能有的是 scala 语言写的，有的是 java 语言写的，甚至同一个项目中 java 和 scala 代码都...</p>
         </a>
       
       
-        <a class='next' href='/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/'>
-          <p class='title'>动态规划实战-爬楼梯<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>1. 题目Climbing Stairs
-You are climbing a staircase. It takes n steps to reach the top.Each time yo...</p>
+        <a class='next' href='/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/'>
+          <p class='title'>Hbase安装及部署<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+0. 配置文件（Configuration Files）Apache HBase uses the same configuration system as Apache Hadoop. Al...</p>
         </a>
       
     </div>
