@@ -523,7 +523,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2017年8月7日</p>
+    <p>发布于：2019年1月7日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="Hbase安装及部署" data-path="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/">
+      <div id="lc-pv" data-title="Hbase安装及部署" data-path="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -552,7 +552,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-ban-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-ban-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+  <p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-ban-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-ban-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="0-配置文件（Configuration-Files）"><a href="#0-配置文件（Configuration-Files）" class="headerlink" title="0. 配置文件（Configuration Files）"></a>0. 配置文件（Configuration Files）</h2><p>Apache HBase uses the same configuration system as Apache Hadoop. All configuration files are located in the <code>conf/</code> directory, which needs to be kept in sync for each node on your cluster.</p>
 <ul>
 <li><p><em><strong>backup-masters</strong></em><br>Not present by default. A plain-text file which lists hosts on which the Master should start a backup Master process, one host per line.</p>
@@ -577,7 +577,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </code></pre>
 <p>This section lists required services and some required system configuration.</p>
 <h3 id="1-1-Java"><a href="#1-1-Java" class="headerlink" title="1.1. Java"></a>1.1. Java</h3><p>HBase runs on the Java Virtual Machine, thus all HBase deployments require a JVM runtime.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-env.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-env.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-env.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-env.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>You must set <code>JAVA_HOME</code> on each node of your cluster. <em><strong>hbase-env.sh</strong></em> provides a handy mechanism to do this.</p>
 <h3 id="1-2-Operating-System-Utilities"><a href="#1-2-Operating-System-Utilities" class="headerlink" title="1.2.  Operating System Utilities"></a>1.2.  Operating System Utilities</h3><h4 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h4><p>HBase uses the Secure Shell (ssh) command and utilities extensively to communicate between cluster nodes. Each server in the cluster must be running ssh so that the Hadoop and HBase daemons can be managed. You must be able to connect to all nodes via SSH, including the local node, from the Master as well as any backup Master, using a shared key rather than a password.</p>
 <h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>HBase uses the local hostname to self-report its IP address.</p>
@@ -604,7 +604,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <blockquote>
 <p>Hadoop 2.x is recommended. Hadoop 2.x is faster and includes features, such as short-circuit reads (see Leveraging local data), which will help improve your HBase random read profile. Hadoop 2.x also includes important bug fixes that will improve your overall HBase experience. HBase does not support running with earlier versions of Hadoop. See the table below for requirements specific to different HBase versions.</p>
 </blockquote>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-badoop-map.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-badoop-map.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-badoop-map.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-badoop-map.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>Hadoop 3.x is still in early access releases and has not yet been sufficiently tested by the HBase community for production use cases.</p>
 <blockquote>
 <p>Replace the Hadoop Bundled With HBase! Because HBase depends on Hadoop, it bundles Hadoop jars under its lib directory. The bundled jars are ONLY for use in stand-alone mode. In distributed mode, it is critical that the version of Hadoop that is out on your cluster match what is under HBase. Replace the hadoop jars found in the HBase lib directory with the equivalent hadoop jars from the version you are running on your cluster to avoid version mismatch issues. Make sure you replace the jars under HBase across your whole cluster. Hadoop version mismatch issues have various manifestations. Check for mismatch if HBase appears hung.</p>
@@ -615,7 +615,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <pre><code>Be sure to restart your HDFS after making the above configuration.
 </code></pre>
 <p>Not having this configuration in place makes for strange-looking failures. One manifestation is a complaint about missing blocks. For example:</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-error.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-error.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-error.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-error.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>See also <code>casestudies.max.transfer.threads</code> and note that this property was previously known as <code>dfs.datanode.max.xcievers</code> (e.g. Hadoop HDFS: Deceived by Xciever).</p>
 <h4 id="1-3-2-ZooKeeper-Requirements"><a href="#1-3-2-ZooKeeper-Requirements" class="headerlink" title="1.3.2 ZooKeeper Requirements"></a>1.3.2 ZooKeeper Requirements</h4><p>An Apache ZooKeeper quorum is required. The exact version depends on your version of HBase, though the minimum ZooKeeper version is 3.4.x due to the useMulti feature made default in 1.0.0 (see <a target="_blank" rel="noopener" href="https://issues.apache.org/jira/browse/HBASE-16598">HBASE-16598</a>).</p>
 <p>Be sure to restart your HDFS after making the above configuration.</p>
@@ -630,13 +630,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>This section describes the setup of a single-node standalone HBase. <strong>A standalone instance has all HBase daemons——the Master, RegionServers, and ZooKeeper——running in a single JVM persisting to the local filesystem</strong>. It is our most basic deploy profile. We will show you how to create a table in HBase using the hbase shell CLI, insert rows into the table, perform put and scan operations against the table, enable or disable the table, and start and stop HBase.</p>
 <p>Apart from downloading HBase, this procedure should take less than 10 minutes.</p>
 <h5 id="2-1-1-1-JDK-Version-Requirements"><a href="#2-1-1-1-JDK-Version-Requirements" class="headerlink" title="2.1.1.1 JDK Version Requirements"></a>2.1.1.1 JDK Version Requirements</h5><p>JDK和HBase的版本对照请查看1.1.节，因为需要安装HBase2.2+，所以需要JDK8。</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-java-version.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-java-version.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-java-version.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-java-version.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h5 id="2-1-1-2-Get-Started-with-HBase"><a href="#2-1-1-2-Get-Started-with-HBase" class="headerlink" title="2.1.1.2. Get Started with HBase"></a>2.1.1.2. Get Started with HBase</h5><p><em><strong>Procedure: Download, Configure, and Start HBase in Standalone Mode</strong></em></p>
 <ul>
 <li>Download</li>
 </ul>
 <p>Choose a download site from this list of <a target="_blank" rel="noopener" href="https://www.apache.org/dyn/closer.lua/hbase/">Apache Download Mirrors</a>（选个清华的镜像）. Click on the suggested top link. This will take you to a mirror of HBase Releases. Click on the folder named <strong>stable</strong> and then download the <strong>binary file</strong> that ends in <strong>.tar.gz</strong> to your local filesystem. Do not download the file ending in src.tar.gz for now.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-downloaded.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-downloaded.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-downloaded.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-downloaded.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Extract</li>
 </ul>
@@ -647,13 +647,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>Configure environment variables</li>
 </ul>
 <p>You must set the <code>JAVA_HOME</code> environment variable before starting HBase. To make this easier, HBase lets you set it within the <code>conf/hbase-env.sh</code> file.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>同时打开如下注释，表示由hbase自己管理zookeeper，不需要单独的zookeeper：</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>单机模式的hbase-site.xml已默认配置好：</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-2.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-2.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-hbase-env-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>配置 <code>~/.bashrc</code>：</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-bashrc.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-bashrc.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-bashrc.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-conf-bashrc.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <blockquote>
 <p>因为机器上之前已经安装了 hadoop 2.7，且该版本与 hbase2.2.6 不兼容，所以先卸载掉（包括spark），以在干净的系统上验证单机模式。</p>
 </blockquote>
@@ -662,15 +662,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>Start HBase</li>
 </ul>
 <p>The <code>bin/start-hbase.sh</code> script is provided as a convenient way to start HBase.You can use the jps command to verify that you have one running process called HMaster. In standalone mode HBase runs all daemons within this single JVM, i.e. the HMaster, a single HRegionServer, and the ZooKeeper daemon.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>Go to <a target="_blank" rel="noopener" href="http://localhost:16010/">http://localhost:16010</a> to view the HBase Web UI.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-web-ui.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-web-ui.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-web-ui.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-web-ui.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h5 id="2-1-1-3-使用HBase"><a href="#2-1-1-3-使用HBase" class="headerlink" title="2.1.1.3 使用HBase"></a>2.1.1.3 使用HBase</h5><ul>
 <li>Connect to HBase</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase shell</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-shell.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-shell.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-shell.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-shell.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Display HBase Shell Help Text</li>
 </ul>
@@ -680,19 +680,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <p>Use the <code>create</code> command to create a new table. You must specify the table name and the ColumnFamily name.</p>
 <p>在默认命名空间default中创建表test，列簇为cf：</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>List Information About your Table</li>
 </ul>
 <p>Use the <code>list</code> command to confirm your table exists:</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-list-table.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-list-table.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-list-table.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-list-table.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>Now use the <code>describe</code> command to see details, including configuration defaults.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-describe-table.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-describe-table.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-describe-table.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-describe-table.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Put data into your table</li>
 </ul>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-put-data.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-put-data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-put-data.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-put-data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>To put data into your table, use the <code>put</code> command.</p>
 <blockquote>
 <p>Columns in HBase are comprised of a column family prefix, cf in this example, followed by a colon and then a column qualifier suffix, as in this case.</p>
@@ -701,12 +701,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>Scan the table for all data at once</li>
 </ul>
 <p>One of the ways to get data from HBase is to scan. Use the <code>scan</code> command to scan the table for data. You can limit your scan, but for now, all data is fetched.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-scan.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-scan.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-scan.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-scan.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Get a single row of data</li>
 </ul>
 <p>To get a single row of data at a time, use the <code>get</code> command.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-get.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-get.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-get.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-get.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Disable a table</li>
 </ul>
@@ -724,9 +724,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <p>因为未在 <code>hbase-site.xml</code> 中配置 <code>hbase.rootdir</code>，所以采用hbase默认的路径：<code>$HBASE_HOME/tmp</code>。</p>
 <p>创建的表存储在 <code>$HBASE_HOME/tmp/hbase/data/default</code> 目录下（default为默认命名空间）:</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-table-path.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-table-path.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-table-path.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-table-path.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>还有列簇cf的目录：</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-family-path.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-family-path.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-family-path.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-family-path.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h5 id="2-1-1-4-Stop-Hbase"><a href="#2-1-1-4-Stop-Hbase" class="headerlink" title="2.1.1.4. Stop Hbase"></a>2.1.1.4. Stop Hbase</h5><p>Use <code>stop</code> command to stop hbase.</p>
 <p>After issuing the command, it can take several minutes for the processes to shut down. Use the <code>jps</code> to be sure that the HMaster and HRegionServer processes are shut down.</p>
 <h4 id="2-1-2-Standalone-HBase-over-HDFS（单机模式变种）"><a href="#2-1-2-Standalone-HBase-over-HDFS（单机模式变种）" class="headerlink" title="2.1.2. Standalone HBase over HDFS（单机模式变种）"></a>2.1.2. Standalone HBase over HDFS（单机模式变种）</h4><pre><code>单机模式的一种有用的变种：hbase的所有守护进程运行在同一个JVM中，但是数据持久化到HDFS中，而不是本地文件系统。
@@ -761,25 +761,25 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>其中，<code>hdfs://master:9000</code> 为 <code>fs.default.name</code> 的值，在 <code>core-site.xml</code> 中配置。</p>
 <p>You do not need to create the directory in HDFS. HBase will do this for you. If you create the directory, HBase will attempt to do a migration, which is not what you want.</p>
 <p>Finally, remove existing configuration for <code>hbase.tmp.dir</code> and <code>hbase.unsafe.stream.capability.enforce</code>.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Start HBase</li>
 </ul>
 <p>Use the <code>bin/start-hbase.sh</code> command to start HBase. If your system is configured correctly, the jps command should show the HMaster and HRegionServer processes running.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-check-start.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-check-start.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-check-start.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-check-start.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Check the HBase directory in HDFS.</li>
 </ul>
 <p>If everything worked correctly, HBase created its directory in HDFS. In the configuration above, it is stored in <code>/hbase/</code> on HDFS.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-dir.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-dir.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-dir.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-dir.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Create a table and populate it with data</li>
 </ul>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Start and stop a backup HBase Master (HMaster) server</li>
 </ul>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-create-table-pesudo-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>Start and stop additional RegionServers</li>
 </ul>
@@ -787,21 +787,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>Running multiple HMaster instances on the same hardware does not make sense in a production environment, in the same way that running a pseudo-distributed cluster does not make sense for production. This step is offered for testing and learning purposes only.</p>
 </blockquote>
 <p>The HMaster server controls the HBase cluster. You can start up to <strong>9 backup HMaster servers</strong>, which makes <strong>10 total HMasters</strong>, counting the primary. To start a backup HMaster, use the local-master-backup.sh. For each backup master you want to start, add a parameter representing the port offset for that master. <strong>Each HMaster uses two ports (16000 and 16010 by default)</strong>. The port offset is added to these ports, so using an offset of 2, the backup HMaster would use ports 16002 and 16012. The following command starts 3 backup servers using ports 16002/16012, 16003/16013, and 16005/16015.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-backup-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>To kill a backup master without killing the entire cluster, you need to find its process ID (PID). The PID is stored in a file with a name like <code>/tmp/hbase-USER-X-master.pid</code>. The only contents of the file is the PID.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-pid.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-pid.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-pid.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-pid.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>You can use the <code>kill -9</code> command to kill that PID. The following command will kill the master with port offset 2, but leave the cluster running:</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-kill-backup-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>也可以直接使用：</p>
 <p><code>local-master-backup.sh stop 2</code></p>
 <ul>
 <li>Start and stop additional RegionServers</li>
 </ul>
 <p>The HRegionServer manages the data in its StoreFiles as directed by the HMaster. Generally, one HRegionServer runs per node in the cluster. Running multiple HRegionServers on the same system can be useful for testing in pseudo-distributed mode. The local-regionservers.sh command allows you to run multiple RegionServers. It works in a similar way to the local-master-backup.sh command, in that each parameter you provide represents the port offset for an instance. <strong>Each RegionServer requires two ports, and the default ports are 16020 and 16030</strong>. Since HBase version 1.1.0, HMaster doesn’t use region server ports, this leaves 10 ports (16020 to 16029 and 16030 to 16039) to be used for RegionServers. For supporting additional RegionServers, set environment variables HBASE_RS_BASE_PORT and HBASE_RS_INFO_BASE_PORT to appropriate values before running script local-regionservers.sh. e.g. <strong>With values 16200 and 16300 for base ports, 99 additional RegionServers can be supported, on a server</strong>. The following command starts four additional RegionServers, running on sequential ports starting at 16022/16032 (base ports 16020/16030 plus 2).</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-additional-server-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>To stop a RegionServer manually, use the local-regionservers.sh command with the stop parameter and the offset of the server to stop.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local-regionservers.sh stop 5</span><br></pre></td></tr></table></figure>
 
@@ -863,23 +863,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ol>
 <li>Edit <code>conf/regionservers</code> and remove the line which contains localhost. Add lines with the hostnames or IP addresses for node-b and node-c. Even if you did want to run a RegionServer on node-a, you should refer to it by the hostname the other servers would use to communicate with it. This enables you to distribute the configuration to each node of your cluster any hostname conflicts. Save the file.</li>
 </ol>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-regionservers.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-regionservers.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-regionservers.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-regionservers.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>  These nodes need HBase installed and they need to use the same contents of the <code>conf/</code> directory as the Master server.</p>
 <ol start="2">
 <li>Configure HBase to use <code>slave1</code> as a backup master. Create a new file in <code>conf/</code> called <code>backup-masters</code>, and add a new line to it with the hostname for <code>slave1</code>.</li>
 </ol>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-backup-masters.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-backup-masters.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-backup-masters.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/base-backup-masters.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>  The backup Master instances（可以配置多个） will sit idle unless the main Master becomes unavailable.</p>
 <ol start="3">
 <li>Configure <code>hbase-env.sh</code>. Tell HBase should manage it’s own instance of ZooKeeper.</li>
 </ol>
 <p>A distributed Apache HBase installation depends on a running ZooKeeper cluster. All participating nodes and clients need to be able to access the running ZooKeeper ensemble. Apache HBase by default manages a ZooKeeper “cluster” for you. It will start and stop the ZooKeeper ensemble as part of the HBase start/stop process. You can also manage the ZooKeeper ensemble independent of HBase and just point HBase at the cluster it should use. To toggle HBase management of ZooKeeper, use the <code>HBASE_MANAGES_ZK</code> variable in <code>conf/hbase-env.sh</code>. This variable, which defaults to true, tells HBase whether to start/stop the ZooKeeper ensemble servers as part of HBase start/stop.</p>
 <p><strong>When HBase manages the ZooKeeper ensemble, you can specify ZooKeeper configuration directly in <code>conf/hbase-site.xml</code></strong>. A ZooKeeper configuration option can be set as a property in the HBase hbase-site.xml file by prefacing the ZooKeeper option name with <code>hbase.zookeeper.property</code>. For example, the clientPort setting in ZooKeeper can be changed by setting the hbase.zookeeper.property.clientPort property. For all default values used by HBase, including ZooKeeper configuration, see hbase default configurations. Look for the hbase.zookeeper.property prefix. For the full list of ZooKeeper configurations, see ZooKeeper’s zoo.cfg. HBase does not ship with a <code>zoo.cfg</code> so you will need to browse the conf directory in an appropriate ZooKeeper download.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ol start="4">
 <li>Configure ZooKeeper. In reality, you should carefully consider your ZooKeeper configuration. You can find out more about configuring ZooKeeper in zookeeper section. This configuration will direct HBase to start and manage a ZooKeeper instance on each node of the cluster. Edit <code>conf/hbase-site.xml</code> and add the following properties.</li>
 </ol>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site-zookeeper.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site-zookeeper.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site-zookeeper.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-site-zookeeper.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <blockquote>
 <p>zookeeper有这样一个特性：集群中只要有过半的机器是正常工作的，那么整个集群对外就是可用的。也就是说如果有2个zookeeper，那么只要有1个死了zookeeper就不能用了，因为1没有过半，所以2个zookeeper的死亡容忍度为0；同理，要是有3个zookeeper，一个死了，还剩下2个正常的，过半了，所以3个zookeeper的容忍度为1；同理你多列举几个：2-&gt;0;3-&gt;1;4-&gt;1;5-&gt;2;6-&gt;2会发现一个规律，2n和2n-1的容忍度是一样的，都是n-1，所以为了更加高效，何必增加那一个不必要的zookeeper呢。</p>
 </blockquote>
@@ -897,7 +897,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><strong>Start the cluster</strong></li>
 </ol>
 <p>On <code>master</code>, issue the <code>start-hbase.sh</code> command. Your output will be similar to that below.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <blockquote>
 <p>ZooKeeper starts first, followed by the master, then the RegionServers, and finally the backup masters.</p>
 </blockquote>
@@ -905,7 +905,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><strong>Verify that the processes are running</strong></li>
 </ol>
 <p>On each node of the cluster, run the jps command and verify that the correct processes are running on each server.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-verify.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-verify.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-verify.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-verify.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <blockquote>
 <p>ZooKeeper Process Name. The <strong>HQuorumPeer</strong> process is a ZooKeeper instance which is controlled and started by HBase. If you use ZooKeeper this way, it is limited to one instance per cluster node and is appropriate for testing only. If ZooKeeper is run outside of HBase, the process is called <strong>QuorumPeer</strong>. For more about ZooKeeper configuration, including using an external ZooKeeper instance with HBase, see zookeeper section.</p>
 </blockquote>
@@ -916,28 +916,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>Web UI Port Changes. In HBase newer than 0.98.x, the HTTP ports used by the HBase Web UI changed from 60010 for the Master and 60030 for each RegionServer to <strong>16010 for the Master and 16030 for the RegionServer</strong>.</p>
 </blockquote>
 <p>If everything is set up correctly, you should be able to connect to the UI for the Master <a target="_blank" rel="noopener" href="http://master:16010/">http://master:16010/</a> or the secondary master at <a target="_blank" rel="noopener" href="http://slave1.com:16010/">http://slave1.com:16010/</a> using a web browser.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-master.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-master.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-master.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-master.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <blockquote>
 <p>HBase puts up a UI listing vital attributes. By default it’s deployed on the Master host at port 16010 (HBase RegionServers listen on port 16020 by default and put up an informational HTTP server at port 16030). If the Master is running on a host named master.example.org on the default port, point your browser at <a target="_blank" rel="noopener" href="http://master.example.org:16010/">http://master.example.org:16010</a> to see the web interface.</p>
 </blockquote>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-slave.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-slave.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-slave.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-slave.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>If you can connect via localhost but not from another host, check your firewall rules.</p>
 <p>You can see the web UI for each of the RegionServers at port 16030 of their IP addresses, or by clicking their links in the web UI for the Master.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-regionserver.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-regionserver.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-regionserver.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-webui-regionserver.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li><strong>HBase使用独立的zookeeper集群</strong></li>
 </ul>
 <p>To point HBase at an existing ZooKeeper cluster, one that is not managed by HBase, set <code>HBASE_MANAGES_ZK</code> in <code>conf/hbase-env.sh</code> to false.</p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper-false.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper-false.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper-false.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-manage-zookeeper-false.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>When HBase manages ZooKeeper, it will start/stop the ZooKeeper servers as a part of the regular start/stop scripts. If you would like to run ZooKeeper yourself, independent of HBase start/stop, you would do the following:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;HBASE_HOME&#125;/bin/hbase-daemons.sh &#123;start,stop&#125; zookeeper</span><br></pre></td></tr></table></figure>
 
 <p><strong>先起zookeeper</strong></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-2.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-2.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-zookeeper-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p><strong>再起 hbase</strong></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-1.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-2.png" class="lazyload" data-srcset="/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-1.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-2.png" class="lazyload" data-srcset="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/hbase-start-hbase-2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 
   
   
@@ -955,7 +955,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/>https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/</a></p>
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/>https://kelloxu.github.io/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/</a></p>
               
             
           </blockquote>
@@ -982,10 +982,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-10T14:11:02+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-16T16:43:50+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月10日</p>
+    <p>更新于：2021年10月16日</p>
   </a>
 </div>
 
@@ -1007,7 +1007,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
           
           >
           
@@ -1019,7 +1019,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
           
           >
           
@@ -1031,7 +1031,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2017/08/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/&title=Hbase安装及部署 - 铁人博客&summary="
           
           >
           
@@ -1061,15 +1061,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2018/01/12/Spark-%E5%B0%8F%E8%AF%95%E7%89%9B%E5%88%80%E2%80%94%E2%80%94Word-Count/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark 小试牛刀——Word Count</p>
-          <p class='content'>1. Word Count12345val rddWords = sc.textFile(&quot;/datasets/badou/The_Man_of_Property_big.txt&qu...</p>
+        <a class='prev' href='/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>动态规划实战-爬楼梯</p>
+          <p class='content'>1. 题目Climbing Stairs
+You are climbing a staircase. It takes n steps to reach the top.Each time yo...</p>
         </a>
       
       
-        <a class='next' href='/2017/07/08/2-%E7%AE%A1%E7%90%86Hadoop/'>
-          <p class='title'>2 管理Hadoop<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'></p>
+        <a class='next' href='/2018/12/20/Spark%E7%B3%BB%E5%88%97%E4%B8%89%E2%80%94%E2%80%943-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/'>
+          <p class='title'>Spark系列三——3-分布式共享变量<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+除了 RDD 之外，Spark 的第二种低级 API 是“分布式共享变量”，它包括两种类型：广播变量（broadcast variable）和累加器（accumulator），这些变量可以在用...</p>
         </a>
       
     </div>
