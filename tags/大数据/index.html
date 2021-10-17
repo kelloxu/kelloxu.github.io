@@ -574,6 +574,207 @@ MapFunctions 用于“一行-&gt;一行”的场景，而 FlatMapFunctions 则�
   
     
     <h2 class="article-title" >
+      <a href="/2020/01/12/Spark-MapFunction-%E5%92%8C-FlatMapFunction/">
+        Spark MapFunction 和 FlatMapFunction
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2020-01-12</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/01/12/Spark-MapFunction-%E5%92%8C-FlatMapFunction/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        Spark 创建 DataFrame 的几种方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+1. 由本地集合创建1case class Human(name: String, age: Int, sex: String)
+
+1.1. scala123val rdd: RDD[Human] = spark.sparkContext.parallelize(      Seq(Human(&quot;John&quot;, 30, &quot;male&quot;), Human(&...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2019-03-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/02/26/Spark-%E5%88%9B%E5%BB%BA-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        Spark 创建 Dataset 的几种方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+实际工作中，由于项目代码历史原因或员工个人技术栈等原因，同样是 Spark 项目，可能有的是 scala 语言写的，有的是 java 语言写的，甚至同一个项目中 java 和 scala 代码都有，你必须同时掌握这两中语言，才能在 spark 开发中如鱼得水，同时更能体会 scala 的优势，因此本文的代码都会使用 java 和 scala 两种语言来演示。
+
+由于 Dataset 是强类...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2019-02-26</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/02/26/Spark-%E5%88%9B%E5%BB%BA-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        Spark 创建 RDD 的几种方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+1case class CaseOrder(price: Float, number: Int, discount: Float)
+
+1234567891011121314public class Order &#123;    private float price;    private int number;    private float discount;    public ...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+        
+        <time>2019-02-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Spark编程实战</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/02/02/Spark-%E5%88%9B%E5%BB%BA-RDD-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2019/01/07/Hbase%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/">
         Hbase安装及部署
       </a>
@@ -818,229 +1019,6 @@ DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/10/14/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%947-Spark-Sql/">
-        Spark系列二——7-Spark Sql
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        使用Spark SQL，我们可以对存储到数据库中的视图或表进行SQL查询，还可以使用系统函数或用户定义函数来分析查询计划以优化其工作负载。
-SQL（结构化查询语言，Structured Query Language）是一种表示数据关系操作的特定领域语言，其广泛应用在关系型数据库中。
-许多“NoSQL”数据库也支持类SQL语言。
-
-在Spark流行之前，Apache Hive 是支持SQL的主...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-10-14</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/10/14/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%947-Spark-Sql/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/">
-        Spark系列二——5-连接操作
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-连接操作 join 几乎是所有 Spark 作业的比不可少的部分，本文不仅介绍 Spark 中的连接操作及使用方法，还包括 Spark 在集群中执行连接操作的具体过程，了解这些知识可以帮助你避免 OOM 并解决其他一些难题。
-最常见的连接表达式是 equi-join，它用于比较左侧数据集一行和右侧数据集一行中的指定键是否匹配，匹配则组合左侧和右侧数据集的对应行，不匹配则丢弃。
-1. 连接类...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-10-04</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/10/04/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%945-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/09/22/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%944-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/">
-        Spark系列二——4-聚合操作
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-一般情况下，用户使用聚合操作对数据分组后的各组内的数值型数据进行汇总，这个汇总运算可能是求和、累乘、或者是简单的计数。
-Spark 可以将任何类型的值聚合成为 array 数组、list列表或 map 映射。
-除了处理任意类型的值之外，Spark 还允许创建以下分组类型：
-
-group by
-
-指定一个或多个key，也可以指定一个或多个聚合函数，来对包含 value 的列执行转换操作。
-
-...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-09-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/09/22/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%944-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/09/18/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%943-%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-        Spark系列二——3-处理不同的数据类型
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-本篇博客将介绍对不同数据类型的处理，主要包括以下内容：
-
-布尔型
-数字型
-字符串型
-日期和时间戳类型
-空值处理
-复杂类型
-用户自定义的函数
-
-0. 在哪里查找APIDataFrame(DataSet)方法因为 DataFrame 本质上就是一个 Row 类型的 DataSet，所以可以直接去看 DataSet 的方法，请访问 http://spark.apache.org/docs/2.2...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-09-18</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/09/18/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%943-%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1175,11 +1153,6 @@ group by
             ><div class='name'>MapReduce</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Spark%E5%AE%9E%E6%88%98/" href="/categories/Spark%E5%AE%9E%E6%88%98/"
-            id="categoriesSparkE5AE9EE68898"
-            ><div class='name'>Spark实战</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
             title="/categories/Spark%E7%90%86%E8%AE%BA/" href="/categories/Spark%E7%90%86%E8%AE%BA/"
             id="categoriesSparkE79086E8AEBA"
             ><div class='name'>Spark理论</div><div class='badge'>(1)</div></a></li>
@@ -1197,7 +1170,7 @@ group by
           <li><a class="flat-box"
             title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
             id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
-            ><div class='name'>Spark编程实战</div><div class='badge'>(5)</div></a></li>
+            ><div class='name'>Spark编程实战</div><div class='badge'>(7)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
@@ -1231,7 +1204,7 @@ group by
 
 
     <div class='content'>
-      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.43px; color: #8f8f8f">Dataset</a> <a href="/tags/Java/" style="font-size: 16.86px; color: #868686">Java</a> <a href="/tags/RDD/" style="font-size: 15.43px; color: #8f8f8f">RDD</a> <a href="/tags/Spark/" style="font-size: 18.29px; color: #7c7c7c">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/dataframe/" style="font-size: 14px; color: #999">dataframe</a> <a href="/tags/dataset/" style="font-size: 14px; color: #999">dataset</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 21.14px; color: #686868">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/java/" style="font-size: 16.86px; color: #868686">java</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 19.71px; color: #727272">mapreduce</a> <a href="/tags/rdd/" style="font-size: 14px; color: #999">rdd</a> <a href="/tags/scala/" style="font-size: 16.86px; color: #868686">scala</a> <a href="/tags/spark/" style="font-size: 22.57px; color: #5f5f5f">spark</a> <a href="/tags/spark-sql/" style="font-size: 14px; color: #999">spark sql</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/udf/" style="font-size: 14px; color: #999">udf</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/word-count/" style="font-size: 14px; color: #999">word count</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.43px; color: #8f8f8f">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
+      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.43px; color: #8f8f8f">Dataset</a> <a href="/tags/FlatMapFunction/" style="font-size: 14px; color: #999">FlatMapFunction</a> <a href="/tags/Java/" style="font-size: 16.86px; color: #868686">Java</a> <a href="/tags/MapFunction/" style="font-size: 14px; color: #999">MapFunction</a> <a href="/tags/RDD/" style="font-size: 15.43px; color: #8f8f8f">RDD</a> <a href="/tags/Spark/" style="font-size: 18.29px; color: #7c7c7c">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/dataframe/" style="font-size: 14px; color: #999">dataframe</a> <a href="/tags/dataset/" style="font-size: 14px; color: #999">dataset</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 21.14px; color: #686868">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/java/" style="font-size: 16.86px; color: #868686">java</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 19.71px; color: #727272">mapreduce</a> <a href="/tags/rdd/" style="font-size: 14px; color: #999">rdd</a> <a href="/tags/scala/" style="font-size: 16.86px; color: #868686">scala</a> <a href="/tags/spark/" style="font-size: 22.57px; color: #5f5f5f">spark</a> <a href="/tags/spark-sql/" style="font-size: 14px; color: #999">spark sql</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/udf/" style="font-size: 14px; color: #999">udf</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/word-count/" style="font-size: 14px; color: #999">word count</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.43px; color: #8f8f8f">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
     </div>
   </section>
 

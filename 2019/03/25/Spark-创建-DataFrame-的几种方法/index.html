@@ -24,7 +24,7 @@
   
   <title>Spark 创建 DataFrame 的几种方法 - 铁人博客</title>
   
-    <meta name="keywords" content="spark,dataframe,scala,java">
+    <meta name="keywords" content="大数据,spark,dataframe,scala,java">
   
 
   
@@ -552,7 +552,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <h2 id="1-由本地集合创建"><a href="#1-由本地集合创建" class="headerlink" title="1. 由本地集合创建"></a>1. 由本地集合创建</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case class Human(name: String, age: Int, sex: String)</span><br></pre></td></tr></table></figure>
+  <p><img src="/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/spark-dataframe.png" class="lazyload" data-srcset="/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/spark-dataframe.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h2 id="1-由本地集合创建"><a href="#1-由本地集合创建" class="headerlink" title="1. 由本地集合创建"></a>1. 由本地集合创建</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case class Human(name: String, age: Int, sex: String)</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-1-scala"><a href="#1-1-scala" class="headerlink" title="1.1. scala"></a>1.1. scala</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val rdd: RDD[Human] = spark.sparkContext.parallelize(</span><br><span class="line">      Seq(Human(&quot;John&quot;, 30, &quot;male&quot;), Human(&quot;Alice&quot;, 32, &quot;female&quot;), Human(&quot;Tome&quot;, 12, &quot;male&quot;)))</span><br><span class="line">rdd.foreach(man =&gt; println(man.name, man.age, man.sex))</span><br></pre></td></tr></table></figure>
 
@@ -570,6 +571,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>  Java 代码中可以直接使用 Scala 的 case class，如上文中的 Human。</p>
 </li>
 </ul>
+<p><img src="/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/spark-fire.gif" class="lazyload" data-srcset="/2019/03/25/Spark-%E5%88%9B%E5%BB%BA-DataFrame-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/spark-fire.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 
   
   
@@ -614,10 +616,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-16T23:15:16+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-17T14:43:52+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月16日</p>
+    <p>更新于：2021年10月17日</p>
   </a>
 </div>
 
@@ -626,7 +628,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/dataframe/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>dataframe</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/scala/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>scala</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>java</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>大数据</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/spark/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>spark</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/dataframe/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>dataframe</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/scala/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>scala</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>java</p></a></div>
 
 
         
@@ -693,16 +695,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2021/01/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E6%88%98-%E7%88%AC%E6%A5%BC%E6%A2%AF/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>动态规划实战-爬楼梯</p>
-          <p class='content'>1. 题目Climbing Stairs
-You are climbing a staircase. It takes n steps to reach the top.Each time yo...</p>
+        <a class='prev' href='/2020/01/12/Spark-MapFunction-%E5%92%8C-FlatMapFunction/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spark MapFunction 和 FlatMapFunction</p>
+          <p class='content'></p>
         </a>
       
       
-        <a class='next' href='/2019/02/26/Spark-%E7%94%9F%E6%88%90-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
-          <p class='title'>Spark 生成 Dataset 的几种方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>实际工作中，由于项目代码历史原因或员工个人技术栈等原因，同样是 Spark 项目，可能有的是 scala 语言写的，有的是 java 语言写的，甚至同一个项目中 java 和 scala 代码都...</p>
+        <a class='next' href='/2019/02/26/Spark-%E5%88%9B%E5%BB%BA-Dataset-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/'>
+          <p class='title'>Spark 创建 Dataset 的几种方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+实际工作中，由于项目代码历史原因或员工个人技术栈等原因，同样是 Spark 项目，可能有的是 scala 语言写的，有的是 java 语言写的，甚至同一个项目中 java 和 scala 代码...</p>
         </a>
       
     </div>
