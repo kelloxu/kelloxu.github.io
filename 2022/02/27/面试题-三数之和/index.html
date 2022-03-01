@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：Spark - 铁人博客</title>
+  <title>面试题-三数之和 - 铁人博客</title>
+  
+    <meta name="keywords" content="算法,面试">
   
 
   
@@ -404,7 +404,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://img.wenhairu.com/images/2021/06/29/9MAYD.jpg"></div>
           
@@ -481,250 +481,245 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        面试题-三数之和
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png">
+    <p>John Xu</p>
+  </a>
+</div>
+
           
         
           
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/">
-        Spark API 三剑客：RDD、DataSet 和 DataFrame
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-Spark 广受社区开发者们欢迎的一个重要原因在于它那些非常容易使用的 API，可以方便地通过多种语言如 Scala、Java、Python 等来操作大数据集，直观且富有表现力，能够大大提高工作效率。😎
-在本篇文章中，博主将深入探讨一下 Spark 2.2 及以上版本提供的三种 API——RDD、DataFrame 和 Dataset，在什么情况下选用哪一种以及为什么，并概述它们的性能和...
-      
-    
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
           
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2022年2月27日</p>
+  </a>
+</div>
+
+          
         
-        <time>2021-10-05</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%90%86%E8%AE%BA/">Spark理论</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="面试题-三数之和" data-path="/2022/02/27/%E9%9D%A2%E8%AF%95%E9%A2%98-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="0-题目"><a href="#0-题目" class="headerlink" title="0. 题目"></a>0. 题目</h2><p>Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.</p>
+<p><strong>Notice that the solution set must not contain duplicate triplets.</strong></p>
+<p>Example 1:</p>
+<p>Input: nums = [-1,0,1,2,-1,-4]<br>Output: [[-1,-1,2],[-1,0,1]]</p>
+<p>Example 2:</p>
+<p>Input: nums = []<br>Output: []</p>
+<p>Example 3:</p>
+<p>Input: nums = [0]<br>Output: []</p>
+<p>Constraints:</p>
+<pre><code>0 &lt;= nums.length &lt;= 3000
+-105 &lt;= nums[i] &lt;= 105
+</code></pre>
+<h2 id="1-python"><a href="#1-python" class="headerlink" title="1. python"></a>1. python</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">def three_sum(nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">    res = []</span><br><span class="line">    if len(nums) &lt; 3: return res</span><br><span class="line">    nums.sort()  # 排序</span><br><span class="line">    print(nums)</span><br><span class="line">    for k in range(len(nums) - 2):  # 遍历，因为至少要留两个位置给i和j，所以遍历的长度为 len(nums) - 2</span><br><span class="line">        print(&quot;--- k = &quot;, k)</span><br><span class="line">        if nums[k] &gt; 0: break  # 数组已排过序，如果第一个元素就大于零，那么不能再后面的元素出找到和等于零的数。</span><br><span class="line">        if k &gt; 0 and nums[k] == nums[k - 1]: continue  # 首先考虑去重</span><br><span class="line">        i, j = k + 1, len(nums) - 1  # 最后一个元素的索引为 len(nums) - 1</span><br><span class="line">        while i &lt; j:</span><br><span class="line">            print(&quot;------- nums[&#123;0&#125;] = &#123;1&#125;, nums[&#123;2&#125;] = &#123;3&#125;, nums[&#123;4&#125;] = &#123;5&#125;&quot;.format(k, nums[k], i, nums[i], j, nums[j]))</span><br><span class="line">            s = nums[k] + nums[i] + nums[j]</span><br><span class="line">            print(&quot;------- s = &quot;, s)</span><br><span class="line">            if s &lt; 0:</span><br><span class="line">                i += 1</span><br><span class="line">                while i &lt; j and nums[i] == nums[i - 1]: i += 1  # 继续去重</span><br><span class="line">            elif s &gt; 0:</span><br><span class="line">                j -= 1</span><br><span class="line">                while i &lt; j and nums[j] == nums[j + 1]: j -= 1  # 继续去重</span><br><span class="line">            else:  # 找到和等于零的三个数</span><br><span class="line">                res.append([nums[k], nums[i], nums[j]])</span><br><span class="line">                i += 1</span><br><span class="line">                j -= 1</span><br><span class="line">                while i &lt; j and nums[i] == nums[i - 1]: i += 1  # 继续去重</span><br><span class="line">                while i &lt; j and nums[j] == nums[j + 1]: j -= 1  # 继续去重</span><br><span class="line">    return res</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-java"><a href="#2-java" class="headerlink" title="2. java"></a>2. java</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123;</span><br><span class="line"></span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        if (nums.length &lt; 3) &#123;</span><br><span class="line">            return  res;</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(nums);  // 排序</span><br><span class="line">        System.out.println(Arrays.toString(nums));</span><br><span class="line"></span><br><span class="line">        for (int k = 0; k &lt; nums.length - 2 ; k++) &#123;  // 一次遍历</span><br><span class="line">            if (nums[k] &gt; 0) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            if (k &gt; 0 &amp;&amp; nums[k] == nums[k - 1]) continue;  // 去重</span><br><span class="line">            int i = k + 1;</span><br><span class="line">            int j = nums.length - 1;</span><br><span class="line">            while (i &lt; j) &#123;</span><br><span class="line">                int s = nums[k] + nums[i] + nums[j];</span><br><span class="line">                if (s &lt; 0) &#123;</span><br><span class="line">                    i += 1;</span><br><span class="line">                    while (i &lt; j &amp;&amp; nums[i] == nums[i - 1]) i += 1;  // 去重</span><br><span class="line">                &#125; else if (s &gt; 0) &#123;</span><br><span class="line">                    j -= 1;</span><br><span class="line">                    while (i &lt; j &amp;&amp; nums[j] == nums[j + 1]) j -= 1;  // 去重</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    res.add(Arrays.asList(nums[k], nums[i], nums[j]));</span><br><span class="line">                    i += 1;</span><br><span class="line">                    j -= 1;</span><br><span class="line">                    while (i &lt; j &amp;&amp; nums[i] == nums[i - 1]) i += 1;  // 去重</span><br><span class="line">                    while (i &lt; j &amp;&amp; nums[j] == nums[j + 1]) j -= 1;  // 去重</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-scala"><a href="#3-scala" class="headerlink" title="3. scala"></a>3. scala</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">def threeSum(nums: Array[Int]): List[List[Int]] = &#123;</span><br><span class="line"></span><br><span class="line">    var res: List[List[Int]] = List()</span><br><span class="line">    if (nums.length &lt; 3) &#123;</span><br><span class="line">      return res</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val numsSorted = nums.sorted</span><br><span class="line">    println(numsSorted.mkString(&quot;,&quot;))</span><br><span class="line"></span><br><span class="line">    for (k &lt;- 0 until numsSorted.length - 2) &#123;</span><br><span class="line">      if (numsSorted(k) &gt; 0) return res  // 使用 return 代替 break</span><br><span class="line">      if (!(k &gt; 0 &amp;&amp; numsSorted(k) == numsSorted(k - 1))) &#123;  // 使用 if 代替 continue</span><br><span class="line">        var i = k + 1</span><br><span class="line">        var j = numsSorted.length - 1</span><br><span class="line">        while (i &lt; j) &#123;</span><br><span class="line">          val s = numsSorted(k) + numsSorted(i) + numsSorted(j)</span><br><span class="line">          if (s &lt; 0) &#123;</span><br><span class="line">            i += 1</span><br><span class="line">            while (i &lt; j &amp;&amp; numsSorted(i) == numsSorted(i - 1)) i += 1</span><br><span class="line">          &#125; else if (s &gt; 0) &#123;</span><br><span class="line">            j -= 1</span><br><span class="line">            while (i &lt; j &amp;&amp; numsSorted(j) == numsSorted(j + 1)) j -= 1</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            res = res :+ List(numsSorted(k), numsSorted(i), numsSorted(j))</span><br><span class="line">            i += 1</span><br><span class="line">            j -= 1</span><br><span class="line">            while (i &lt; j &amp;&amp; numsSorted(i) == numsSorted(i - 1)) i += 1</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/10/05/Spark-API-%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9ARDD%E3%80%81DataFrame-%E5%92%8C-Dataset/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://kelloxu.github.io/2022/02/27/%E9%9D%A2%E8%AF%95%E9%A2%98-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/>https://kelloxu.github.io/2022/02/27/%E9%9D%A2%E8%AF%95%E9%A2%98-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+        <div class='donate'>
+          <div class='imgs'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pi5H.png'>
+            
+              <img src='https://img.wenhairu.com/images/2021/07/04/9Pdqd.png'>
+            
+          </div>
         </div>
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-03-01T21:13:41+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年3月1日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/">
-        Spark系列二——8-Dataset
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        DataSet: 结构化API的基本类型；DataFrame: Row类型的DataSet。
-DataSet具有严格的Java虚拟机（JVM）语言特性，仅与scala和Java一起使用。
-你可以定义DataSet中每一行所包含的对象，在Scala中就是一个case类对象，它实质上定义了一种模式schema；而在java中就是Java Bean。
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%AE%97%E6%B3%95/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>算法</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%9D%A2%E8%AF%95/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>面试</p></a></div>
 
-经验丰富的程序猿经常将DataSet称为Sp...
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://kelloxu.github.io/2022/02/27/%E9%9D%A2%E8%AF%95%E9%A2%98-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=面试题-三数之和 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kelloxu.github.io/2022/02/27/%E9%9D%A2%E8%AF%95%E9%A2%98-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=面试题-三数之和 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://kelloxu.github.io/2022/02/27/%E9%9D%A2%E8%AF%95%E9%A2%98-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/&title=面试题-三数之和 - 铁人博客&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-10-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/10/19/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%948-Dataset/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/08/30/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%942-%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/">
-        Spark系列二——2-基本的结构化操作
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        本篇博客将重点介绍DataFrame的操作，而聚合操作（aggregation）、窗口函数（window function），以及连接操作（join）将在后面的博客中介绍。
-1. 模式模式定义了DataFrame的列名和列的数据类型，可以用如下方法查询DataFrame的模式：
-1df.printSchema()
 
-可以由数据源来定义模式（称为读时模式，schema-on-read），也可以...
+
+        
       
-    
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-08-30</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2018/08/30/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%942-%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/'>
-            阅读全文
-          </a>
-        </div>
+      
+        <a class='next' href='/2022/02/13/%E9%80%92%E5%BD%92%E5%8F%8A%E5%88%86%E6%B2%BB%E5%AE%9E%E6%88%98-%E6%B1%82%E5%B9%82/'>
+          <p class='title'>递归及分治实战-求幂<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>1. 题目Immplement pow(x, n), which calculates x raised to the power n (i.e., $x^n$).
+Example 1:
+Inp...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2018/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/">
-        Spark系列二——1-结构化API概述
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        结构化API指以下三种核心分布式集合类型的API：
-
-DataSet类型
-DataFrame类型
-SQL表和视图
-
-Spark 是一个分布式编程模型，用户可以在其中指定转换操作，通过多个转换构成一个指令的有向无环图。
-指令的图的执行过程作为一个作业由一个动作操作触发，在执行过程中一个作业被分解成多个**阶段(stage)和任务(task)**在集群上执行。
-转换操作和动作操作操纵的逻辑结构是...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://img.wenhairu.com/images/2021/07/04/9P2vX.th.png'></a>
-        
-        <time>2018-08-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/">Spark系列二</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2018/08/16/Spark%E7%B3%BB%E5%88%97%E4%BA%8C%E2%80%94%E2%80%941-%E7%BB%93%E6%9E%84%E5%8C%96API%E6%A6%82%E8%BF%B0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -732,171 +727,28 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://img.wenhairu.com/images/2021/07/01/9P8Eg.th.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">铁人博客</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop/" href="/categories/Hadoop/"
-            id="categoriesHadoop"
-            ><div class='name'>Hadoop</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" href="/categories/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
-            id="categoriesHadoopE59FBAE7A180E79FA5E8AF86"
-            ><div class='name'>Hadoop基础知识</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" href="/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
-            id="categoriesJavaE5A49AE7BABFE7A88B"
-            ><div class='name'>Java多线程</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/MapReduce/" href="/categories/MapReduce/"
-            id="categoriesMapReduce"
-            ><div class='name'>MapReduce</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%90%86%E8%AE%BA/" href="/categories/Spark%E7%90%86%E8%AE%BA/"
-            id="categoriesSparkE79086E8AEBA"
-            ><div class='name'>Spark理论</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%B8%89/"
-            id="categoriesSparkE7B3BBE58897E4B889"
-            ><div class='name'>Spark系列三</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/" href="/categories/Spark%E7%B3%BB%E5%88%97%E4%BA%8C/"
-            id="categoriesSparkE7B3BBE58897E4BA8C"
-            ><div class='name'>Spark系列二</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/" href="/categories/Spark%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"
-            id="categoriesSparkE7BC96E7A88BE5AE9EE68898"
-            ><div class='name'>Spark编程实战</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%99%E7%A8%8B/" href="/categories/%E6%95%99%E7%A8%8B/"
-            id="categoriesE69599E7A88B"
-            ><div class='name'>教程</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
-            id="categoriesE695B0E68DAEE7BB93E69E84E4B88EE7AE97E6B395"
-            ><div class='name'>数据结构与算法</div><div class='badge'>(3)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%A2%98%E7%9B%AE"><span class="toc-text">0. 题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-python"><span class="toc-text">1. python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-java"><span class="toc-text">2. java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-scala"><span class="toc-text">3. scala</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/DataFrame/" style="font-size: 14px; color: #999">DataFrame</a> <a href="/tags/DataSet/" style="font-size: 14px; color: #999">DataSet</a> <a href="/tags/Dataset/" style="font-size: 15.43px; color: #8f8f8f">Dataset</a> <a href="/tags/FlatMapFunction/" style="font-size: 14px; color: #999">FlatMapFunction</a> <a href="/tags/Java/" style="font-size: 16.86px; color: #868686">Java</a> <a href="/tags/MapFunction/" style="font-size: 14px; color: #999">MapFunction</a> <a href="/tags/RDD/" style="font-size: 15.43px; color: #8f8f8f">RDD</a> <a href="/tags/Spark/" style="font-size: 18.29px; color: #7c7c7c">Spark</a> <a href="/tags/Spark%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" style="font-size: 14px; color: #999">Spark，数据类型</a> <a href="/tags/centos/" style="font-size: 14px; color: #999">centos</a> <a href="/tags/dataframe/" style="font-size: 14px; color: #999">dataframe</a> <a href="/tags/dataset/" style="font-size: 14px; color: #999">dataset</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/hadoop/" style="font-size: 21.14px; color: #686868">hadoop</a> <a href="/tags/hbase/" style="font-size: 14px; color: #999">hbase</a> <a href="/tags/hdfs/" style="font-size: 14px; color: #999">hdfs</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/java/" style="font-size: 16.86px; color: #868686">java</a> <a href="/tags/join/" style="font-size: 14px; color: #999">join</a> <a href="/tags/mapreduce/" style="font-size: 19.71px; color: #727272">mapreduce</a> <a href="/tags/rdd/" style="font-size: 14px; color: #999">rdd</a> <a href="/tags/scala/" style="font-size: 16.86px; color: #868686">scala</a> <a href="/tags/spark/" style="font-size: 22.57px; color: #5f5f5f">spark</a> <a href="/tags/spark-sql/" style="font-size: 14px; color: #999">spark sql</a> <a href="/tags/spark%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" style="font-size: 14px; color: #999">spark，分布式共享变量</a> <a href="/tags/ubuntu/" style="font-size: 14px; color: #999">ubuntu</a> <a href="/tags/udf/" style="font-size: 14px; color: #999">udf</a> <a href="/tags/vmware/" style="font-size: 14px; color: #999">vmware</a> <a href="/tags/word-count/" style="font-size: 14px; color: #999">word count</a> <a href="/tags/yarn/" style="font-size: 14px; color: #999">yarn</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 14px; color: #999">分治</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 14px; color: #999">动态规划</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15.43px; color: #8f8f8f">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 24px; color: #555">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%EF%BC%8CSpark/" style="font-size: 14px; color: #999">大数据，Spark</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 14px; color: #999">安装</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 16.86px; color: #868686">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96API/" style="font-size: 14px; color: #999">结构化API</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%93%8D%E4%BD%9C/" style="font-size: 14px; color: #999">结构化操作</a> <a href="/tags/%E8%81%9A%E5%90%88/" style="font-size: 14px; color: #999">聚合</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BA%90/" style="font-size: 14px; color: #999">软件源</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 14px; color: #999">递归</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 14px; color: #999">部署</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px; color: #999">面试</a> <a href="/tags/%E9%AB%98%E7%BA%A7RDD/" style="font-size: 14px; color: #999">高级RDD</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -905,8 +757,8 @@ Spark 是一个分布式编程模型，用户可以在其中指定转换操作�
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="面试题-三数之和";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
